@@ -42,14 +42,14 @@ Then open `http://localhost:4173/Home.dc.html`.
 
 ## Deploying
 
-The repo is a plain static site with no build step.  rewrites  to
-, because Vercel serves the root by looking for an  that this project
-deliberately does not have — the Design Canvas naming convention owns the filenames. It also aliases
-, ,  and .
+The repo is a plain static site with no build step. `vercel.json` rewrites `/` to `Home.dc.html`,
+because Vercel serves the root by looking for an `index.html` that this project deliberately does
+not have — the Design Canvas naming convention owns the filenames. It also aliases `/ritual`,
+`/menu`, `/specialists` and `/visit` so the pages have readable links to share.
 
-Internal links deliberately stay as relative  paths rather than the clean aliases, so the
-site works identically from a bare local file server and from Vercel. When a real domain is chosen,
-decide the canonical URL set then and add  accordingly.
+Internal links deliberately stay as relative `.dc.html` paths rather than the clean aliases, so the
+site behaves identically from a bare local file server and from Vercel. When a real domain is
+chosen, decide the canonical URL set then and add `rel="canonical"` accordingly.
 
 ## Notable implementation details
 
