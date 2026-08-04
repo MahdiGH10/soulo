@@ -1,0 +1,16 @@
+# Local Claude Code permission state — machine-specific, not shared config.
+# .claude/launch.json IS tracked: it defines the static preview server.
+.claude/settings.local.json
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+.idea/
+.vscode/
+
+# Dependencies, if this is ever built with a bundler
+node_modules/
+dist/
+.cache/

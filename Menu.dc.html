@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./vendor/lenis.min.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Menu &amp; Prices — Head &amp; Co. Jeddah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400&family=Newsreader:opsz,wght@6..72,400&display=swap" />
+<style>
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: oklch(0.953 0.013 86.8);
+    color: oklch(0.266 0.016 67);
+    font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    font-size: var(--t-body);
+    line-height: 1.8;
+    overflow-x: hidden;
+    background-image: radial-gradient(oklch(0.266 0.016 67 / 0.022) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  a { color: oklch(0.359 0.032 58.9); text-decoration-color: oklch(0.816 0.03 77.5); text-underline-offset: 6px; }
+  a:hover { color: oklch(0.266 0.016 67); text-decoration-color: oklch(0.359 0.032 58.9); }
+  ::selection { background: oklch(0.816 0.03 77.5); color: oklch(0.266 0.016 67); }
+  :focus-visible { outline: 2px solid oklch(0.5 0.026 70); outline-offset: 4px; }
+
+  /* Standalone text links carry a 44px hit area without changing how they look. */
+  .hc-link { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* One header row at every width. Below 860px the inline nav gives way to the menu
+     button, so the header stays 76px tall instead of wrapping to three stacked rows. */
+  .hc-nav { display: flex; }
+  .hc-burger { display: none; }
+  @media (max-width: 860px) {
+    .hc-nav { display: none; }
+    .hc-burger { display: inline-flex; }
+  }
+
+  /* Reduced motion keeps every state change and hover cue; it only stops ambient,
+     unprompted movement. The reveal and wipe sequences are disabled in site-motion.js. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  /* Service rows. The three-column reading order — what it is, how long, what it costs —
+     only fits above 720px. Below that the name takes the full width and duration and price
+     sit together on a second line, so the price is never pushed off the side of a phone. */
+  .hc-row {
+    display: grid;
+    grid-template-columns: minmax(220px, 2.4fr) minmax(110px, 1fr) auto;
+    gap: 18px 28px;
+    align-items: baseline;
+    padding: 28px 12px 28px 0;
+    text-decoration: none;
+    transition: background-color 500ms ease;
+  }
+  .hc-row:hover { background-color: oklch(0.9 0.02 80.1 / 0.5); }
+  @media (max-width: 720px) {
+    .hc-row {
+      grid-template-columns: 1fr auto;
+      gap: 14px 20px;
+      align-items: end;
+      padding-inline-end: 0;
+    }
+    .hc-row > :nth-child(1) { grid-column: 1 / -1; }
+    .hc-row > :nth-child(2) { grid-column: 1; }
+    .hc-row > :nth-child(3) { grid-column: 2; justify-self: end; }
+  }
+
+  /* Type roles. Every size on the site resolves to one of these, so a role reads
+     identically on every page instead of drifting a step per section. */
+  :root {
+    --t-display: clamp(2.75rem, 7vw, 6.25rem);  /* hero headline, once per site */
+    --t-h1:      clamp(2.5rem, 6.4vw, 5.25rem); /* page title */
+    --t-h2:      clamp(2rem, 4.2vw, 3.75rem);   /* section heading */
+    --t-h3:      clamp(1.5rem, 2.4vw, 2.125rem);/* sub-heading */
+    --t-h4:      1.5rem;                        /* card and person names */
+    --t-lead:    clamp(1.25rem, 2vw, 1.625rem); /* pull quotes */
+    --t-price:   1.375rem;                      /* service name and price */
+    --t-body:    1.0625rem;
+    --t-body-sm: 0.9375rem;
+    --t-meta:    0.8125rem;                     /* captions, ratings, footnotes */
+    --t-label:   0.75rem;                       /* tracked uppercase labels */
+    --t-menu:    clamp(1.75rem, 6vw, 2.5rem);   /* full-screen menu links */
+    --t-micro:   0.625rem;                      /* tracked micro-labels: logo tag, badges */
+    --t-figure:  clamp(3rem, 8vw, 6rem);        /* the rating, set as proof at hero scale */
+    --t-glyph:   2.75rem;                       /* monogram initial standing in for a portrait */
+    --t-arabic:  clamp(1.0625rem, 1.6vw, 1.25rem); /* Arabic copy, set a step larger than Latin body */
+  }
+
+  /* Lenis: the library drives scroll from a rAF loop, so the native smooth
+     behaviour has to stand down while it is active. Both rules are no-ops
+     until Lenis adds its classes, which it never does under reduced motion. */
+  html.lenis, html.lenis body { height: auto; }
+
+  /* Header shell. The gap lives here so a narrow-screen override can win over it. */
+  .hc-header-inner { gap: 24px; }
+  @media (max-width: 430px) {
+    /* Below this the wordmark, CTA and menu button stop fitting on one row.
+       The locality tag is the only decorative part of the lockup, so it goes first. */
+    .hc-locality { display: none; }
+    .hc-header-inner { gap: 12px; }
+  }
+  html.lenis { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+</style>
+</helmet>
+
+<div style="position: relative; width: 100%;">
+  <a href="#content" style="position: absolute; left: -9999px; top: 12px; z-index: 90; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); padding: 12px 20px; border-radius: 999px; font-size: var(--t-meta); text-decoration: none;" style-focus="left: 16px;">Skip to content</a>
+
+  <header style="position: sticky; top: 0; z-index: 60; background: oklch(0.953 0.013 86.8 / 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid oklch(0.816 0.03 77.5);">
+    <div class="hc-header-inner" style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); height: 76px; display: flex; flex-wrap: nowrap; align-items: center; justify-content: space-between;">
+      <a href="Home.dc.html" style="display: flex; align-items: baseline; gap: 10px; color: oklch(0.266 0.016 67); text-decoration: none; flex-shrink: 0;">
+        <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-h4);">Head &amp; Co.</span>
+        <span class="hc-locality" style="font-size: var(--t-micro); letter-spacing: 0.28em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Jeddah</span>
+      </a>
+      <nav data-hc-nav class="hc-nav" aria-label="Primary" style="align-items: center; gap: 26px; font-size: var(--t-meta); letter-spacing: 0.04em; justify-content: flex-end; white-space: nowrap;">
+        <a href="Ritual.dc.html" style="color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease;" style-hover="color: oklch(0.266 0.016 67);">The Ritual</a>
+        <a href="Menu.dc.html" aria-current="page" style="color: oklch(0.266 0.016 67); text-decoration: none; border-bottom: 1px solid oklch(0.266 0.016 67); padding-bottom: 2px;">Menu</a>
+        <a href="Home.dc.html#space" style="color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease;" style-hover="color: oklch(0.266 0.016 67);">The Space</a>
+        <a href="Specialists.dc.html" style="color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease;" style-hover="color: oklch(0.266 0.016 67);">Specialists</a>
+        <a href="Visit.dc.html" style="color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease;" style-hover="color: oklch(0.266 0.016 67);">Visit</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+        <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=header-menu" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 9px; height: 42px; padding-inline: 22px; border-radius: 999px; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); text-decoration: none; font-size: var(--t-label); letter-spacing: 0.14em; text-transform: uppercase; flex-shrink: 0; transition: background-color 500ms ease;" style-hover="background-color: oklch(0.359 0.032 58.9);"><span data-hc-booklabel>Book</span> <span aria-hidden="true">↗</span></a>
+        <button type="button" data-hc-menu-open class="hc-burger" aria-label="Open menu" aria-expanded="false" style="align-items: center; justify-content: center; height: 44px; width: 44px; border-radius: 999px; border: 1px solid oklch(0.816 0.03 77.5); background: transparent; color: oklch(0.266 0.016 67); cursor: pointer;">
+          <span aria-hidden="true" style="display: block; width: 16px; height: 7px; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor;"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div data-hc-overlay role="dialog" aria-modal="true" aria-label="Menu" style="display: none; position: fixed; inset: 0; z-index: 70; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); flex-direction: column;">
+    <div class="hc-header-inner" style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); height: 76px; display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-h4);">Head &amp; Co.</span>
+      <button type="button" data-hc-menu-close aria-label="Close menu" style="height: 44px; width: 44px; border-radius: 999px; border: 1px solid oklch(0.953 0.013 86.8 / 0.4); background: transparent; color: inherit; cursor: pointer; font-size: var(--t-body);">✕</button>
+    </div>
+    <nav aria-label="Menu" style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: flex; flex-direction: column; flex: 1; justify-content: center; gap: 2px;">
+      <a href="Home.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">Home</a>
+      <a href="Ritual.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">The Ritual</a>
+      <a href="Menu.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">Menu &amp; Prices</a>
+      <a href="Specialists.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">Specialists</a>
+      <a href="Visit.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">Visit Us</a>
+      <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-overlay-menu" target="_blank" rel="noopener noreferrer" style="margin-top: 28px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 999px; background: oklch(0.953 0.013 86.8); color: oklch(0.266 0.016 67); text-decoration: none; font-size: var(--t-meta); letter-spacing: 0.14em; text-transform: uppercase;">Book on Fresha <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+
+
+  <section id="content" data-screen-label="Menu head" style="padding-block: clamp(56px, 9vh, 104px) clamp(32px, 5vh, 56px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 32px;">
+      <div>
+        <p data-reveal style="margin: 0; font-size: var(--t-label); letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Menu</p>
+        <h1 data-hc-split style="margin: 20px 0 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h1); line-height: 1.02; letter-spacing: -0.02em; max-width: 18ch;">What you can book</h1>
+      </div>
+      <p data-reveal data-reveal-delay="140" style="margin: 0; max-width: 26rem; color: oklch(0.4 0.02 68); font-size: var(--t-body-sm); line-height: 1.85;">Prices as published on Fresha, August 2026. Availability, specialist choice and payment are handled there — instant confirmation, pay in the app.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Head spa" style="padding-block: clamp(32px, 5vh, 56px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px);">
+      <div data-reveal style="display: flex; align-items: baseline; gap: 18px; padding-bottom: 18px;">
+        <h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h3); line-height: 1.1;">Head Spa</h2>
+        <span style="font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Scalp, hair and face</span>
+      </div>
+      <ul style="list-style: none; margin: 0; padding: 0;">
+        <li data-reveal style="border-top: 1px solid oklch(0.816 0.03 77.5);">
+          <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-page&amp;utm_content=hyggee-spa" target="_blank" rel="noopener noreferrer" class="hc-row" style="color: oklch(0.266 0.016 67);">
+            <span>
+              <span style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
+                <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">Hyggee Spa</span>
+                <span style="font-size: var(--t-micro); letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.44 0.033 118.5); border: 1px solid oklch(0.44 0.033 118.5 / 0.45); border-radius: 999px; padding: 3px 10px;">Signature</span>
+              </span>
+              <span style="display: block; margin-top: 8px; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); max-width: 44ch;">The six-stage head ritual: warm-water cleanse, scalp, neck and shoulders, treatment and finish.</span>
+            </span>
+            <span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">1 hr</span>
+            <span style="display: inline-flex; align-items: baseline; gap: 14px; white-space: nowrap; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">SAR 490 <span aria-hidden="true" style="font-family: Manrope, sans-serif; font-size: var(--t-meta); color: oklch(0.5 0.026 70);">↗</span></span>
+          </a>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.816 0.03 77.5);">
+          <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-page&amp;utm_content=face-massage" target="_blank" rel="noopener noreferrer" class="hc-row" style="color: oklch(0.266 0.016 67);">
+            <span>
+              <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">Hyggee Spa + Face Massage</span>
+              <span style="display: block; margin-top: 8px; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); max-width: 44ch;">The ritual extended into a facial sequence. The longest visit on the menu.</span>
+            </span>
+            <span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">1 hr 30 min</span>
+            <span style="display: inline-flex; align-items: baseline; gap: 14px; white-space: nowrap; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">SAR 690 <span aria-hidden="true" style="font-family: Manrope, sans-serif; font-size: var(--t-meta); color: oklch(0.5 0.026 70);">↗</span></span>
+          </a>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.816 0.03 77.5);">
+          <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-page&amp;utm_content=buccal" target="_blank" rel="noopener noreferrer" class="hc-row" style="color: oklch(0.266 0.016 67);">
+            <span>
+              <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">Hyggee Spa + Buccal Massage</span>
+              <span style="display: block; margin-top: 8px; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); max-width: 44ch;">Intra-oral facial work added to the head ritual.</span>
+            </span>
+            <span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">By request</span>
+            <span style="display: inline-flex; align-items: baseline; gap: 14px; white-space: nowrap; font-size: var(--t-meta); letter-spacing: 0.12em; text-transform: uppercase; color: oklch(0.4 0.02 68);">See on Fresha <span aria-hidden="true">↗</span></span>
+          </a>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.816 0.03 77.5); border-bottom: 1px solid oklch(0.816 0.03 77.5);">
+          <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-page&amp;utm_content=signature" target="_blank" rel="noopener noreferrer" class="hc-row" style="color: oklch(0.266 0.016 67);">
+            <span>
+              <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">HEAD &amp; CO. Signature</span>
+              <span style="display: block; margin-top: 8px; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); max-width: 44ch;">The house experience, arranged with your specialist.</span>
+            </span>
+            <span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">By request</span>
+            <span style="display: inline-flex; align-items: baseline; gap: 14px; white-space: nowrap; font-size: var(--t-meta); letter-spacing: 0.12em; text-transform: uppercase; color: oklch(0.4 0.02 68);">See on Fresha <span aria-hidden="true">↗</span></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section data-screen-label="Nails" style="padding-block: clamp(40px, 6vh, 72px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px);">
+      <div data-reveal style="display: flex; align-items: baseline; gap: 18px; padding-bottom: 18px;">
+        <h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h3); line-height: 1.1;">Nails &amp; Hands</h2>
+        <span style="font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.5 0.026 70);">مانيكيور و باديكيور</span>
+      </div>
+      <ul style="list-style: none; margin: 0; padding: 0;">
+        <li data-reveal style="border-top: 1px solid oklch(0.816 0.03 77.5);">
+          <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-page&amp;utm_content=mani-pedi" target="_blank" rel="noopener noreferrer" class="hc-row" style="color: oklch(0.266 0.016 67);">
+            <span>
+              <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">Classic Manicure &amp; Pedicure</span>
+              <span style="display: block; margin-top: 8px; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); max-width: 44ch;">Hands and feet, unhurried. Often booked straight after a head ritual.</span>
+            </span>
+            <span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">1 hr 15 min</span>
+            <span style="display: inline-flex; align-items: baseline; gap: 14px; white-space: nowrap; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">SAR 280 <span aria-hidden="true" style="font-family: Manrope, sans-serif; font-size: var(--t-meta); color: oklch(0.5 0.026 70);">↗</span></span>
+          </a>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.816 0.03 77.5); border-bottom: 1px solid oklch(0.816 0.03 77.5);">
+          <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-page&amp;utm_content=nail-polish" target="_blank" rel="noopener noreferrer" class="hc-row" style="color: oklch(0.266 0.016 67);">
+            <span>
+              <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">Regular Nail Polish <span style="font-size: 0.72em; color: oklch(0.5 0.026 70);">طلاء عادي</span></span>
+              <span style="display: block; margin-top: 8px; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); max-width: 44ch;">A quick finish, added to any visit.</span>
+            </span>
+            <span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">15 min</span>
+            <span style="display: inline-flex; align-items: baseline; gap: 14px; white-space: nowrap; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">SAR 35 <span aria-hidden="true" style="font-family: Manrope, sans-serif; font-size: var(--t-meta); color: oklch(0.5 0.026 70);">↗</span></span>
+          </a>
+        </li>
+      </ul>
+      <p data-reveal style="margin: 26px 0 0; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); max-width: 44rem;">Nail extensions, gel and colour are booked by request — forty-one services in total. <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y/booking?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-page-all" target="_blank" rel="noopener noreferrer">See everything on Fresha ↗</a></p>
+    </div>
+  </section>
+
+  <section data-screen-label="Included" style="background: oklch(0.9 0.02 80.1 / 0.55); padding-block: clamp(64px, 10vh, 128px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px);">
+      <h2 data-reveal style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h3); line-height: 1.1; max-width: 24ch;">Included in every visit.</h2>
+      <div style="margin-top: clamp(32px, 5vh, 52px); display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: clamp(24px, 3vw, 44px);">
+        <div data-reveal>
+          <p style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">Tea on arrival</p>
+          <p style="margin: 8px 0 0; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); line-height: 1.8;">Poured before anything begins, not after.</p>
+        </div>
+        <div data-reveal data-reveal-delay="90">
+          <p style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">A consultation</p>
+          <p style="margin: 8px 0 0; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); line-height: 1.8;">Pressure, scent and quiet, agreed before you lie down.</p>
+        </div>
+        <div data-reveal data-reveal-delay="180">
+          <p style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">A named specialist</p>
+          <p style="margin: 8px 0 0; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); line-height: 1.8;">Request the same hands each time. <a href="Specialists.dc.html">See the team</a>.</p>
+        </div>
+        <div data-reveal data-reveal-delay="270">
+          <p style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">No upselling</p>
+          <p style="margin: 8px 0 0; font-size: var(--t-body-sm); color: oklch(0.4 0.02 68); line-height: 1.8;">Additions are offered at booking, not mid-treatment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Packages" style="padding-block: clamp(64px, 10vh, 128px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(32px, 5vw, 80px); align-items: center;">
+      <div>
+        <p data-reveal style="margin: 0; font-size: var(--t-label); letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Packages</p>
+        <h2 data-reveal data-reveal-delay="80" style="margin: 20px 0 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h3); line-height: 1.1; max-width: 20ch; text-wrap: pretty;">If you plan to come back, buy ahead.</h2>
+        <p data-reveal data-reveal-delay="140" style="margin: 22px 0 0; max-width: 32rem; color: oklch(0.4 0.02 68); line-height: 1.9;">Several visits bought together cost less than one at a time, and a package can be bought for someone else. Both are handled on Fresha.</p>
+        <p data-reveal data-reveal-delay="190" style="margin: 24px 0 0;"><a class="hc-link" href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y/packages?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=packages" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; height: 52px; padding-inline: 30px; border-radius: 999px; border: 1px solid oklch(0.359 0.032 58.9 / 0.45); color: oklch(0.266 0.016 67); text-decoration: none; font-size: var(--t-meta); letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 500ms ease, border-color 500ms ease;" style-hover="background-color: oklch(0.9 0.02 80.1 / 0.6); border-color: oklch(0.359 0.032 58.9);">See packages <span aria-hidden="true">↗</span></a></p>
+      </div>
+      <div data-hc-clip style="overflow: hidden; border-radius: 2px;">
+        <picture>
+        <source type="image/webp" srcset="src/assets/collection-nails-640.webp 640w, src/assets/collection-nails.webp 1000w" sizes="(max-width: 860px) 100vw, 45vw" />
+        <img src="src/assets/collection-nails.jpg" alt="Hand and nail care in progress" width="1000" height="1200" style="width: 100%; height: clamp(300px, 46vh, 460px); object-fit: cover; display: block;"  loading="lazy" decoding="async" />
+      </picture>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Close" style="background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); padding-block: clamp(72px, 12vh, 144px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 26px;">
+      <h2 data-hc-split style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h2); line-height: 1.06; letter-spacing: -0.02em; max-width: 22ch;">Open every day, 2 until 11.</h2>
+      <p data-reveal data-reveal-delay="120" style="margin: 0; max-width: 30rem; color: oklch(0.953 0.013 86.8 / 0.75);">Same-day appointments are often available.<span data-hc-open-now></span></p>
+      <a data-reveal data-reveal-delay="180" href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-close" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; height: 58px; padding-inline: 38px; border-radius: 999px; background: oklch(0.953 0.013 86.8); color: oklch(0.266 0.016 67); text-decoration: none; font-size: var(--t-meta); letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 500ms ease, transform 500ms ease;" style-hover="background-color: oklch(0.9 0.02 80.1); transform: translateY(-2px);">Book on Fresha <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <footer style="background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8 / 0.72); border-top: 1px solid oklch(0.953 0.013 86.8 / 0.14); padding-block: clamp(48px, 8vh, 88px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; align-items: start;">
+      <div>
+        <p style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-h4); color: oklch(0.953 0.013 86.8);">Head &amp; Co.</p>
+        <p style="margin: 10px 0 0; font-size: var(--t-label); letter-spacing: 0.22em; text-transform: uppercase;">Head, Body &amp; Soul</p>
+      </div>
+      <nav aria-label="Footer" style="display: flex; flex-direction: column; gap: 10px; font-size: var(--t-meta);">
+        <a class="hc-link" href="Home.dc.html" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Home</a>
+        <a class="hc-link" href="Ritual.dc.html" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">The Ritual</a>
+        <a class="hc-link" href="Specialists.dc.html" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Specialists</a>
+        <a class="hc-link" href="Visit.dc.html" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Visit</a>
+      </nav>
+      <div style="font-size: var(--t-meta); line-height: 1.8;">
+        <p style="margin: 0;">King Abdulaziz Road<br />Al Mohammadiyyah, Jeddah</p>
+        <p style="margin: 12px 0 0;">Daily 2:00 – 11:00 PM</p>
+      </div>
+      <div style="font-size: var(--t-meta); display: flex; flex-direction: column; gap: 10px;">
+        <a href="https://www.instagram.com/headandco.sa/" target="_blank" rel="noopener noreferrer" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Instagram ↗</a>
+        <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=footer-menu" target="_blank" rel="noopener noreferrer" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Book on Fresha ↗</a>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;full&quot;,&quot;restrained&quot;,&quot;auto&quot;,&quot;off&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;\&quot;full\&quot; | \&quot;restrained\&quot; | \&quot;auto\&quot; | \&quot;off\&quot;&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    import("./site-motion.js").then((m) => {
+      this.stop = m.initMotion({ motion: this.props.motion ?? "auto" });
+    });
+  }
+  componentWillUnmount() {
+    if (this.stop) this.stop();
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./vendor/lenis.min.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Hyggee Spa — Head &amp; Co. Jeddah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400&family=Newsreader:opsz,wght@6..72,400&display=swap" />
+<style>
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: oklch(0.953 0.013 86.8);
+    color: oklch(0.266 0.016 67);
+    font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    font-size: var(--t-body);
+    line-height: 1.8;
+    overflow-x: hidden;
+    background-image: radial-gradient(oklch(0.266 0.016 67 / 0.022) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+  a { color: oklch(0.359 0.032 58.9); text-decoration-color: oklch(0.816 0.03 77.5); text-underline-offset: 6px; }
+  a:hover { color: oklch(0.266 0.016 67); text-decoration-color: oklch(0.359 0.032 58.9); }
+  ::selection { background: oklch(0.816 0.03 77.5); color: oklch(0.266 0.016 67); }
+  :focus-visible { outline: 2px solid oklch(0.5 0.026 70); outline-offset: 4px; }
+
+  /* Standalone text links carry a 44px hit area without changing how they look. */
+  .hc-link { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* One header row at every width. Below 860px the inline nav gives way to the menu
+     button, so the header stays 76px tall instead of wrapping to three stacked rows. */
+  .hc-nav { display: flex; }
+  .hc-burger { display: none; }
+  @media (max-width: 860px) {
+    .hc-nav { display: none; }
+    .hc-burger { display: inline-flex; }
+  }
+
+  /* Reduced motion keeps every state change and hover cue; it only stops ambient,
+     unprompted movement. The reveal and wipe sequences are disabled in site-motion.js. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  /* Type roles. Every size on the site resolves to one of these, so a role reads
+     identically on every page instead of drifting a step per section. */
+  :root {
+    --t-display: clamp(2.75rem, 7vw, 6.25rem);  /* hero headline, once per site */
+    --t-h1:      clamp(2.5rem, 6.4vw, 5.25rem); /* page title */
+    --t-h2:      clamp(2rem, 4.2vw, 3.75rem);   /* section heading */
+    --t-h3:      clamp(1.5rem, 2.4vw, 2.125rem);/* sub-heading */
+    --t-h4:      1.5rem;                        /* card and person names */
+    --t-lead:    clamp(1.25rem, 2vw, 1.625rem); /* pull quotes */
+    --t-price:   1.375rem;                      /* service name and price */
+    --t-body:    1.0625rem;
+    --t-body-sm: 0.9375rem;
+    --t-meta:    0.8125rem;                     /* captions, ratings, footnotes */
+    --t-label:   0.75rem;                       /* tracked uppercase labels */
+    --t-menu:    clamp(1.75rem, 6vw, 2.5rem);   /* full-screen menu links */
+    --t-micro:   0.625rem;                      /* tracked micro-labels: logo tag, badges */
+    --t-figure:  clamp(3rem, 8vw, 6rem);        /* the rating, set as proof at hero scale */
+    --t-glyph:   2.75rem;                       /* monogram initial standing in for a portrait */
+    --t-arabic:  clamp(1.0625rem, 1.6vw, 1.25rem); /* Arabic copy, set a step larger than Latin body */
+  }
+
+  /* Lenis: the library drives scroll from a rAF loop, so the native smooth
+     behaviour has to stand down while it is active. Both rules are no-ops
+     until Lenis adds its classes, which it never does under reduced motion. */
+  html.lenis, html.lenis body { height: auto; }
+
+  /* Header shell. The gap lives here so a narrow-screen override can win over it. */
+  .hc-header-inner { gap: 24px; }
+  @media (max-width: 430px) {
+    /* Below this the wordmark, CTA and menu button stop fitting on one row.
+       The locality tag is the only decorative part of the lockup, so it goes first. */
+    .hc-locality { display: none; }
+    .hc-header-inner { gap: 12px; }
+  }
+  html.lenis { scroll-behavior: auto !important; }
+  .lenis.lenis-stopped { overflow: hidden; }
+</style>
+</helmet>
+
+<div style="position: relative; width: 100%;">
+  <a href="#content" style="position: absolute; left: -9999px; top: 12px; z-index: 90; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); padding: 12px 20px; border-radius: 999px; font-size: var(--t-meta); text-decoration: none;" style-focus="left: 16px;">Skip to content</a>
+
+  <header style="position: sticky; top: 0; z-index: 60; background: oklch(0.953 0.013 86.8 / 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid oklch(0.816 0.03 77.5);">
+    <div class="hc-header-inner" style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); height: 76px; display: flex; flex-wrap: nowrap; align-items: center; justify-content: space-between;">
+      <a href="Home.dc.html" style="display: flex; align-items: baseline; gap: 10px; color: oklch(0.266 0.016 67); text-decoration: none; flex-shrink: 0;">
+        <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-h4);">Head &amp; Co.</span>
+        <span class="hc-locality" style="font-size: var(--t-micro); letter-spacing: 0.28em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Jeddah</span>
+      </a>
+      <nav data-hc-nav class="hc-nav" aria-label="Primary" style="align-items: center; gap: 26px; font-size: var(--t-meta); letter-spacing: 0.04em; justify-content: flex-end; white-space: nowrap;">
+        <a href="Ritual.dc.html" aria-current="page" style="color: oklch(0.266 0.016 67); text-decoration: none; border-bottom: 1px solid oklch(0.266 0.016 67); padding-bottom: 2px;">The Ritual</a>
+        <a href="Menu.dc.html" style="color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease;" style-hover="color: oklch(0.266 0.016 67);">Menu</a>
+        <a href="Home.dc.html#space" style="color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease;" style-hover="color: oklch(0.266 0.016 67);">The Space</a>
+        <a href="Specialists.dc.html" style="color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease;" style-hover="color: oklch(0.266 0.016 67);">Specialists</a>
+        <a href="Visit.dc.html" style="color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease;" style-hover="color: oklch(0.266 0.016 67);">Visit</a>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+        <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=header-ritual" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 9px; height: 42px; padding-inline: 22px; border-radius: 999px; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); text-decoration: none; font-size: var(--t-label); letter-spacing: 0.14em; text-transform: uppercase; flex-shrink: 0; transition: background-color 500ms ease;" style-hover="background-color: oklch(0.359 0.032 58.9);"><span data-hc-booklabel>Book</span> <span aria-hidden="true">↗</span></a>
+        <button type="button" data-hc-menu-open class="hc-burger" aria-label="Open menu" aria-expanded="false" style="align-items: center; justify-content: center; height: 44px; width: 44px; border-radius: 999px; border: 1px solid oklch(0.816 0.03 77.5); background: transparent; color: oklch(0.266 0.016 67); cursor: pointer;">
+          <span aria-hidden="true" style="display: block; width: 16px; height: 7px; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor;"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div data-hc-overlay role="dialog" aria-modal="true" aria-label="Menu" style="display: none; position: fixed; inset: 0; z-index: 70; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); flex-direction: column;">
+    <div class="hc-header-inner" style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); height: 76px; display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-h4);">Head &amp; Co.</span>
+      <button type="button" data-hc-menu-close aria-label="Close menu" style="height: 44px; width: 44px; border-radius: 999px; border: 1px solid oklch(0.953 0.013 86.8 / 0.4); background: transparent; color: inherit; cursor: pointer; font-size: var(--t-body);">✕</button>
+    </div>
+    <nav aria-label="Menu" style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: flex; flex-direction: column; flex: 1; justify-content: center; gap: 2px;">
+      <a href="Home.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">Home</a>
+      <a href="Ritual.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">The Ritual</a>
+      <a href="Menu.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">Menu &amp; Prices</a>
+      <a href="Specialists.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">Specialists</a>
+      <a href="Visit.dc.html" data-hc-menu-link style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-menu); color: inherit; text-decoration: none; padding: 14px 0; border-bottom: 1px solid oklch(0.953 0.013 86.8 / 0.14);">Visit Us</a>
+      <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=menu-overlay-ritual" target="_blank" rel="noopener noreferrer" style="margin-top: 28px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 56px; border-radius: 999px; background: oklch(0.953 0.013 86.8); color: oklch(0.266 0.016 67); text-decoration: none; font-size: var(--t-meta); letter-spacing: 0.14em; text-transform: uppercase;">Book on Fresha <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+
+
+  <section id="content" data-screen-label="Ritual head" style="padding-block: clamp(56px, 9vh, 104px) clamp(40px, 6vh, 64px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px);">
+      <p data-reveal style="margin: 0; font-size: var(--t-label); letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Signature ritual</p>
+      <h1 data-hc-split style="margin: 20px 0 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h1); line-height: 1.02; letter-spacing: -0.02em; max-width: 16ch;">The Hyggee Spa</h1>
+      <p data-reveal data-reveal-delay="140" style="margin: 26px 0 0; max-width: 36rem; font-size: var(--t-body); line-height: 1.85; color: oklch(0.4 0.02 68);">One hour of scalp and hair care, paced so that nothing is asked of you. It is the visit most guests book first, and the one they come back for.</p>
+      <div data-reveal data-reveal-delay="220" style="margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 40px;">
+        <span style="display: inline-flex; align-items: baseline; gap: 10px;"><span style="font-size: var(--t-label); letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Duration</span> <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-h4);">1 hour</span></span>
+        <span style="display: inline-flex; align-items: baseline; gap: 10px;"><span style="font-size: var(--t-label); letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Price</span> <span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-h4);">SAR 490</span></span>
+        <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=ritual&amp;utm_content=hyggee-spa" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; height: 52px; padding-inline: 30px; border-radius: 999px; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); text-decoration: none; font-size: var(--t-meta); letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 500ms ease, transform 500ms ease;" style-hover="background-color: oklch(0.359 0.032 58.9); transform: translateY(-2px);">Reserve this ritual <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div data-hc-clip style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); overflow: hidden;">
+    <picture>
+        <source type="image/webp" srcset="src/assets/ritual-water-640.webp 640w, src/assets/ritual-water.webp 1280w" sizes="100vw" />
+        <img src="src/assets/ritual-water.jpg" alt="Warm water poured slowly during a scalp cleanse" width="1280" height="960" style="width: 100%; height: clamp(280px, 52vh, 560px); object-fit: cover; display: block; border-radius: 2px;"  loading="lazy" decoding="async" />
+      </picture>
+  </div>
+
+  <section data-screen-label="What it is" style="padding-block: clamp(72px, 11vh, 140px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(40px, 6vw, 100px); align-items: start;">
+      <div>
+        <p data-reveal style="margin: 0; font-size: var(--t-label); letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.5 0.026 70);">What it is</p>
+        <h2 data-reveal data-reveal-delay="80" style="margin: 20px 0 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h3); line-height: 1.1; letter-spacing: -0.015em; max-width: 20ch; text-wrap: pretty;">Closer to a spa treatment than a salon wash.</h2>
+        <p data-reveal data-reveal-delay="140" style="margin: 24px 0 0; max-width: 34rem; color: oklch(0.4 0.02 68); line-height: 1.9;">A salon washes your hair to prepare it for something else. Here the washing is the service: warm water poured by hand, a slow scalp cleanse, then extended work through the scalp, neck and shoulders. Hair is dried at the end, or left as it is if you prefer.</p>
+        <p data-reveal data-reveal-delay="190" style="margin: 18px 0 0; max-width: 34rem; color: oklch(0.4 0.02 68); line-height: 1.9;">Nothing about it is clinical. It is a comfort experience, designed around temperature, pressure, light and pace — the four things hygge asks you to get right.</p>
+      </div>
+      <div data-hc-clip style="overflow: hidden; border-radius: 2px;">
+        <picture>
+        <source type="image/webp" srcset="src/assets/ritual-hands-640.webp 640w, src/assets/ritual-hands.webp 1280w" sizes="100vw" />
+        <img src="src/assets/ritual-hands.jpg" alt="Botanicals prepared by hand before a treatment" width="1280" height="960" style="width: 100%; height: clamp(300px, 48vh, 480px); object-fit: cover; display: block;"  loading="lazy" decoding="async" />
+      </picture>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Stages" style="background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); padding-block: clamp(80px, 13vh, 160px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(48px, 7vw, 120px); align-items: start;">
+      <div style="position: sticky; top: 120px;">
+        <p data-reveal style="margin: 0; font-size: var(--t-label); letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.953 0.013 86.8 / 0.55);">The hour, in order</p>
+        <h2 data-reveal data-reveal-delay="80" style="margin: 20px 0 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h3); line-height: 1.1; letter-spacing: -0.015em; max-width: 16ch;">Six stages, none of them yours to manage.</h2>
+        <p data-reveal data-reveal-delay="140" style="margin: 22px 0 0; max-width: 28rem; color: oklch(0.953 0.013 86.8 / 0.7); line-height: 1.9;">Timings are approximate — your specialist adjusts to your scalp and to how much quiet you want.</p>
+      </div>
+      <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(30px, 5vh, 52px);">
+        <li data-reveal style="border-top: 1px solid oklch(0.953 0.013 86.8 / 0.16); padding-top: 24px; display: grid; grid-template-columns: 60px 1fr; gap: 18px;">
+          <span style="font-size: var(--t-label); letter-spacing: 0.2em; color: oklch(0.816 0.03 77.5); padding-top: 8px;">01</span>
+          <div>
+            <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-price); line-height: 1.15;">Arrive <span style="font-family: Manrope, sans-serif; font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.816 0.03 77.5); margin-left: 10px;">5 min</span></h3>
+            <p style="margin: 10px 0 0; max-width: 38rem; color: oklch(0.953 0.013 86.8 / 0.72); line-height: 1.85;">Tea, a seat, and enough time to stop moving. Come ten minutes early if you would like to drink it slowly.</p>
+          </div>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.953 0.013 86.8 / 0.16); padding-top: 24px; display: grid; grid-template-columns: 60px 1fr; gap: 18px;">
+          <span style="font-size: var(--t-label); letter-spacing: 0.2em; color: oklch(0.816 0.03 77.5); padding-top: 8px;">02</span>
+          <div>
+            <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-price); line-height: 1.15;">Consult <span style="font-family: Manrope, sans-serif; font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.816 0.03 77.5); margin-left: 10px;">5 min</span></h3>
+            <p style="margin: 10px 0 0; max-width: 38rem; color: oklch(0.953 0.013 86.8 / 0.72); line-height: 1.85;">Your specialist asks about your scalp, your hair, how much pressure you like and whether you want to talk or not. Mention allergies and sensitivities here.</p>
+          </div>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.953 0.013 86.8 / 0.16); padding-top: 24px; display: grid; grid-template-columns: 60px 1fr; gap: 18px;">
+          <span style="font-size: var(--t-label); letter-spacing: 0.2em; color: oklch(0.816 0.03 77.5); padding-top: 8px;">03</span>
+          <div>
+            <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-price); line-height: 1.15;">Cleanse <span style="font-family: Manrope, sans-serif; font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.816 0.03 77.5); margin-left: 10px;">15 min</span></h3>
+            <p style="margin: 10px 0 0; max-width: 38rem; color: oklch(0.953 0.013 86.8 / 0.72); line-height: 1.85;">Warm water, poured rather than sprayed, twice through. This is the stage guests describe afterwards as the reason they came back, usually without being able to explain why.</p>
+          </div>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.953 0.013 86.8 / 0.16); padding-top: 24px; display: grid; grid-template-columns: 60px 1fr; gap: 18px;">
+          <span style="font-size: var(--t-label); letter-spacing: 0.2em; color: oklch(0.816 0.03 77.5); padding-top: 8px;">04</span>
+          <div>
+            <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-price); line-height: 1.15;">Release <span style="font-family: Manrope, sans-serif; font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.816 0.03 77.5); margin-left: 10px;">20 min</span></h3>
+            <p style="margin: 10px 0 0; max-width: 38rem; color: oklch(0.953 0.013 86.8 / 0.72); line-height: 1.85;">Scalp, nape, neck and shoulders worked through by hand. The longest stage, and the one that lengthens further if you add the face or buccal massage.</p>
+          </div>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.953 0.013 86.8 / 0.16); padding-top: 24px; display: grid; grid-template-columns: 60px 1fr; gap: 18px;">
+          <span style="font-size: var(--t-label); letter-spacing: 0.2em; color: oklch(0.816 0.03 77.5); padding-top: 8px;">05</span>
+          <div>
+            <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-price); line-height: 1.15;">Restore <span style="font-family: Manrope, sans-serif; font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.816 0.03 77.5); margin-left: 10px;">10 min</span></h3>
+            <p style="margin: 10px 0 0; max-width: 38rem; color: oklch(0.953 0.013 86.8 / 0.72); line-height: 1.85;">Treatment through the hair, a warm towel, and a few minutes where deliberately nothing happens at all.</p>
+          </div>
+        </li>
+        <li data-reveal style="border-top: 1px solid oklch(0.953 0.013 86.8 / 0.16); padding-top: 24px; display: grid; grid-template-columns: 60px 1fr; gap: 18px;">
+          <span style="font-size: var(--t-label); letter-spacing: 0.2em; color: oklch(0.816 0.03 77.5); padding-top: 8px;">06</span>
+          <div>
+            <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-price); line-height: 1.15;">Finish <span style="font-family: Manrope, sans-serif; font-size: var(--t-label); letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.816 0.03 77.5); margin-left: 10px;">5 min</span></h3>
+            <p style="margin: 10px 0 0; max-width: 38rem; color: oklch(0.953 0.013 86.8 / 0.72); line-height: 1.85;">Dried and finished by a specialist, or towel-dried and left alone. Water, and an exit no one hurries you through.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section data-screen-label="Extend it" style="padding-block: clamp(72px, 11vh, 140px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px);">
+      <p data-reveal style="margin: 0; font-size: var(--t-label); letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Make it longer</p>
+      <h2 data-reveal data-reveal-delay="80" style="margin: 20px 0 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h3); line-height: 1.1; letter-spacing: -0.015em; max-width: 22ch;">Three ways to stay a while.</h2>
+      <ul style="list-style: none; margin: clamp(36px, 6vh, 56px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(20px, 2.6vw, 32px);">
+        <li data-reveal style="border: 1px solid oklch(0.816 0.03 77.5); border-radius: 2px; padding: 28px 26px; display: flex; flex-direction: column; gap: 14px; background: oklch(0.972 0.01 86);">
+          <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-lead); line-height: 1.2;">+ Face Massage</h3>
+          <p style="margin: 0; color: oklch(0.4 0.02 68); font-size: var(--t-body-sm); line-height: 1.8;">The ritual carried into a facial sequence. An hour and a half in total — the longest stay on the menu.</p>
+          <p style="margin: auto 0 0; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid oklch(0.816 0.03 77.5);"><span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">SAR 690</span><span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">1 hr 30 min</span></p>
+          <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=ritual&amp;utm_content=face-massage" target="_blank" rel="noopener noreferrer" style="font-size: var(--t-meta); letter-spacing: 0.1em; text-transform: uppercase;">Book ↗</a>
+        </li>
+        <li data-reveal data-reveal-delay="110" style="border: 1px solid oklch(0.816 0.03 77.5); border-radius: 2px; padding: 28px 26px; display: flex; flex-direction: column; gap: 14px; background: oklch(0.972 0.01 86);">
+          <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-lead); line-height: 1.2;">+ Buccal Massage</h3>
+          <p style="margin: 0; color: oklch(0.4 0.02 68); font-size: var(--t-body-sm); line-height: 1.8;">Intra-oral facial work added to the head ritual, for guests who want the deeper version of the face stage.</p>
+          <p style="margin: auto 0 0; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid oklch(0.816 0.03 77.5);"><span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">On Fresha</span><span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">By request</span></p>
+          <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=ritual&amp;utm_content=buccal" target="_blank" rel="noopener noreferrer" style="font-size: var(--t-meta); letter-spacing: 0.1em; text-transform: uppercase;">See details ↗</a>
+        </li>
+        <li data-reveal data-reveal-delay="220" style="border: 1px solid oklch(0.816 0.03 77.5); border-radius: 2px; padding: 28px 26px; display: flex; flex-direction: column; gap: 14px; background: oklch(0.972 0.01 86);">
+          <h3 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-lead); line-height: 1.2;">+ Hands</h3>
+          <p style="margin: 0; color: oklch(0.4 0.02 68); font-size: var(--t-body-sm); line-height: 1.8;">A classic manicure and pedicure in the same visit, booked back to back so you only settle in once.</p>
+          <p style="margin: auto 0 0; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid oklch(0.816 0.03 77.5);"><span style="font-family: 'Newsreader', Georgia, serif; font-size: var(--t-price);">SAR 280</span><span style="font-size: var(--t-meta); color: oklch(0.5 0.026 70);">1 hr 15 min</span></p>
+          <a href="Menu.dc.html" style="font-size: var(--t-meta); letter-spacing: 0.1em; text-transform: uppercase;">See the menu</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section data-screen-label="Practicalities" style="background: oklch(0.9 0.02 80.1 / 0.55); padding-block: clamp(72px, 11vh, 140px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(36px, 5vw, 80px);">
+      <div data-reveal>
+        <h3 style="margin: 0; font-size: var(--t-label); letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Who it suits</h3>
+        <ul style="margin: 20px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: var(--t-body-sm); line-height: 1.75;">
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">A first head spa, if you have never had one</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Anyone who carries tension in the neck and shoulders</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Guests who want an hour with no decisions in it</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Two people together, booked side by side</li>
+        </ul>
+      </div>
+      <div data-reveal data-reveal-delay="110">
+        <h3 style="margin: 0; font-size: var(--t-label); letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Before you come</h3>
+        <ul style="margin: 20px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: var(--t-body-sm); line-height: 1.75;">
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">No preparation. Come with your hair as it usually is</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Arrive ten minutes early if you would like tea first</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Say at booking if you would prefer a specific specialist</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Tell your specialist about allergies or scalp sensitivity</li>
+        </ul>
+      </div>
+      <div data-reveal data-reveal-delay="220">
+        <h3 style="margin: 0; font-size: var(--t-label); letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.5 0.026 70);">Afterwards</h3>
+        <ul style="margin: 20px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: var(--t-body-sm); line-height: 1.75;">
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Your hair is washed, so leave a little time if you are going out</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Ask for a blow-dry at booking if you want to leave styled</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Keep the rest of the evening gentle, if you can</li>
+          <li style="padding-left: 18px; border-left: 1px solid oklch(0.816 0.03 77.5);">Book the next one before you leave — evenings fill first</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Close" style="position: relative; overflow: hidden; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8);">
+    <div style="position: absolute; inset: 0;">
+      <picture>
+        <source type="image/webp" srcset="src/assets/space-lanterns-640.webp 640w, src/assets/space-lanterns.webp 1280w" sizes="(max-width: 720px) 100vw, 33vw" />
+        <img src="src/assets/space-lanterns.jpg" alt="" width="1280" height="1600" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.35;"  loading="lazy" decoding="async" />
+      </picture>
+    </div>
+    <div aria-hidden="true" style="position: absolute; inset: 0; background: linear-gradient(to bottom, oklch(0.266 0.016 67 / 0.72), oklch(0.266 0.016 67 / 0.93));"></div>
+    <div style="position: relative; z-index: 2; width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); padding-block: clamp(80px, 14vh, 168px); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px;">
+      <h2 data-hc-split style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-weight: 400; font-size: var(--t-h2); line-height: 1.06; letter-spacing: -0.02em; max-width: 22ch;">One hour, SAR 490, most evenings.</h2>
+      <p data-reveal data-reveal-delay="120" style="margin: 0; max-width: 30rem; color: oklch(0.953 0.013 86.8 / 0.75);">Choose your specialist and confirm instantly. Open every day, 2:00 – 11:00 PM.<span data-hc-open-now></span></p>
+      <a data-reveal data-reveal-delay="180" href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=ritual-close&amp;utm_content=hyggee-spa" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; height: 58px; padding-inline: 38px; border-radius: 999px; background: oklch(0.953 0.013 86.8); color: oklch(0.266 0.016 67); text-decoration: none; font-size: var(--t-meta); letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 500ms ease, transform 500ms ease;" style-hover="background-color: oklch(0.9 0.02 80.1); transform: translateY(-2px);">Reserve the Hyggee Spa <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <footer style="background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8 / 0.72); border-top: 1px solid oklch(0.953 0.013 86.8 / 0.14); padding-block: clamp(48px, 8vh, 88px);">
+    <div style="width: 100%; max-width: 1320px; margin-inline: auto; padding-inline: clamp(20px, 4vw, 48px); display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; align-items: start;">
+      <div>
+        <p style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: var(--t-h4); color: oklch(0.953 0.013 86.8);">Head &amp; Co.</p>
+        <p style="margin: 10px 0 0; font-size: var(--t-label); letter-spacing: 0.22em; text-transform: uppercase;">Head, Body &amp; Soul</p>
+      </div>
+      <nav aria-label="Footer" style="display: flex; flex-direction: column; gap: 10px; font-size: var(--t-meta);">
+        <a class="hc-link" href="Home.dc.html" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Home</a>
+        <a class="hc-link" href="Menu.dc.html" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Menu &amp; Prices</a>
+        <a class="hc-link" href="Specialists.dc.html" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Specialists</a>
+        <a class="hc-link" href="Visit.dc.html" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Visit</a>
+      </nav>
+      <div style="font-size: var(--t-meta); line-height: 1.8;">
+        <p style="margin: 0;">King Abdulaziz Road<br />Al Mohammadiyyah, Jeddah</p>
+        <p style="margin: 12px 0 0;">Daily 2:00 – 11:00 PM</p>
+      </div>
+      <div style="font-size: var(--t-meta); display: flex; flex-direction: column; gap: 10px;">
+        <a href="https://www.instagram.com/headandco.sa/" target="_blank" rel="noopener noreferrer" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Instagram ↗</a>
+        <a href="https://www.fresha.com/a/head-co-jeddah-head-co-king-abdul-aziz-road-mr5d118y?utm_source=headandco-site&amp;utm_medium=website&amp;utm_campaign=footer-ritual" target="_blank" rel="noopener noreferrer" style="color: oklch(0.953 0.013 86.8 / 0.72); text-decoration: none;" style-hover="color: oklch(0.953 0.013 86.8);">Book on Fresha ↗</a>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;full&quot;,&quot;restrained&quot;,&quot;auto&quot;,&quot;off&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;\&quot;full\&quot; | \&quot;restrained\&quot; | \&quot;auto\&quot; | \&quot;off\&quot;&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    import("./site-motion.js").then((m) => {
+      this.stop = m.initMotion({ motion: this.props.motion ?? "auto" });
+    });
+  }
+  componentWillUnmount() {
+    if (this.stop) this.stop();
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-04T18:35:44.722Z",
+  "title": "Design System: Head & Co.",
+  "extensions": {
+    "colorMeta": {
+      "espresso": {
+        "role": "primary",
+        "displayName": "Espresso",
+        "canonical": "oklch(0.266 0.016 67)",
+        "tonalRamp": [
+          "#16100a",
+          "#312a23",
+          "#4e463f",
+          "#6d645d",
+          "#8d857c",
+          "#afa69d",
+          "#d2c9c0",
+          "#f6ede3"
+        ]
+      },
+      "ricepaper": {
+        "role": "primary",
+        "displayName": "Ricepaper",
+        "canonical": "oklch(0.953 0.013 86.8)",
+        "tonalRamp": [
+          "#14110b",
+          "#2e2b24",
+          "#4b4740",
+          "#69665e",
+          "#89867d",
+          "#aba79f",
+          "#cecac1",
+          "#f2eee5"
+        ]
+      },
+      "sand": {
+        "role": "secondary",
+        "displayName": "Sand",
+        "canonical": "oklch(0.816 0.03 77.5)",
+        "tonalRamp": [
+          "#191003",
+          "#342a1a",
+          "#514636",
+          "#706453",
+          "#908472",
+          "#b2a693",
+          "#d6c9b5",
+          "#faecd9"
+        ]
+      },
+      "oat": {
+        "role": "secondary",
+        "displayName": "Oat",
+        "canonical": "oklch(0.9 0.02 80.1)",
+        "tonalRamp": [
+          "#161107",
+          "#312a20",
+          "#4d473c",
+          "#6c6559",
+          "#8d8579",
+          "#aea79a",
+          "#d1c9bc",
+          "#f6ede0"
+        ]
+      },
+      "moss": {
+        "role": "tertiary",
+        "displayName": "Moss",
+        "canonical": "oklch(0.44 0.033 118.5)",
+        "tonalRamp": [
+          "#101403",
+          "#2a2e1b",
+          "#464a36",
+          "#646954",
+          "#848973",
+          "#a5ab94",
+          "#c8ceb6",
+          "#ecf2d9"
+        ]
+      },
+      "paper-high": {
+        "role": "neutral",
+        "displayName": "Paper High",
+        "canonical": "oklch(0.972 0.01 86)",
+        "tonalRamp": [
+          "#14110d",
+          "#2e2b26",
+          "#4a4742",
+          "#696660",
+          "#89867f",
+          "#aaa7a1",
+          "#cdcac3",
+          "#f1eee7"
+        ]
+      },
+      "gilt": {
+        "role": "neutral",
+        "displayName": "Gilt",
+        "canonical": "oklch(0.656 0.033 72)",
+        "tonalRamp": [
+          "#1a0f02",
+          "#362919",
+          "#534534",
+          "#726352",
+          "#938371",
+          "#b5a592",
+          "#d8c8b4",
+          "#fdebd7"
+        ]
+      },
+      "taupe": {
+        "role": "neutral",
+        "displayName": "Taupe",
+        "canonical": "oklch(0.5 0.026 70)",
+        "tonalRamp": [
+          "#190f05",
+          "#34291d",
+          "#514539",
+          "#706456",
+          "#918476",
+          "#b3a597",
+          "#d6c8b9",
+          "#faecdc"
+        ]
+      },
+      "taupe-deep": {
+        "role": "neutral",
+        "displayName": "Taupe Deep",
+        "canonical": "oklch(0.52 0.026 68)",
+        "tonalRamp": [
+          "#190f05",
+          "#34291d",
+          "#514539",
+          "#706456",
+          "#918476",
+          "#b3a597",
+          "#d6c8b9",
+          "#fbecdc"
+        ]
+      },
+      "ink-mid": {
+        "role": "neutral",
+        "displayName": "Ink Mid",
+        "canonical": "oklch(0.4 0.02 68)",
+        "tonalRamp": [
+          "#181008",
+          "#322a21",
+          "#4f463c",
+          "#6e645a",
+          "#8f847a",
+          "#b0a69b",
+          "#d4c8bd",
+          "#f8ece1"
+        ]
+      },
+      "walnut": {
+        "role": "neutral",
+        "displayName": "Walnut",
+        "canonical": "oklch(0.359 0.032 58.9)",
+        "tonalRamp": [
+          "#1c0e04",
+          "#37271b",
+          "#554437",
+          "#746254",
+          "#958273",
+          "#b8a394",
+          "#dbc6b6",
+          "#ffeada"
+        ]
+      },
+      "moss-light": {
+        "role": "tertiary",
+        "displayName": "Moss Light",
+        "canonical": "oklch(0.482 0.033 118.5)",
+        "tonalRamp": [
+          "#101403",
+          "#2a2e1b",
+          "#464a36",
+          "#646954",
+          "#848973",
+          "#a5ab94",
+          "#c8ceb6",
+          "#ecf2d9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The hero headline. Once per site."
+      },
+      "h1": {
+        "displayName": "Page Title",
+        "purpose": "Interior page titles."
+      },
+      "h2": {
+        "displayName": "Section Heading",
+        "purpose": "Section headings across all pages."
+      },
+      "h3": {
+        "displayName": "Sub-heading",
+        "purpose": "Sub-headings and ritual stage names."
+      },
+      "h4": {
+        "displayName": "Card Title",
+        "purpose": "Specialist names and small card titles."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Pull quotes and guest reviews."
+      },
+      "price": {
+        "displayName": "Figure",
+        "purpose": "Service names and prices. Proof numerals are always Newsreader; their labels stay Manrope."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Primary prose, held to a 34rem / ~65ch measure."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Descriptions beneath a heading, capped at 40ch."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Captions, ratings, footnotes, button labels."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Tracked uppercase section labels and field names."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "The JEDDAH logo tag and the Signature pill."
+      },
+      "menu": {
+        "displayName": "Menu",
+        "purpose": "Full-screen overlay navigation links."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "The 4.9 rating at hero scale. Proof, set large."
+      },
+      "glyph": {
+        "displayName": "Glyph",
+        "purpose": "Standalone letterforms and numerals — monogram initials, ritual stage counters."
+      },
+      "arabic": {
+        "displayName": "Arabic",
+        "purpose": "Arabic copy. Loaded only where Arabic is actually set."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Bracketed placeholder notices marking content awaiting owner confirmation."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        "purpose": "Every reveal, wipe and stage transition. The system's single easing curve."
+      },
+      {
+        "name": "ease-split",
+        "value": "cubic-bezier(0.16, 0.84, 0.24, 1)",
+        "purpose": "Masked headline words rising into place. Sharper exit than the standard curve."
+      },
+      {
+        "name": "duration-state",
+        "value": "500ms",
+        "purpose": "Default for hover and colour state changes on controls."
+      },
+      {
+        "name": "duration-link",
+        "value": "400ms",
+        "purpose": "Inline link and navigation colour shifts."
+      },
+      {
+        "name": "duration-reveal",
+        "value": "1000ms",
+        "purpose": "Scroll-triggered entrance of a content block."
+      },
+      {
+        "name": "duration-wipe",
+        "value": "1400ms",
+        "purpose": "Image clip-path reveal, paired with an 1800ms scale settle on the child."
+      },
+      {
+        "name": "lenis-lerp",
+        "value": "0.12",
+        "purpose": "Lenis smooth-scroll easing. Settles in ~200ms; anything slower reads as floaty."
+      },
+      {
+        "name": "hero-breathe",
+        "value": "26s scale 1.06 -> 1.16",
+        "purpose": "The only ambient loop on the page, on the hero image."
+      },
+      {
+        "name": "scroll-cue-drift",
+        "value": "4.5s opacity 0.5 -> 0.85",
+        "purpose": "The second and last ambient loop, on the hero scroll cue."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "row-stack",
+        "value": "720px"
+      },
+      {
+        "name": "nav-collapse",
+        "value": "860px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The interior header's booking action. Dark pill on paper.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Book on Fresha <span aria-hidden=\"true\">↗</span></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 9px; height: 42px; padding-inline: 22px; border-radius: 999px; background: oklch(0.266 0.016 67); color: oklch(0.953 0.013 86.8); text-decoration: none; font-family: Manrope, ui-sans-serif, sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 500ms cubic-bezier(0.22,0.61,0.36,1); } .ds-btn-primary:hover { background: oklch(0.359 0.032 58.9); } .ds-btn-primary:focus-visible { outline: 2px solid oklch(0.5 0.026 70); outline-offset: 4px; }"
+    },
+    {
+      "name": "Invert Button",
+      "kind": "button",
+      "refersTo": "button-invert",
+      "description": "The hero and closing call to action. Paper pill on espresso.",
+      "html": "<a class=\"ds-btn-invert\" href=\"#\">Reserve the Hyggee Spa <span aria-hidden=\"true\">↗</span></a>",
+      "css": ".ds-btn-invert { display: inline-flex; align-items: center; gap: 10px; height: 56px; padding-inline: 34px; border-radius: 999px; background: oklch(0.953 0.013 86.8); color: oklch(0.266 0.016 67); text-decoration: none; font-family: Manrope, ui-sans-serif, sans-serif; font-size: 0.8125rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 500ms ease, transform 500ms ease; } .ds-btn-invert:hover { background: oklch(0.9 0.02 80.1); transform: translateY(-2px); } .ds-btn-invert:focus-visible { outline: 2px solid oklch(0.656 0.033 72); outline-offset: 4px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary hero action. Hairline border, no fill.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">See the ritual</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 10px; height: 56px; padding-inline: 30px; border-radius: 999px; border: 1px solid oklch(0.953 0.013 86.8 / 0.38); color: oklch(0.953 0.013 86.8); text-decoration: none; font-family: Manrope, ui-sans-serif, sans-serif; font-size: 0.8125rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; transition: background-color 500ms ease, border-color 500ms ease; } .ds-btn-ghost:hover { background: oklch(0.953 0.013 86.8 / 0.1); border-color: oklch(0.953 0.013 86.8 / 0.8); }"
+    },
+    {
+      "name": "Service Row",
+      "kind": "custom",
+      "refersTo": "service-row",
+      "description": "The system's signature pattern. A full-width priced link divided by a hairline, never a card. Stacks to two lines below 720px so the price is never pushed off-screen.",
+      "html": "<li class=\"ds-row-wrap\"><a class=\"ds-row\" href=\"#\"><span><span class=\"ds-row-name\">Hyggee Spa</span><span class=\"ds-row-desc\">The six-stage head ritual: warm-water cleanse, scalp, neck and shoulders, treatment and finish.</span></span><span class=\"ds-row-dur\">1 hr</span><span class=\"ds-row-price\">SAR 490 <span aria-hidden=\"true\">↗</span></span></a></li>",
+      "css": ".ds-row-wrap { list-style: none; border-top: 1px solid oklch(0.816 0.03 77.5); } .ds-row { display: grid; grid-template-columns: minmax(220px, 2.4fr) minmax(110px, 1fr) auto; gap: 18px 28px; align-items: baseline; padding: 28px 12px 28px 0; text-decoration: none; color: oklch(0.266 0.016 67); transition: background-color 500ms ease; } .ds-row:hover { background-color: oklch(0.9 0.02 80.1 / 0.5); } .ds-row-name { font-family: Newsreader, Georgia, serif; font-size: 1.375rem; } .ds-row-desc { display: block; margin-top: 8px; font-family: Manrope, sans-serif; font-size: 0.9375rem; color: oklch(0.52 0.026 68); max-width: 40ch; } .ds-row-dur { font-family: Manrope, sans-serif; font-size: 0.8125rem; color: oklch(0.52 0.026 68); } .ds-row-price { font-family: Newsreader, Georgia, serif; font-size: 1.375rem; white-space: nowrap; } @media (max-width: 720px) { .ds-row { grid-template-columns: 1fr auto; gap: 14px 20px; align-items: end; padding-inline-end: 0; } .ds-row > :nth-child(1) { grid-column: 1 / -1; } .ds-row > :nth-child(2) { grid-column: 1; } .ds-row > :nth-child(3) { grid-column: 2; justify-self: end; } }"
+    },
+    {
+      "name": "Signature Badge",
+      "kind": "chip",
+      "refersTo": "badge-signature",
+      "description": "Status pill in the system's only non-neutral hue. Marks the signature service; never used decoratively.",
+      "html": "<span class=\"ds-badge\">Signature</span>",
+      "css": ".ds-badge { display: inline-block; font-family: Manrope, sans-serif; font-size: 0.625rem; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.44 0.033 118.5); border: 1px solid oklch(0.44 0.033 118.5 / 0.45); border-radius: 999px; padding: 3px 10px; }"
+    },
+    {
+      "name": "Monogram Tile",
+      "kind": "card",
+      "refersTo": "monogram-tile",
+      "description": "Stands in for a specialist portrait until the real photographs are imported. A placeholder with dignity — never a grey box, never a lettered pseudonym.",
+      "html": "<span class=\"ds-monogram\" aria-hidden=\"true\">M</span>",
+      "css": ".ds-monogram { display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 3 / 4; background: oklch(0.9 0.02 80.1); color: oklch(0.5 0.026 70); font-family: Newsreader, Georgia, serif; font-size: 2.75rem; border-radius: 2px; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Inline header navigation. The current page is espresso with a hairline underline and aria-current.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">The Ritual</a><a href=\"#\">Menu</a><a href=\"#\" aria-current=\"page\" class=\"ds-nav-current\">Specialists</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 26px; font-family: Manrope, sans-serif; font-size: 0.8125rem; letter-spacing: 0.04em; } .ds-nav a { color: oklch(0.4 0.02 68); text-decoration: none; transition: color 400ms ease; } .ds-nav a:hover { color: oklch(0.266 0.016 67); } .ds-nav .ds-nav-current { color: oklch(0.266 0.016 67); border-bottom: 1px solid oklch(0.266 0.016 67); padding-bottom: 2px; } .ds-nav a:focus-visible { outline: 2px solid oklch(0.5 0.026 70); outline-offset: 4px; }"
+    },
+    {
+      "name": "Menu Button",
+      "kind": "button",
+      "refersTo": "menu-button",
+      "description": "Replaces the inline nav below 860px and opens the full-screen overlay. 44px hit area, aria-expanded tracks state.",
+      "html": "<button type=\"button\" class=\"ds-burger\" aria-label=\"Open menu\" aria-expanded=\"false\"><span aria-hidden=\"true\"></span></button>",
+      "css": ".ds-burger { display: inline-flex; align-items: center; justify-content: center; height: 44px; width: 44px; border-radius: 999px; border: 1px solid oklch(0.816 0.03 77.5); background: transparent; color: oklch(0.266 0.016 67); cursor: pointer; } .ds-burger > span { display: block; width: 16px; height: 7px; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; } .ds-burger:hover { border-color: oklch(0.266 0.016 67); } .ds-burger:focus-visible { outline: 2px solid oklch(0.5 0.026 70); outline-offset: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Unhurried Room",
+    "overview": "Every decision in this system exists to remove a demand from the reader. The business sells an hour in which nothing is asked of you, and the interface has to behave the same way: no surface competes for attention, no element arrives with urgency, and nothing moves unless the reader moved it. The palette is a single warm neutral family lit from one direction. There are no shadows anywhere in the implementation — depth comes from tone, and from a hairline.\n\nThe room is made of paper. A warm off-white ground carries a 3px radial grain, hairline rules in warm sand divide content instead of boxes, and corners are cut at 2px — near-square, the edge of a printed card rather than the round of a UI panel. Against that, one dark tone does all the heavy work: espresso, used both as ink on paper and as the full-bleed ground of the sections that need to go quiet.\n\nType carries the whole hierarchy alone. Both families ship in a single weight — there is no bold anywhere in this system, on purpose. Emphasis is made from size, family and tone, never from weight. Newsreader's optical-size axis means the 6rem hero and the 1.375rem price are rendered at different design sizes automatically, which is the reason it replaced the previous display face. The anti-reference is the high-contrast fashion serif the site used to wear: glamorous, cold, and wrong for a brand whose whole claim is warmth.",
+    "keyCharacteristics": [
+      "One warm neutral family, lit from one direction; a single green used only for status",
+      "Zero shadows; depth is tonal, division is a hairline",
+      "Exactly one font weight (400) across both families",
+      "Near-square 2px corners against fully-round pills — no radius in between",
+      "Motion is a response to arrival, never a loop; scroll is eased, never seized"
+    ],
+    "rules": [
+      {
+        "name": "The One Green Rule",
+        "body": "moss is the only hue in the system that is not a warm neutral, and it means status — open, signature, confirmed. It never becomes a button, a heading, a border or a background. If a new element wants colour to feel important, it wants size or space instead.",
+        "section": "colors"
+      },
+      {
+        "name": "The Verified Contrast Rule",
+        "body": "Every text tone in this palette has a measured ratio against its intended ground. Small text never drops below 4.5:1. A new tint is not in the system until its ratio is measured and written down — the palette failed this once already and it was the most expensive defect in the audit.",
+        "section": "colors"
+      },
+      {
+        "name": "The Hairline Rule",
+        "body": "sand divides; it never fills. Content is separated by a 1px rule and generous space, not by a box, a card or a border-radius. There are no cards in this system.",
+        "section": "colors"
+      },
+      {
+        "name": "The Single Weight Rule",
+        "body": "Both families ship weight 400 and only weight 400. Hierarchy is built from size, family and tone. If a heading is not loud enough, it needs more size or more space around it — never font-weight: 600. Shipping a second weight also doubles the font payload, which is how this system previously carried four unused Manrope weights.",
+        "section": "typography"
+      },
+      {
+        "name": "The Figure Rule",
+        "body": "Numbers that are proof — the 4.9 rating, the 2,231 review count, SAR prices, durations — are set in Newsreader; the words labelling them stay in Manrope. The serif is what makes a price read as a considered fact rather than a data point. A price set in Manrope is a bug.",
+        "section": "typography"
+      },
+      {
+        "name": "The Role Token Rule",
+        "body": "Every font-size resolves to a --t-* custom property. No literal rem value goes in a font-size declaration. The only permitted exception is an em value scaling a glyph against its own parent — the trailing arrow, the inline Arabic gloss — because those are relative by nature and a token would break the relationship.",
+        "section": "typography"
+      },
+      {
+        "name": "The Arabic Load Rule",
+        "body": "IBM Plex Sans Arabic loads only on pages that actually render Arabic. It was previously loaded on all five pages to serve a single quotation.",
+        "section": "typography"
+      },
+      {
+        "name": "The Two Breakpoint Rule",
+        "body": "Reach for clamp() and auto-fit first. A media query is justified only when a layout floor makes fluid sizing impossible. Two exist; a third needs an argument.",
+        "section": "layout"
+      },
+      {
+        "name": "The Sticky Container Rule",
+        "body": "Never put overflow-x: hidden on an ancestor of a sticky header. It computes overflow-y: auto, silently makes that element the scroll container, and the header stops sticking with no error anywhere. This system shipped that bug on four pages.",
+        "section": "layout"
+      },
+      {
+        "name": "The No Shadow Rule",
+        "body": "A new component does not get a shadow to look separate. It gets a tonal ground, a hairline, or space. If those three cannot express the separation, the hierarchy is wrong, not the depth.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Two Radius Rule",
+        "body": "2px or 999px. An 8px or 12px corner belongs to a different design system and will read as borrowed.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Borrowed Scroll Rule",
+        "body": "Ease the wheel; never seize it. lerp: 0.12 settles in about 200ms. Anything slower reads as floaty and fights the reader — the hand-rolled 0.095 loop this replaced overshot every stop. Touch stays native, and reduced motion disables the layer entirely rather than merely shortening it.",
+        "section": "overview"
+      },
+      {
+        "name": "The Arrival Rule",
+        "body": "An element animates when the reader reaches it, once, and never again. Anything that loops forever has to earn it; exactly two things have.",
+        "section": "overview"
+      }
+    ],
+    "dos": [
+      "Do resolve every font-size to a --t-* role token; never write a literal rem value in a font-size.",
+      "Do set proof numerals — ratings, review counts, SAR prices, durations — in Newsreader, with their labels in Manrope.",
+      "Do divide content with a 1px sand hairline and space.",
+      "Do measure and record the contrast ratio of any new text tone before it enters the palette.",
+      "Do honour prefers-reduced-motion by default: stop ambient movement, keep every hover and state cue.",
+      "Do ship images as <picture> with a WebP srcset and explicit sizes; fetchpriority=\"high\" on the hero, loading=\"lazy\" on everything else.",
+      "Do keep the header identical across pages — 76px, same wordmark, same 860px breakpoint, same button label."
+    ],
+    "donts": [
+      "Don't add a font weight. Both families are 400 and only 400.",
+      "Don't add a box-shadow. There are none, and depth comes from tone, hairline and blur.",
+      "Don't use a corner radius between 2px and 999px.",
+      "Don't put content in a card. This system has no cards.",
+      "Don't let moss become anything but status. It is not a button, a heading or a border.",
+      "Don't ease the wheel aggressively. Smooth scroll is Lenis at lerp: 0.12, which settles in about 200ms. The hand-rolled 0.095 loop this replaced overshot every stop and read as floaty.",
+      "Don't animate a layout property. Transition background-color, opacity, transform, clip-path — never padding, width or height.",
+      "Don't put overflow-x: hidden on an ancestor of a sticky element.",
+      "Don't mix logical and physical properties in one rule. Arabic RTL is a recorded requirement; padding-inline-start, never padding-left.",
+      "Don't state a fact the Fresha listing doesn't support. Invented durations and lettered specialists are what made an earlier draft read as a template."
+    ]
+  }
+}

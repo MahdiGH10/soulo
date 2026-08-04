@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Head &amp; Co. — Website Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap" />
+<script src="./doc-page.js"></script>
+<style>
+  body { margin: 0; font-family: "Manrope", ui-sans-serif, system-ui, sans-serif; color: oklch(0.266 0.016 67); }
+  a { color: oklch(0.359 0.032 58.9); }
+  a:hover { color: oklch(0.266 0.016 67); }
+</style>
+</helmet>
+
+<doc-page margin="0.8in">
+  <p style="margin: 0 0 10px; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.359 0.032 58.9);">Design &amp; front-end audit</p>
+  <h1 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.08; letter-spacing: -0.015em;">Head &amp; Co. website</h1>
+  <p style="margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: oklch(0.52 0.026 68); max-width: 34em;">An assessment of the current concept site against the business as it actually operates, and what has to change before it is shown to the owner or put in front of guests.</p>
+
+  <table style="width: 100%; margin: 26px 0 0; border-collapse: collapse; font-size: 12.5px; color: oklch(0.52 0.026 68);">
+    <tbody>
+      <tr>
+        <td style="padding: 7px 0; border-top: 1px solid oklch(0.816 0.03 77.5); width: 22%; color: oklch(0.359 0.032 58.9); letter-spacing: 0.06em; text-transform: uppercase; font-size: 10.5px;">Reviewed</td>
+        <td style="padding: 7px 0; border-top: 1px solid oklch(0.816 0.03 77.5);">The <code style="font-family: ui-monospace, Menlo, monospace;">head-body-soul-space</code> repository (main), the Fresha profile, and the Google Maps listing</td>
+      </tr>
+      <tr>
+        <td style="padding: 7px 0; border-top: 1px solid oklch(0.816 0.03 77.5); color: oklch(0.359 0.032 58.9); letter-spacing: 0.06em; text-transform: uppercase; font-size: 10.5px;">Date</td>
+        <td style="padding: 7px 0; border-top: 1px solid oklch(0.816 0.03 77.5);">3 August 2026</td>
+      </tr>
+      <tr>
+        <td style="padding: 7px 0; border-top: 1px solid oklch(0.816 0.03 77.5); border-bottom: 1px solid oklch(0.816 0.03 77.5); color: oklch(0.359 0.032 58.9); letter-spacing: 0.06em; text-transform: uppercase; font-size: 10.5px;">Status</td>
+        <td style="padding: 7px 0; border-top: 1px solid oklch(0.816 0.03 77.5); border-bottom: 1px solid oklch(0.816 0.03 77.5);">Unofficial concept, <code style="font-family: ui-monospace, Menlo, monospace;">noindex</code>, not yet shown to the business</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.15;">Verdict</h2>
+  <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7;">The craft is in good shape and the content is not. The design system is coherent, tokenised and disciplined — colours in oklch, no hard-coded values in components, a considered type scale, real accessibility and reduced-motion handling. That is the expensive half of a website and it is largely done.</p>
+  <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7;">The problem is that almost nothing on the site is true. The six services it sells do not exist on Fresha. The durations are invented, the prices are blank, the opening hours contradict the real ones, the four specialists are lettered A to D, the reviews are placeholder sentences, and the photography is stock interiors from somewhere else. A site with 15 sections and no verified facts reads as a template, and the owner of a business with 2,231 reviews will recognise that in about ten seconds.</p>
+  <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7;">There is also a strategic gap. Head &amp; Co. already converts well on Fresha, so a website that only repeats Fresha adds nothing. The site's job is the part Fresha cannot do: explain what a head spa is to someone who has never had one, answer price and duration before the click, rank for “head spa Jeddah” under their own name rather than an aggregator's, and prove — with measurement — how many bookings it sent. None of those four are currently wired.</p>
+
+  <div style="break-inside: avoid; margin: 26px 0 0; padding: 18px 20px; background: oklch(0.9 0.02 80.1 / 0.5); border-left: 2px solid oklch(0.482 0.033 118.5);">
+    <p style="margin: 0; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.482 0.033 118.5);">Short version</p>
+    <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.65;">Do not add features. Replace invented content with verified content, cut the home page roughly in half, wire booking and measurement properly, and shoot the real space. That is the difference between a demo and something they will pay for.</p>
+  </div>
+
+  <h2 style="margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.15;">What is working</h2>
+  <ul style="margin: 12px 0 0; padding-left: 20px; font-size: 15px; line-height: 1.7;">
+    <li style="margin-bottom: 7px;"><strong style="font-weight: 600;">The design system.</strong> A named brand scale (ricepaper, espresso, walnut, taupe, moss, sand) in oklch, mapped to semantic tokens, with utilities for the shell, eyebrow and display sizes. Components consume tokens rather than colours. This is better than most production sites.</li>
+    <li style="margin-bottom: 7px;"><strong style="font-weight: 600;">Placeholder honesty.</strong> Every invented field carries a <code style="font-family: ui-monospace, Menlo, monospace;">status: "placeholder"</code> flag and a file-level comment saying it must be verified. That makes the cleanup mechanical instead of archaeological. Keep this habit.</li>
+    <li style="margin-bottom: 7px;"><strong style="font-weight: 600;">Accessibility basics.</strong> Visible focus rings, <code style="font-family: ui-monospace, Menlo, monospace;">aria-label</code>s on icon buttons, screen-reader text announcing that booking opens a new tab, a full <code style="font-family: ui-monospace, Menlo, monospace;">prefers-reduced-motion</code> block, and logical properties so RTL mirrors correctly.</li>
+    <li style="margin-bottom: 7px;"><strong style="font-weight: 600;">The right scaffolding, unwired.</strong> A UTM-tagged Fresha link builder and a <code style="font-family: ui-monospace, Menlo, monospace;">trackBooking</code> hook already exist. They just do not point anywhere yet.</li>
+    <li><strong style="font-weight: 600;">Server resilience.</strong> The SSR entry normalises swallowed 500s into a real error page instead of leaking JSON. Unusual care for a site this size.</li>
+  </ul>
+
+  <h2 style="margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.15;">The credibility gap</h2>
+  <p style="margin: 12px 0 0; font-size: 15px; line-height: 1.7;">Every row below is a factual conflict between the site and the business. Each one is cheap to fix and expensive to leave.</p>
+  <table style="width: 100%; margin: 18px 0 0; border-collapse: collapse; font-size: 13px; line-height: 1.55;">
+    <thead>
+      <tr>
+        <th style="text-align: left; padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600; width: 22%;">Field</th>
+        <th style="text-align: left; padding: 9px 10px; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600; width: 39%;">The site says</th>
+        <th style="text-align: left; padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600;">Verified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Services</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">The Hyggee Ritual, Scalp Reset, Head &amp; Face Ritual, Finish — Blow-Dry, Occasion Styling, Hand &amp; Nail Care</td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Hyggee Spa, Hyggee Spa + Face Massage, Hyggee Spa + Buccal Massage, HEAD&amp;CO. Signature, Classic Manicure &amp; Pedicure, Regular Nail Polish — 41 in total</td>
+      </tr>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Durations</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">90, 45, 105, 40, 60, 60 minutes — invented</td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">1 hr; 1 hr 30 min; 1 hr 15 min; 15 min</td>
+      </tr>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Prices</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;"><code style="font-family: ui-monospace, Menlo, monospace;">SAR ___</code> on every service</td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">SAR 490 · 690 · 280 · 35, published publicly on Fresha</td>
+      </tr>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Hours</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Sunday–Friday 2–11 PM, Saturday 11 AM–8 PM, marked provisional</td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Every day, 2:00–11:00 PM</td>
+      </tr>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Specialists</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Specialist A, B, C, D with “—” ratings</td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Nine bookable specialists with names, roles and 4.7–4.9 ratings, requestable by name</td>
+      </tr>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Reviews</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Six identical placeholder sentences; a Press row of four empty “verified coverage” slots</td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">4.9 from 2,231 reviews, in Arabic and English, dated and attributable</td>
+      </tr>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Story</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">“From Korea to Jeddah”, Korean-inspired throughout</td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Their own description is built on hygge, the Danish idea. Two origin stories at once weakens both</td>
+      </tr>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Photography</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Ten stock interiors of a building that is not theirs</td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Three venue photos and four portfolio shots exist; a half-day shoot would cover the site</td>
+      </tr>
+      <tr>
+        <td style="padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Phone</td>
+        <td style="padding: 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;"><code style="font-family: ui-monospace, Menlo, monospace;">+966 5X XXX XXXX</code></td>
+        <td style="padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Ask for it, or remove the field. A masked number reads as unfinished</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.15;">Fix before you pitch</h2>
+
+  <div style="break-inside: avoid; margin: 18px 0 0;">
+    <h3 style="margin: 0; font-size: 15px; font-weight: 600;">1. Put the real menu on the site, with prices</h3>
+    <p style="margin: 7px 0 0; font-size: 14.5px; line-height: 1.65; color: oklch(0.4 0.02 68);">Six curated services, real names, real durations, real prices, each deep-linking to its Fresha booking. Forty-one services is a wall; six is a menu. Price is the first question a guest has and the site currently refuses to answer it.</p>
+  </div>
+  <div style="break-inside: avoid; margin: 16px 0 0;">
+    <h3 style="margin: 0; font-size: 15px; font-weight: 600;">2. Correct the hours and drop the “provisional” language</h3>
+    <p style="margin: 7px 0 0; font-size: 14.5px; line-height: 1.65; color: oklch(0.4 0.02 68);">Open every day, 2–11 PM. Hedging notices in the footer and page leads tell a prospective client the work is unfinished. Verified facts do not need disclaimers.</p>
+  </div>
+  <div style="break-inside: avoid; margin: 16px 0 0;">
+    <h3 style="margin: 0; font-size: 15px; font-weight: 600;">3. Name the team</h3>
+    <p style="margin: 7px 0 0; font-size: 14.5px; line-height: 1.65; color: oklch(0.4 0.02 68);">Nine specialists with 4.7–4.9 ratings are a genuine asset, and being able to request one by name is a reason to book on the site rather than by walk-in. Use monogram placeholders until portraits are shot — never “Specialist A”.</p>
+  </div>
+  <div style="break-inside: avoid; margin: 16px 0 0;">
+    <h3 style="margin: 0; font-size: 15px; font-weight: 600;">4. Use the real reviews and delete the Press section</h3>
+    <p style="margin: 7px 0 0; font-size: 14.5px; line-height: 1.65; color: oklch(0.4 0.02 68);">Quote three or four short reviews verbatim with initials and dates, at least one in Arabic, credited to Fresha. Four empty coverage slots advertise the absence of coverage; remove the section until there is some.</p>
+  </div>
+  <div style="break-inside: avoid; margin: 16px 0 0;">
+    <h3 style="margin: 0; font-size: 15px; font-weight: 600;">5. Cut the home page from fifteen sections to eight</h3>
+    <p style="margin: 7px 0 0; font-size: 14.5px; line-height: 1.65; color: oklch(0.4 0.02 68);">Hero, proof, what a head spa is, the ritual, the menu with prices, the space, the team, reviews, visit, close. The ritual-finder quiz currently sits above the services it recommends — move it to its own page, or cut it: a quiz is a question asked of someone who has not yet been told what is for sale.</p>
+  </div>
+  <div style="break-inside: avoid; margin: 16px 0 0;">
+    <h3 style="margin: 0; font-size: 15px; font-weight: 600;">6. Choose one origin story</h3>
+    <p style="margin: 7px 0 0; font-size: 14.5px; line-height: 1.65; color: oklch(0.4 0.02 68);">Their own words lead with hygge; Fresha lists them under massage; the site leads with Korea. Ask the owner which they want to own, then use it everywhere — the alternative is a brand that sounds borrowed from two places at once.</p>
+  </div>
+  <div style="break-inside: avoid; margin: 16px 0 0;">
+    <h3 style="margin: 0; font-size: 15px; font-weight: 600;">7. Book the photo shoot before the pitch, or say so in it</h3>
+    <p style="margin: 7px 0 0; font-size: 14.5px; line-height: 1.65; color: oklch(0.4 0.02 68);">Stock interiors are the single biggest tell. Either mark them clearly as placeholders in the walkthrough and present a shoot list, or replace the hero with one of their own venue photos. Silence on this point is the version that costs you the deal.</p>
+  </div>
+
+  <h2 style="margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.15;">Fix before launch</h2>
+  <table style="width: 100%; margin: 16px 0 0; border-collapse: collapse; font-size: 13px; line-height: 1.55;">
+    <thead>
+      <tr>
+        <th style="text-align: left; padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600; width: 26%;">Area</th>
+        <th style="text-align: left; padding: 9px 10px; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600;">Issue and fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Booking hand-off</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Every button lands on the Fresha venue page, so the guest re-picks the service they just chose. Deep-link per service, and per specialist on the team page. This is the highest-value hour of work on the list.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Measurement</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;"><code style="font-family: ui-monospace, Menlo, monospace;">trackBooking</code> pushes to a <code style="font-family: ui-monospace, Menlo, monospace;">dataLayer</code> that nothing reads — no analytics is installed. Install one lightweight tool, keep the UTM tags, and report booking clicks monthly. Without this you cannot prove the site earned anything.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Local SEO</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">The structured data omits coordinates, opening hours, price range, telephone, images and rating — exactly the fields that earn a local result. Add them, add a sitemap, and remember the site is <code style="font-family: ui-monospace, Menlo, monospace;">noindex</code> until concept mode is switched off. Today an aggregator ranks for their name; that is the recoverable prize.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Arabic</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">The Arabic dictionary covers navigation and buttons only — roughly thirty strings — so switching language leaves an English page with Arabic buttons. Direction is also set after hydration, so crawlers and first paint get LTR English. Translate the content properly on <code style="font-family: ui-monospace, Menlo, monospace;">/ar</code> paths with hreflang, or remove the toggle until it is real. In Jeddah, half-Arabic is worse than English-only.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Images</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Ten full-size JPEGs with no responsive sources; the 207 KB hero is the largest-paint element on a phone. Serve AVIF/WebP with <code style="font-family: ui-monospace, Menlo, monospace;">srcset</code> and size for mobile first — most traffic will arrive from Instagram.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Fonts</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Three families and eleven weights load on every page, including the Arabic face for English visitors. Load Arabic only on Arabic pages and trim to the weights actually used.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Dependencies</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Forty-six UI components plus a charting library, a carousel, a date picker, an OTP input and two toast libraries ship in a brochure site that charts nothing and has no forms. Delete what is unused before handover; it is install time, bundle weight and future confusion.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Contrast</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Taupe on ricepaper — used for every eyebrow, caption and footer line — sits near 3:1 and fails the 4.5:1 minimum for small text. Darken the token one step; the aesthetic survives.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Small gaps</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">No skip link despite a <code style="font-family: ui-monospace, Menlo, monospace;">#content</code> target; the 404 and error pages are unstyled defaults; the cookie-preferences link points at an anchor rather than a preference control — build it or remove it.</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Permission</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">The brand name, handle and reviews are being used without agreement. The current posture — noindex, plus a visible notice — is the correct one. Get written approval before anything is indexed, and agree who owns the domain, the hosting and the code after the sale.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.15;">Later, if they buy</h2>
+  <ul style="margin: 12px 0 0; padding-left: 20px; font-size: 15px; line-height: 1.7;">
+    <li style="margin-bottom: 6px;">Gift cards and packages — Fresha already sells packages and the site never mentions them. Gifting is the strongest reason a non-guest visits a spa website.</li>
+    <li style="margin-bottom: 6px;">The journal is six articles of generic advice. Two good pieces — what a head spa is, and how to choose between the 60- and 90-minute visit — would earn more search traffic than six thin ones, and cost less to maintain.</li>
+    <li style="margin-bottom: 6px;">A first-visit page answering the practical questions: what to wear, whether hair gets wet, how long before you can leave, parking on King Abdulaziz Road.</li>
+    <li>A monthly one-page report of booking clicks by service. It is how a website stops being a cost and starts being renewable.</li>
+  </ul>
+
+  <h2 style="margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.15;">Suggested sequence</h2>
+  <table style="width: 100%; margin: 16px 0 0; border-collapse: collapse; font-size: 13px; line-height: 1.55;">
+    <thead>
+      <tr>
+        <th style="text-align: left; padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600; width: 20%;">Phase</th>
+        <th style="text-align: left; padding: 9px 10px; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600;">Work</th>
+        <th style="text-align: left; padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600; width: 18%;">Effort</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">Before the pitch</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Real menu and prices, correct hours, named team, real reviews, Press removed, home page cut to eight sections, one origin story, per-service Fresha links</td>
+        <td style="padding: 10px 0 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">1–2 days</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">On approval</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Photo shoot, analytics, structured data and sitemap, index switch, image pipeline, contrast and skip link, dependency prune, Arabic decision</td>
+        <td style="padding: 10px 0 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">3–5 days plus the shoot</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 10px 10px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top; font-weight: 600;">After launch</td>
+        <td style="padding: 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Gift cards and packages, two strong journal pieces, first-visit page, monthly reporting</td>
+        <td style="padding: 10px 0 10px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5); vertical-align: top;">Ongoing</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 25px; line-height: 1.15;">Appendix — verified data</h2>
+  <p style="margin: 12px 0 0; font-size: 14px; line-height: 1.65; color: oklch(0.52 0.026 68);">Taken from the public Fresha profile and Google listing on 3 August 2026. Confirm with the owner before publishing, since prices and staff change.</p>
+  <table style="width: 100%; margin: 16px 0 0; border-collapse: collapse; font-size: 13px; line-height: 1.55;">
+    <thead>
+      <tr>
+        <th style="text-align: left; padding: 9px 10px 9px 0; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600; width: 42%;">Service</th>
+        <th style="text-align: left; padding: 9px 10px; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600;">Duration</th>
+        <th style="text-align: left; padding: 9px 0 9px 10px; border-bottom: 1px solid oklch(0.359 0.032 58.9); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.359 0.032 58.9); font-weight: 600;">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5);">Hyggee Spa</td>
+        <td style="padding: 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">1 hr</td>
+        <td style="padding: 8px 0 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">SAR 490</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5);">Hyggee Spa + Face Massage</td>
+        <td style="padding: 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">1 hr 30 min</td>
+        <td style="padding: 8px 0 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">SAR 690</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5);">Classic Manicure &amp; Pedicure</td>
+        <td style="padding: 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">1 hr 15 min</td>
+        <td style="padding: 8px 0 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">SAR 280</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5);">Regular Nail Polish</td>
+        <td style="padding: 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">15 min</td>
+        <td style="padding: 8px 0 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">SAR 35</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 10px 8px 0; border-bottom: 1px solid oklch(0.816 0.03 77.5);">Hyggee Spa + Buccal Massage · HEAD&amp;CO. Signature</td>
+        <td style="padding: 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">—</td>
+        <td style="padding: 8px 0 8px 10px; border-bottom: 1px solid oklch(0.816 0.03 77.5);">Listed without a public price</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin: 16px 0 0; font-size: 14px; line-height: 1.7;"><strong style="font-weight: 600;">Rating.</strong> 4.9 from 2,231 reviews. <strong style="font-weight: 600;">Hours.</strong> Every day, 2:00–11:00 PM. <strong style="font-weight: 600;">Address.</strong> Head &amp; Co., King Abdulaziz Road, Al Mohammadiyyah, Jeddah 23617 (21.645069, 39.112086). <strong style="font-weight: 600;">Team.</strong> Nine bookable specialists, including a head-and-face specialist, a head-and-nails master, a head massage specialist and a blow-dry specialist. <strong style="font-weight: 600;">Booking.</strong> Instant confirmation, pay by app, packages sold separately. <strong style="font-weight: 600;">Category.</strong> Fresha lists the business under massage, not hair or beauty.</p>
+</doc-page>
+</x-dc>
+</body>
+</html>
