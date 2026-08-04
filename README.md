@@ -1,22 +1,20 @@
 # soulo
 
-Website design for **Head & Co.** — a head spa on King Abdulaziz Road, Al Mohammadiyyah, Jeddah.
+Website for **Head & Co.** — a head spa on King Abdulaziz Road, Al Mohammadiyyah, Jeddah.
 
-Five Design Canvas pages (`.dc.html`), a shared motion module, and the design system that governs
-them. The site is a front door onto the business's existing Fresha booking, not a booking system of
-its own: every call to action deep-links to the correct service, UTM-tagged so the hand-off can be
-measured.
+React + Vite, prerendered to static HTML at build time. The site is a front door onto the
+business's existing Fresha booking, not a booking system of its own: every call to action
+deep-links to the correct service, UTM-tagged so the hand-off can be measured.
 
-## Pages
+## Routes
 
-| File | What it is |
+| Route | What it is |
 | --- | --- |
-| `Home.dc.html` | Hero, philosophy, the ritual, menu, the space, specialists, reviews, visit |
-| `Ritual.dc.html` | The six-stage Hyggee ritual in full, and what extends it |
-| `Menu.dc.html` | Services and prices as published on Fresha |
-| `Specialists.dc.html` | The nine bookable specialists, each requestable by name |
-| `Visit.dc.html` | Address, hours, first-visit guidance, the space |
-| `Head & Co - Website Audit.dc.html` | The August 2026 audit this build answers. Historical — not a live page |
+| `/` | Hero, philosophy, the ritual, menu, the space, specialists, reviews, visit |
+| `/ritual` | The six-stage Hyggee ritual in full, and what extends it |
+| `/menu` | Services and prices as published on Fresha |
+| `/specialists` | The nine bookable specialists, each requestable by name |
+| `/visit` | Address, hours, first-visit guidance, the space |
 
 ## Reading order
 
@@ -32,24 +30,35 @@ Start with these two. They are the authority for anything built next.
 
 ## Running it
 
-Any static server works, since these are plain HTML files:
-
 ```bash
-python -m http.server 4173
+npm install && npm run dev
 ```
 
-Then open `http://localhost:4173/Home.dc.html`.
+`npm run build` does three things in order: builds the client bundle, builds an SSR bundle from
+`src/entry-server.jsx`, then runs `scripts/prerender.mjs` to write real static HTML for every
+route into `dist/`. `npm run preview` serves the result.
 
-## Deploying
+> **Windows note.** If the checkout directory name contains an `&` — as `Head & Co. website design`
+> does — `cmd` splits the path and npm scripts fail. Either clone into a path without `&`, or run
+> the steps directly: `node ./node_modules/vite/bin/vite.js build`, and so on.
 
-The repo is a plain static site with no build step. `vercel.json` rewrites `/` to `Home.dc.html`,
-because Vercel serves the root by looking for an `index.html` that this project deliberately does
-not have — the Design Canvas naming convention owns the filenames. It also aliases `/ritual`,
-`/menu`, `/specialists` and `/visit` so the pages have readable links to share.
+## Architecture
 
-Internal links deliberately stay as relative `.dc.html` paths rather than the clean aliases, so the
-site behaves identically from a bare local file server and from Vercel. When a real domain is
-chosen, decide the canonical URL set then and add `rel="canonical"` accordingly.
+```
+src/
+  data/        Business facts and content. No copy lives in markup.
+  hooks/       Reduced-motion, media queries, Lenis, reveal-on-scroll.
+  components/  Header, Footer, ServiceRow, Picture, Reveal, PageHead, Close.
+  pages/       One component per route.
+  styles/      tokens.css mirrors DESIGN.md; global.css holds the primitives.
+  entry-server.jsx   Per-route <title>, description and the home page's JSON-LD.
+scripts/prerender.mjs
+```
+
+**Why prerender rather than ship a plain SPA.** PRODUCT.md's third purpose is ranking for
+"head spa Jeddah" under the business's own name. A client-rendered SPA serves crawlers an empty
+`<div id="root">`, which would quietly forfeit that. The build emits real HTML — roughly 830 words
+on the home route — and the client bundle hydrates it.
 
 ## Notable implementation details
 
@@ -57,19 +66,23 @@ chosen, decide the canonical URL set then and add `rel="canonical"` accordingly.
   the service rows so prices can never be pushed off a phone screen. Everything else is `clamp()`
   and `auto-fit`.
 - **Type is fully tokenised.** Every `font-size` resolves to a `--t-*` role.
-- **Motion respects the OS.** `prefers-reduced-motion` is honoured by default; under it the smooth
-  scroll is never constructed and ambient movement stops, while every hover and state cue survives.
-- **Smooth scroll** is Lenis (vendored in `vendor/`, no CDN dependency) at `lerp: 0.12`, with touch
-  left native.
-- **Images** ship as `<picture>` with WebP `srcset`.
+- **Motion respects the OS.** `prefers-reduced-motion` is honoured by default; under it Lenis is
+  never constructed and reveals resolve immediately rather than stranding content at opacity 0.
+- **Smooth scroll** is Lenis at `lerp: 0.12`, with touch left native.
+- **The menu overlay is a real modal** — focus moves in, is trapped, and returns to the opener.
+- **Images** ship as `<picture>` with WebP `srcset` built from `src/data/images.js`, a manifest of
+  what actually exists on disk, so a `srcset` candidate can never 404.
+- **`legacy/`** holds the original Design Canvas `.dc.html` build and the August 2026 audit, kept
+  for reference. Nothing in it is served.
 
 ## Before this goes live
 
-- Replace the ten placeholder images in `src/assets/` with the venue and portfolio photography from
+- Replace the placeholder images in `public/assets/` with the venue and portfolio photography from
   the business's own Fresha and Google listings. They are currently stock interiors of a building
-  that is not theirs, and they are the site's biggest tell.
-- Install analytics. `trackBooking` currently pushes to a `dataLayer` nothing reads, so booking
-  clicks cannot yet be attributed.
+  that is not theirs, and they are the site's biggest tell. Regenerate `src/data/images.js`
+  afterwards so `srcset` matches the new derivatives.
+- Install analytics. Booking clicks are UTM-tagged but nothing records them yet, so the site cannot
+  prove what it earned.
 - Decide the Arabic question. Full bilingual AR/EN on `/ar` paths with `hreflang` is recorded in
   PRODUCT.md as a requirement and is not built yet.
 - Confirm the public phone number, and the parking and cancellation terms marked in the pages as

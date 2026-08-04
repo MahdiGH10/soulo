@@ -1,0 +1,22 @@
+{
+  "name": "soulo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Website for Head & Co., a head spa in Jeddah",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist/server && node scripts/prerender.mjs",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "lenis": "^1.1.18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.5",
+    "vite": "^8.2.0"
+  }
+}

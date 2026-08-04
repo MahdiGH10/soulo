@@ -1,0 +1,35 @@
+.roster {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(28px, 3.2vw, 48px);
+}
+.roster__card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.roster__nb {
+  margin: 12px 0 0;
+  font-size: var(--t-meta);
+  color: var(--c-taupe);
+}
+
+/* Real guest words, under the person they name. */
+.roster__quote {
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-sand);
+  font-family: var(--f-display);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  color: var(--c-espresso);
+}
+.roster__quote footer {
+  margin-top: 8px;
+  font-family: var(--f-body);
+  font-size: var(--t-meta);
+  color: var(--c-taupe);
+}

@@ -1,15 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
-    { "source": "/", "destination": "/Home.dc.html" },
-    { "source": "/ritual", "destination": "/Ritual.dc.html" },
-    { "source": "/menu", "destination": "/Menu.dc.html" },
-    { "source": "/specialists", "destination": "/Specialists.dc.html" },
-    { "source": "/visit", "destination": "/Visit.dc.html" }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
   "headers": [
     {
-      "source": "/vendor/(.*)",
+      "source": "/assets-build/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -18,7 +14,7 @@
       ]
     },
     {
-      "source": "/src/assets/(.*)",
+      "source": "/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

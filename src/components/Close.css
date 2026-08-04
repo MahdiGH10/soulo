@@ -1,0 +1,15 @@
+.close__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.close__lede {
+  margin: 0;
+  max-width: 34rem;
+}
+.close__hours {
+  margin: 0;
+  font-size: var(--t-meta);
+  color: oklch(0.953 0.013 86.8 / 0.6);
+}

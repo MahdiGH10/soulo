@@ -1,0 +1,84 @@
+.srow__wrap {
+  list-style: none;
+  border-top: 1px solid var(--c-sand);
+}
+.srow__wrap:last-child {
+  border-bottom: 1px solid var(--c-sand);
+}
+
+.srow {
+  display: grid;
+  grid-template-columns: minmax(220px, 2.4fr) minmax(110px, 1fr) auto;
+  gap: 18px 28px;
+  align-items: baseline;
+  padding: 28px 12px 28px 0;
+  text-decoration: none;
+  color: var(--c-espresso);
+  transition: background-color var(--d-state) ease;
+}
+.srow:hover {
+  background-color: oklch(0.9 0.02 80.1 / 0.5);
+  color: var(--c-espresso);
+}
+
+.srow__head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.srow__name {
+  font-family: var(--f-display);
+  font-size: var(--t-price);
+}
+.srow__badge {
+  font-size: var(--t-micro);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-moss);
+  border: 1px solid oklch(0.44 0.033 118.5 / 0.45);
+  border-radius: var(--r-pill);
+  padding: 3px 10px;
+}
+.srow__desc {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--t-body-sm);
+  color: var(--c-taupe-deep);
+  max-width: 40ch;
+  line-height: 1.8;
+}
+.srow__dur {
+  font-size: var(--t-meta);
+  color: var(--c-taupe-deep);
+}
+.srow__price {
+  font-family: var(--f-display);
+  font-size: var(--t-price);
+  white-space: nowrap;
+}
+.srow__price--none {
+  font-family: var(--f-body);
+  font-size: var(--t-meta);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-taupe-deep);
+}
+
+/**
+ * The three-column reading order — what it is, how long, what it costs — only
+ * fits above 720px. Below that the name takes the full width and duration and
+ * price share a second line, so the price is never pushed off a phone screen.
+ * clamp() cannot undo a minmax() floor, which is why this is a real query.
+ */
+@media (max-width: 720px) {
+  .srow {
+    grid-template-columns: 1fr auto;
+    gap: 14px 20px;
+    align-items: end;
+    padding-inline-end: 0;
+  }
+  .srow > :nth-child(1) { grid-column: 1 / -1; }
+  .srow > :nth-child(2) { grid-column: 1; }
+  .srow > :nth-child(3) { grid-column: 2; justify-self: end; }
+}

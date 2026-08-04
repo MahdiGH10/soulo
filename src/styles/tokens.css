@@ -1,0 +1,62 @@
+/**
+ * Design tokens. DESIGN.md is the authority for every value in this file;
+ * change it there first, then mirror the change here.
+ */
+
+:root {
+  /* Colour — a single warm neutral ramp, plus one green reserved for status. */
+  --c-ricepaper: oklch(0.953 0.013 86.8);
+  --c-paper-high: oklch(0.972 0.01 86);
+  --c-oat: oklch(0.9 0.02 80.1);
+  --c-sand: oklch(0.816 0.03 77.5);
+  --c-gilt: oklch(0.656 0.033 72);
+  --c-taupe: oklch(0.5 0.026 70); /* 5.25:1 on ricepaper */
+  --c-taupe-deep: oklch(0.52 0.026 68); /* 4.83:1 on ricepaper */
+  --c-ink-mid: oklch(0.4 0.02 68); /* 8.06:1 on ricepaper */
+  --c-walnut: oklch(0.359 0.032 58.9); /* 9.59:1 on ricepaper */
+  --c-espresso: oklch(0.266 0.016 67); /* 13.33:1 on ricepaper */
+  --c-moss: oklch(0.44 0.033 118.5);
+  --c-moss-light: oklch(0.482 0.033 118.5);
+
+  /* Type roles. Every font-size in the app resolves to one of these. */
+  --t-display: clamp(2.75rem, 7vw, 6.25rem);
+  --t-h1: clamp(2.5rem, 6.4vw, 5.25rem);
+  --t-h2: clamp(2rem, 4.2vw, 3.75rem);
+  --t-h3: clamp(1.5rem, 2.4vw, 2.125rem);
+  --t-h4: 1.5rem;
+  --t-lead: clamp(1.25rem, 2vw, 1.625rem);
+  --t-price: 1.375rem;
+  --t-body: 1.0625rem;
+  --t-body-sm: 0.9375rem;
+  --t-meta: 0.8125rem;
+  --t-label: 0.75rem;
+  --t-micro: 0.625rem;
+  --t-menu: clamp(1.75rem, 6vw, 2.5rem);
+  --t-figure: clamp(3rem, 8vw, 6rem);
+  --t-glyph: 2.75rem;
+  --t-arabic: clamp(1.0625rem, 1.6vw, 1.25rem);
+
+  --f-display: "Newsreader", Georgia, serif;
+  --f-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --f-arabic: "IBM Plex Sans Arabic", sans-serif;
+  --f-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Shape: two radii at opposite extremes, nothing between them. */
+  --r-sm: 2px;
+  --r-pill: 999px;
+
+  /* Space */
+  --gutter: clamp(20px, 4vw, 48px);
+  --container: 1320px;
+  --section: clamp(88px, 13vh, 168px);
+  --section-tight: clamp(56px, 9vh, 104px);
+  --header-h: 76px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-split: cubic-bezier(0.16, 0.84, 0.24, 1);
+  --d-state: 500ms;
+  --d-link: 400ms;
+  --d-reveal: 1000ms;
+  --d-wipe: 1400ms;
+}

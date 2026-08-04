@@ -1,0 +1,42 @@
+.pagehead__title {
+  margin: 20px 0 0;
+  max-width: 18ch;
+}
+.pagehead__lede {
+  margin: 26px 0 0;
+  max-width: 40rem;
+}
+
+.group-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(24px, 4vh, 40px);
+}
+.group-head__name {
+  margin: 0;
+  font-size: var(--t-h3);
+}
+.group-head__note {
+  font-size: var(--t-label);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-taupe);
+}
+
+.included {
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px 40px;
+  max-width: 60rem;
+}
+.included li {
+  border-top: 1px solid var(--c-sand);
+  padding-top: 16px;
+  color: var(--c-taupe-deep);
+  line-height: 1.8;
+}
