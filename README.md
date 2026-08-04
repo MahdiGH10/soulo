@@ -40,6 +40,17 @@ python -m http.server 4173
 
 Then open `http://localhost:4173/Home.dc.html`.
 
+## Deploying
+
+The repo is a plain static site with no build step.  rewrites  to
+, because Vercel serves the root by looking for an  that this project
+deliberately does not have — the Design Canvas naming convention owns the filenames. It also aliases
+, ,  and .
+
+Internal links deliberately stay as relative  paths rather than the clean aliases, so the
+site works identically from a bare local file server and from Vercel. When a real domain is chosen,
+decide the canonical URL set then and add  accordingly.
+
 ## Notable implementation details
 
 - **Two breakpoints only** — 860px collapses the header nav into a full-screen menu; 720px stacks
