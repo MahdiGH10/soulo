@@ -125,7 +125,9 @@ export default function Header({ transparent = false, campaign = "header", lenis
               target="_blank"
               rel="noopener noreferrer"
             >
-              {narrow ? "Book" : "Book on Fresha"} <span aria-hidden="true">↗</span>
+              <span className="hdr__book-full">Book on Fresha</span>
+              <span className="hdr__book-short">Book</span>
+              <span aria-hidden="true">↗</span>
             </a>
             <button
               ref={openBtn}

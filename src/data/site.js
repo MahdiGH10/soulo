@@ -10,6 +10,14 @@ export const site = {
   slogan: "Head, Body & Soul",
   instagram: "https://www.instagram.com/headandco.sa/",
   instagramHandle: "@headandco.sa",
+  tiktok: "https://www.tiktok.com/@headandco.sa",
+  phone: "+966 50 300 5097",
+  phoneHref: "tel:+966503005097",
+  whatsapp: "https://wa.me/966503005097",
+  press: {
+    name: "Arab News",
+    url: "https://www.arabnews.com/node/2624074/lifestyle",
+  },
   address: {
     street: "King Abdulaziz Road",
     district: "Al Mohammadiyyah",

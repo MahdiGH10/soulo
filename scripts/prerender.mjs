@@ -19,6 +19,7 @@ const entry = pathToFileURL(path.join(dist, "server", "entry-server.js")).href;
 const { render, routes } = await import(entry);
 
 const template = fs.readFileSync(path.join(dist, "index.html"), "utf8");
+const siteUrl = (process.env.SITE_URL || "https://soulo-bice.vercel.app").replace(/\/$/, "");
 
 /**
  * The "/" route is written back to dist/index.html, which is also this template.
@@ -58,7 +59,31 @@ for (const url of routes) {
   written++;
 }
 
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${routes
+  .map((url) => {
+    const loc = `${siteUrl}${url === "/" ? "/" : url}`;
+    return `  <url><loc>${loc}</loc></url>`;
+  })
+  .join("\n")}
+</urlset>
+`;
+
+fs.writeFileSync(path.join(dist, "sitemap.xml"), sitemap, "utf8");
+fs.writeFileSync(
+  path.join(dist, "robots.txt"),
+  `User-agent: *
+Allow: /
+
+Sitemap: ${siteUrl}/sitemap.xml
+`,
+  "utf8",
+);
+
 // The server bundle is a build artefact, not something to deploy.
 fs.rmSync(path.join(dist, "server"), { recursive: true, force: true });
 
 console.log(`\n${written} routes prerendered.`);
+console.log("  wrote sitemap.xml");
+console.log("  wrote robots.txt");

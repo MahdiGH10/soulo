@@ -52,8 +52,7 @@ export default function Specialists() {
           </ul>
 
           <Reveal as="p" className="note" style={{ marginTop: 30 }}>
-            [ monograms shown until the portfolio portraits from the Fresha listing are imported.
-            Names, roles and ratings from Fresha, August 2026; review counts are rounded. ]
+            Names, roles and ratings from Fresha, August 2026; review counts are rounded.
           </Reveal>
         </div>
       </section>

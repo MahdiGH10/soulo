@@ -9,6 +9,7 @@ import Specialists from "./pages/Specialists.jsx";
 import Visit from "./pages/Visit.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { usePrefersReducedMotion, useSmoothScroll } from "./hooks/useMotion.js";
+import { site } from "./data/site.js";
 
 const TITLES = {
   "/": "Head & Co. — Head Spa in Jeddah",
@@ -77,6 +78,15 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+      <a
+        className="whatsapp-float"
+        href={site.whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Message Head & Co. on WhatsApp"
+      >
+        WhatsApp
+      </a>
       <Footer campaign={pathname === "/" ? "footer" : `footer-${pathname.slice(1)}`} />
     </>
   );

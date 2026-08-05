@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { site, freshaUrl, mapsUrl, mapsEmbedUrl, isOpenNow } from "../data/site.js";
-import { services, ritualStages, specialists, reviews } from "../data/content.js";
+import { services, ritualStages, specialists, reviews, faqs } from "../data/content.js";
 import Reveal from "../components/Reveal.jsx";
 import Picture from "../components/Picture.jsx";
 import ServiceRow from "../components/ServiceRow.jsx";
@@ -25,8 +25,8 @@ export default function Home() {
             An hour that asks nothing of you.
           </Reveal>
           <Reveal as="p" delay={180} className="hero__lede">
-            A head spa built on hygge, on {site.address.street}. Warm water, unhurried hands, low
-            light, and a room built for stillness.
+            Korean head-spa technique shaped around hygge, on {site.address.street}. Warm water,
+            unhurried hands, low light, and a room built for stillness.
           </Reveal>
 
           <Reveal delay={260} className="hero__actions">
@@ -36,7 +36,20 @@ export default function Home() {
             <Link className="btn btn--ghost" to="/ritual">See the ritual</Link>
           </Reveal>
 
-          <Reveal delay={340} className="hero__proof">
+          <Reveal delay={320} className="hero__premium">
+            <div>
+              <span className="hero__meta-label">Signature ritual</span>
+              <span className="hero__meta-value">Hyggee Spa - SAR 490 - 60 min</span>
+            </div>
+            <div>
+              <span className="hero__stars" aria-label={`${site.rating.value} stars`}>★★★★★</span>
+              <span className="hero__meta-value">
+                {site.rating.value} from {site.rating.count.toLocaleString("en-US")} Fresha reviews
+              </span>
+            </div>
+          </Reveal>
+
+          <Reveal delay={390} className="hero__proof">
             <span>
               <strong className="hero__rating">{site.rating.value}</strong> from{" "}
               {site.rating.count.toLocaleString("en-US")} reviews
@@ -49,6 +62,19 @@ export default function Home() {
 
         <div className="hero__cue" aria-hidden="true">
           Scroll<span />
+        </div>
+      </section>
+
+      <section className="press" aria-label="Press and social proof">
+        <div className="shell press__inner">
+          <Reveal as="p" className="press__item">
+            Featured in{" "}
+            <a href={site.press.url} target="_blank" rel="noopener noreferrer">
+              {site.press.name} â†—
+            </a>
+          </Reveal>
+          <Reveal as="p" delay={80} className="press__item">From Korea to Jeddah</Reveal>
+          <Reveal as="p" delay={140} className="press__item">Instant Fresha booking</Reveal>
         </div>
       </section>
 
@@ -70,6 +96,7 @@ export default function Home() {
 
             <Reveal as="dl" delay={260} className="facts">
               <div><dt>Signature</dt><dd>Hyggee Spa</dd></div>
+              <div><dt>From</dt><dd>SAR 490</dd></div>
               <div><dt>Duration</dt><dd>60 – 90 min</dd></div>
               <div><dt>Guests cared for</dt><dd>{site.rating.count.toLocaleString("en-US")} reviews</dd></div>
             </Reveal>
@@ -147,6 +174,24 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section section--tint">
+        <div className="shell revenue">
+          <div>
+            <Reveal as="p" className="eyebrow">Packages &amp; gifts</Reveal>
+            <Reveal as="h2" delay={80} className="h2">Gift an hour they do not have to plan.</Reveal>
+          </div>
+          <Reveal as="p" delay={140} className="lede revenue__copy">
+            Fresha supports packages and repeat visits. For birthdays, recovery weeks or a quiet
+            evening after work, choose the Hyggee Spa first and let the recipient pick a specialist.
+          </Reveal>
+          <Reveal delay={210}>
+            <a className="btn btn--primary" href={freshaUrl("gift-packages", "packages")} target="_blank" rel="noopener noreferrer">
+              View packages <span aria-hidden="true">↗</span>
+            </a>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ---------- The space ---------- */}
       <section id="space" className="section section--tint">
         <div className="shell">
@@ -167,8 +212,7 @@ export default function Home() {
           </div>
 
           <Reveal as="p" className="note" style={{ marginTop: 30 }}>
-            [ placeholder imagery — to be replaced with the venue photographs from the Fresha and
-            Google listings ]
+            Venue photography from Head &amp; Co.'s public listing.
           </Reveal>
         </div>
       </section>
@@ -200,9 +244,6 @@ export default function Home() {
             ))}
           </ul>
 
-          <Reveal as="p" className="note" style={{ marginTop: 30 }}>
-            [ monograms shown until the portfolio portraits from the Fresha listing are imported ]
-          </Reveal>
           <Reveal as="p" style={{ marginTop: 22 }}>
             <Link className="link" to="/specialists">All nine specialists, and who to ask for ↗</Link>
           </Reveal>
@@ -230,6 +271,23 @@ export default function Home() {
               </Reveal>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="shell faq">
+          <div>
+            <Reveal as="p" className="eyebrow">First Visit FAQ</Reveal>
+            <Reveal as="h2" delay={80} className="h2">Questions guests ask before they book.</Reveal>
+          </div>
+          <div className="faq__list">
+            {faqs.map((item, i) => (
+              <Reveal as="details" key={item.q} delay={i * 70} className="faq__item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -261,6 +319,11 @@ export default function Home() {
                 <p>
                   <a className="link" href={site.instagram} target="_blank" rel="noopener noreferrer">
                     {site.instagramHandle} ↗
+                  </a>
+                </p>
+                <p>
+                  <a className="link" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+                    WhatsApp {site.phone} ↗
                   </a>
                 </p>
               </div>

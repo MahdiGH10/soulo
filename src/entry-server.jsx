@@ -34,6 +34,16 @@ const META = {
   },
 };
 
+const SITE_URL = (process.env.SITE_URL || "https://soulo-bice.vercel.app").replace(/\/$/, "");
+
+const SOCIAL_IMAGES = {
+  "/": "/assets/hero.jpg",
+  "/ritual": "/assets/ritual-water.jpg",
+  "/menu": "/assets/ritual-hands.jpg",
+  "/specialists": "/assets/space-reception.jpg",
+  "/visit": "/assets/space-room.jpg",
+};
+
 /** Only the home page carries the business record, so it is not duplicated. */
 function localBusinessJsonLd() {
   const offers = services
@@ -98,8 +108,21 @@ export function render(url) {
   );
 
   const meta = META[url] ?? META["/"];
+  const canonical = `${SITE_URL}${url === "/" ? "/" : url}`;
+  const image = `${SITE_URL}${SOCIAL_IMAGES[url] ?? SOCIAL_IMAGES["/"]}`;
   const head = [
     `<meta name="robots" content="index, follow" />`,
+    `<link rel="canonical" href="${canonical}" />`,
+    `<meta property="og:type" content="website" />`,
+    `<meta property="og:site_name" content="${esc(site.name)}" />`,
+    `<meta property="og:title" content="${esc(meta.title)}" />`,
+    `<meta property="og:description" content="${esc(meta.description)}" />`,
+    `<meta property="og:url" content="${canonical}" />`,
+    `<meta property="og:image" content="${image}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
+    `<meta name="twitter:title" content="${esc(meta.title)}" />`,
+    `<meta name="twitter:description" content="${esc(meta.description)}" />`,
+    `<meta name="twitter:image" content="${image}" />`,
     url === "/"
       ? `<script type="application/ld+json">${JSON.stringify(localBusinessJsonLd())}</script>`
       : "",

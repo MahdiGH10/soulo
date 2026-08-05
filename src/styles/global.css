@@ -227,3 +227,29 @@ html.lenis {
 .skip:focus {
   left: 16px;
 }
+
+.whatsapp-float {
+  position: fixed;
+  right: max(18px, var(--gutter));
+  bottom: 18px;
+  z-index: 70;
+  min-height: 48px;
+  padding-inline: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-pill);
+  background: var(--c-espresso);
+  color: var(--c-ricepaper);
+  font-size: var(--t-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid oklch(0.953 0.013 86.8 / 0.24);
+  transition: background-color var(--d-state) ease, transform var(--d-state) ease;
+}
+.whatsapp-float:hover {
+  background: var(--c-walnut);
+  color: var(--c-ricepaper);
+  transform: translateY(-2px);
+}

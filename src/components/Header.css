@@ -85,6 +85,9 @@
   gap: 10px;
   flex-shrink: 0;
 }
+.hdr__book-short {
+  display: none;
+}
 
 /* The over-hero header needs a button that reads on photography. */
 .btn--outline {
@@ -124,6 +127,8 @@
 @media (max-width: 860px) {
   .hdr__nav { display: none; }
   .hdr__burger { display: inline-flex; }
+  .hdr__book-full { display: none; }
+  .hdr__book-short { display: inline; }
 }
 
 /* Below this the wordmark, CTA and menu button stop fitting on one row.

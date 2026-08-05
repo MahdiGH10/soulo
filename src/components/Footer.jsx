@@ -25,11 +25,23 @@ export default function Footer({ campaign = "footer" }) {
             {site.address.district}, {site.address.city}
           </p>
           <p style={{ margin: "12px 0 0" }}>{site.hours.label}</p>
+          <p style={{ margin: "12px 0 0" }}>
+            <a className="link" href={site.phoneHref}>{site.phone}</a>
+          </p>
         </div>
 
         <div className="ftr__nav">
           <a className="link" href={site.instagram} target="_blank" rel="noopener noreferrer">
             Instagram ↗
+          </a>
+          <a className="link" href={site.tiktok} target="_blank" rel="noopener noreferrer">
+            TikTok ↗
+          </a>
+          <a className="link" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+            WhatsApp ↗
+          </a>
+          <a className="link" href={site.press.url} target="_blank" rel="noopener noreferrer">
+            Arab News ↗
           </a>
           <a
             className="link"

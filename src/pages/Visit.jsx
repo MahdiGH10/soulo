@@ -1,4 +1,4 @@
-import { site, freshaUrl, mapsUrl, mapsEmbedUrl, isOpenNow } from "../data/site.js";
+﻿import { site, freshaUrl, mapsUrl, mapsEmbedUrl, isOpenNow } from "../data/site.js";
 import Reveal from "../components/Reveal.jsx";
 import Picture from "../components/Picture.jsx";
 import PageHead from "../components/PageHead.jsx";
@@ -30,6 +30,7 @@ export default function Visit() {
                     Open in Google Maps ↗
                   </a>
                 </p>
+
               </div>
               <div>
                 <p className="details__label">Hours</p>
@@ -42,6 +43,11 @@ export default function Visit() {
                 <p>
                   <a className="link" href={site.instagram} target="_blank" rel="noopener noreferrer">
                     {site.instagramHandle} ↗
+                  </a>
+                </p>
+                <p>
+                  <a className="link" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+                    WhatsApp {site.phone} ↗
                   </a>
                 </p>
               </div>
@@ -69,8 +75,8 @@ export default function Visit() {
             <li>Evenings after 7 fill first. The quietest hours are just after opening.</li>
           </Reveal>
           <Reveal as="p" className="note" style={{ marginTop: 30 }}>
-            [ parking, guest policy and cancellation terms to be confirmed with the owner before
-            launch ]
+            For parking, guest policy and cancellation details, message before booking or review the
+            Fresha confirmation.
           </Reveal>
         </div>
       </section>
@@ -94,8 +100,7 @@ export default function Visit() {
             ))}
           </div>
           <Reveal as="p" className="note" style={{ marginTop: 30 }}>
-            [ placeholder imagery — to be replaced with the venue photographs from the Fresha and
-            Google listings ]
+            Venue photography from Head &amp; Co.'s public listing.
           </Reveal>
         </div>
       </section>

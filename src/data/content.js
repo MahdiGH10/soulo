@@ -56,6 +56,25 @@ export const services = [
   },
 ];
 
+export const faqs = [
+  {
+    q: "Is this a salon wash or a spa treatment?",
+    a: "It is closer to a spa ritual: warm-water scalp cleansing, hand pressure through the head, neck and shoulders, treatment, and a quiet finish.",
+  },
+  {
+    q: "Which service should I choose first?",
+    a: "Start with the Hyggee Spa. It is the 60-minute signature treatment and the clearest way to understand the room, rhythm and technique.",
+  },
+  {
+    q: "Can I add nails or face massage?",
+    a: "Yes. The head ritual can be extended with face massage, and nail services can be booked in the same visit through Fresha.",
+  },
+  {
+    q: "How do I ask a question before booking?",
+    a: "Use WhatsApp for the quickest local reply, or book directly on Fresha for instant confirmation.",
+  },
+];
+
 export const ritualStages = [
   {
     n: "01",
