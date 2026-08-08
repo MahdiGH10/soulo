@@ -93,7 +93,18 @@ export function useReveal(reduced) {
           io.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -6% 0px", threshold: 0.04 },
+      {
+        // The top margin is deliberately enormous. A deep link to #menu, a
+        // scrollbar drag or the End key moves an element from below the
+        // viewport to above it without ever crossing the threshold, and since
+        // both states are ratio 0 the observer reports no change at all: the
+        // element stays at opacity 0 for the rest of the session, including on
+        // the way back up. Extending the root upward makes "already scrolled
+        // past" count as intersecting, which costs nothing and needs no scroll
+        // listener. The bottom margin still gates what is genuinely below.
+        rootMargin: "200000px 0px -6% 0px",
+        threshold: 0.04,
+      },
     );
 
     io.observe(el);

@@ -43,6 +43,9 @@
   color: inherit;
   text-decoration: none;
   flex-shrink: 0;
+  /* The lockup measured 43px, one short of the 44px touch minimum. */
+  min-height: 44px;
+  align-content: center;
 }
 .wordmark__name {
   font-family: var(--f-display);
@@ -91,7 +94,7 @@
 
 /* The over-hero header needs a button that reads on photography. */
 .btn--outline {
-  height: 42px;
+  height: 44px;
   padding-inline: 22px;
   border-color: currentColor;
   color: inherit;

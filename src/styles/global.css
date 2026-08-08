@@ -132,7 +132,7 @@ img {
 }
 
 .btn--primary {
-  height: 42px;
+  height: 44px;
   padding-inline: 22px;
   background: var(--c-espresso);
   color: var(--c-ricepaper);
