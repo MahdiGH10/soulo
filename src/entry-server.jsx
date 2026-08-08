@@ -32,6 +32,12 @@ const META = {
     description:
       "Head & Co. on King Abdulaziz Road, Al Mohammadiyyah, Jeddah. Open every day 2-11 PM. What to expect on a first visit.",
   },
+  "/ar": {
+    title: "هيد آند كو. - سبا الرأس في جدة",
+    description:
+      "سبا للرأس مبني على مفهوم الـ hygge في حي المحمدية بجدة. عناية بفروة الرأس والشعر، وتدليك الوجه، والأظافر. الأحد إلى الجمعة ٢ ظهراً إلى ١١ مساءً، والسبت ١١ صباحاً إلى ٨ مساءً.",
+    lang: "ar",
+  },
 };
 
 const SITE_URL = (process.env.SITE_URL || "https://soulo-bice.vercel.app").replace(/\/$/, "");
@@ -117,6 +123,12 @@ export function render(url) {
   const head = [
     `<meta name="robots" content="index, follow" />`,
     `<link rel="canonical" href="${canonical}" />`,
+    // Both language surfaces point at each other and at a default, so Google
+    // serves the Arabic page to Arabic searchers instead of treating it as a
+    // duplicate of the English one.
+    `<link rel="alternate" hreflang="en" href="${SITE_URL}/" />`,
+    `<link rel="alternate" hreflang="ar" href="${SITE_URL}/ar" />`,
+    `<link rel="alternate" hreflang="x-default" href="${SITE_URL}/" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="${esc(site.name)}" />`,
     `<meta property="og:title" content="${esc(meta.title)}" />`,
@@ -134,7 +146,13 @@ export function render(url) {
     .filter(Boolean)
     .join("\n    ");
 
-  return { html, head, title: esc(meta.title), description: esc(meta.description) };
+  return {
+    html,
+    head,
+    title: esc(meta.title),
+    description: esc(meta.description),
+    lang: meta.lang ?? "en",
+  };
 }
 
 export const routes = Object.keys(META);

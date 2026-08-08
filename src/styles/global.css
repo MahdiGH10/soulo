@@ -279,10 +279,15 @@ html.lenis {
 }
 
 /* Skip link: off-screen until focused. */
+/* Parked above the viewport rather than off to one side. `left: -9999px` is the
+   usual trick and it is wrong in a bidirectional document: in RTL the origin
+   flips, the element extends the scrollable area instead of leaving it, and /ar
+   picked up ten thousand pixels of horizontal scroll. Moving it up cannot create
+   scroll, because negative vertical overflow is not scrollable. */
 .skip {
   position: absolute;
-  left: -9999px;
   top: 12px;
+  inset-inline-start: 16px;
   z-index: 90;
   background: var(--c-espresso);
   color: var(--c-ricepaper);
@@ -290,9 +295,16 @@ html.lenis {
   border-radius: var(--r-pill);
   font-size: var(--t-meta);
   text-decoration: none;
+  transform: translateY(-250%);
+  transition: transform var(--d-state) var(--ease);
 }
 .skip:focus {
-  left: 16px;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .skip {
+    transition: none;
+  }
 }
 
 .whatsapp-float {

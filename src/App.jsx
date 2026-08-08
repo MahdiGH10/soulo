@@ -7,6 +7,7 @@ import Ritual from "./pages/Ritual.jsx";
 import Menu from "./pages/Menu.jsx";
 import Specialists from "./pages/Specialists.jsx";
 import Visit from "./pages/Visit.jsx";
+import Arabic from "./pages/Arabic.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import { usePrefersReducedMotion, useSmoothScroll } from "./hooks/useMotion.js";
 import { site } from "./data/site.js";
@@ -17,6 +18,7 @@ const TITLES = {
   "/menu": "Menu & Prices - Head & Co. Jeddah",
   "/specialists": "Specialists - Head & Co. Jeddah",
   "/visit": "Visit - Head & Co. Jeddah",
+  "/ar": "هيد آند كو. - سبا الرأس في جدة",
 };
 
 const CAMPAIGNS = {
@@ -55,6 +57,17 @@ export default function App() {
   useEffect(() => {
     const title = TITLES[pathname];
     if (title) document.title = title;
+
+    // The prerendered Arabic page ships with lang and dir already on <html>, but
+    // a client-side move between /ar and an English route has to carry them
+    // across too, or the document keeps announcing the wrong language and
+    // scrollbars and text selection stay the wrong way round.
+    // Trailing slash matters: a static host serves this route as "/ar/", so an
+    // exact match against "/ar" silently failed and the document stayed LTR
+    // while its content was RTL.
+    const arabic = pathname.replace(/\/+$/, "") === "/ar";
+    document.documentElement.lang = arabic ? "ar" : "en";
+    document.documentElement.dir = arabic ? "rtl" : "ltr";
   }, [pathname]);
 
   return (
@@ -75,6 +88,7 @@ export default function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/specialists" element={<Specialists />} />
           <Route path="/visit" element={<Visit />} />
+          <Route path="/ar" element={<Arabic />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

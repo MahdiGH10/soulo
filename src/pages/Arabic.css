@@ -1,0 +1,317 @@
+/**
+ * The Arabic surface. Tokens come from DESIGN.md; nothing new is invented here.
+ *
+ * Arabic sets differently from Latin: no capitals to carry emphasis, taller
+ * ascenders and descenders, and letters that join. So line-height runs looser
+ * than the English pages and letter-spacing is never touched. Tracking Arabic
+ * breaks the joins.
+ */
+
+.ar {
+  font-family: var(--f-arabic);
+}
+
+/* The trailing arrow's negative margin is physical, so it has to flip or it
+   punches a hole in the wrong side of every button on this page. */
+.ar .btn > span[aria-hidden="true"] {
+  margin-right: 0;
+  margin-left: -10px;
+}
+.ar .btn:hover > span[aria-hidden="true"] {
+  transform: translate(-2px, -2px);
+}
+
+/* ---------- Type ---------- */
+
+.ar-h1 {
+  margin: 26px 0 0;
+  font-family: var(--f-arabic);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 5.4vw, 4.25rem);
+  line-height: 1.35;
+  max-width: 18ch;
+}
+.ar-h2 {
+  margin: 0;
+  font-family: var(--f-arabic);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1.45;
+}
+.ar-h3 {
+  margin: 0;
+  font-family: var(--f-arabic);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+.ar-eyebrow {
+  margin: 0;
+  font-size: var(--t-meta);
+  color: oklch(0.953 0.013 86.8 / 0.68);
+}
+.ar-lede {
+  margin: 30px 0 0;
+  max-width: 40rem;
+  font-size: var(--t-arabic);
+  line-height: 2.05;
+  color: oklch(0.953 0.013 86.8 / 0.82);
+}
+.ar-body {
+  margin: 22px 0 0;
+  max-width: 44rem;
+  font-size: var(--t-arabic);
+  line-height: 2.05;
+  color: var(--c-taupe-deep);
+}
+.ar-body--sm {
+  font-size: var(--t-body-sm);
+  line-height: 1.95;
+}
+.ar-label {
+  margin: 0;
+  font-size: var(--t-micro);
+  text-transform: uppercase;
+  color: var(--c-taupe);
+}
+.ar-note {
+  margin-top: 34px;
+}
+
+/* ---------- Hero ---------- */
+
+.ar-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--c-espresso);
+}
+.ar-hero__media {
+  position: absolute;
+  inset: 0;
+}
+.ar-hero__media picture,
+.ar-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.ar-hero__media img {
+  opacity: 0.92;
+  animation: hc-breathe 26s ease-in-out infinite alternate;
+}
+.ar-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    var(--c-espresso) 2%,
+    oklch(0.266 0.016 67 / 0.62) 42%,
+    oklch(0.266 0.016 67 / 0.2) 100%
+  );
+}
+.ar-hero__body {
+  position: relative;
+  z-index: 10;
+  padding-top: 172px;
+  padding-bottom: clamp(48px, 7vh, 88px);
+  color: var(--c-ricepaper);
+}
+.ar-actions {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+.ar-proof {
+  margin-top: clamp(40px, 6vh, 68px);
+  padding-top: 22px;
+  border-top: 1px solid oklch(0.953 0.013 86.8 / 0.16);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px clamp(20px, 4vw, 48px);
+  font-size: var(--t-body-sm);
+  color: oklch(0.953 0.013 86.8 / 0.72);
+}
+.ar-proof strong {
+  font-weight: 400;
+  font-size: var(--t-h4);
+  color: var(--c-ricepaper);
+}
+.ar-open {
+  color: var(--c-moss-light);
+}
+.ar-open::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-inline-end: 9px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: currentColor;
+  animation: open-pulse 2.6s ease-in-out infinite;
+}
+
+/* ---------- Stages ---------- */
+
+.ar-stages {
+  list-style: none;
+  margin: clamp(40px, 6vh, 68px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(24px, 3vw, 44px);
+}
+.ar-stage {
+  border-top: 1px solid var(--c-sand);
+  padding-top: 22px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 14px;
+}
+.ar-stage__n {
+  font-size: var(--t-body-sm);
+  color: var(--c-gilt);
+}
+
+/* ---------- Price rows ---------- */
+
+.ar-rows {
+  list-style: none;
+  margin: clamp(36px, 5vh, 60px) 0 0;
+  padding: 0;
+}
+.ar-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: baseline;
+  gap: 10px clamp(20px, 3vw, 44px);
+  padding-block: 26px;
+  border-bottom: 1px solid var(--c-sand);
+  transition: border-color var(--d-state) var(--ease);
+}
+.ar-row:hover {
+  border-color: var(--c-gilt);
+}
+.ar-row__name {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: var(--t-price);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ar-badge {
+  font-family: var(--f-arabic);
+  font-size: var(--t-micro);
+  color: var(--c-moss);
+  border: 1px solid oklch(0.44 0.033 118.5 / 0.45);
+  border-radius: var(--r-pill);
+  padding: 3px 12px;
+}
+.ar-row__desc {
+  margin: 10px 0 0;
+  font-size: var(--t-body-sm);
+  line-height: 1.9;
+  color: var(--c-taupe-deep);
+  max-width: 44ch;
+}
+.ar-row__dur {
+  font-size: var(--t-meta);
+  color: var(--c-taupe-deep);
+  white-space: nowrap;
+}
+.ar-row__price {
+  font-family: var(--f-arabic);
+  font-size: var(--t-price);
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--c-espresso);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+.ar-row__price:hover {
+  color: var(--c-walnut);
+}
+
+/* The three columns cannot hold on a phone. Same 720px stack point the English
+   service rows use, so the two never disagree about where a row breaks. */
+@media (max-width: 720px) {
+  .ar-row {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+  .ar-row__main {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Quote, FAQ, visit, close ---------- */
+
+.ar-quote {
+  margin-top: clamp(32px, 5vh, 56px);
+  border-top: 1px solid var(--c-sand);
+  padding-top: 26px;
+  max-width: 46rem;
+}
+.ar-quote blockquote {
+  margin: 0;
+  font-size: var(--t-arabic);
+  line-height: 1.95;
+}
+.ar-credit {
+  margin: 16px 0 0;
+  font-size: var(--t-meta);
+  color: var(--c-taupe);
+}
+
+.ar-faq {
+  margin-top: clamp(32px, 5vh, 56px);
+  border-top: 1px solid var(--c-sand);
+  max-width: 52rem;
+}
+.ar-faq__item {
+  border-bottom: 1px solid var(--c-sand);
+  padding-block: 22px;
+}
+.ar-faq__item summary {
+  cursor: pointer;
+  list-style: none;
+}
+.ar-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.ar-visit {
+  margin-top: clamp(32px, 5vh, 56px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(28px, 4vw, 56px);
+}
+.ar-visit .ar-body {
+  margin-top: 12px;
+  font-size: var(--t-body-sm);
+}
+
+.ar-close {
+  background: var(--c-espresso);
+  color: var(--c-ricepaper);
+  padding-block: var(--section);
+  text-align: center;
+}
+.ar-close .ar-body {
+  color: oklch(0.953 0.013 86.8 / 0.78);
+  margin-inline: auto;
+}
+.ar-close .btn {
+  margin-top: 34px;
+}

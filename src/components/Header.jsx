@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { site, freshaUrl } from "../data/site.js";
 import { useMediaQuery } from "../hooks/useMotion.js";
 import "./Header.css";
@@ -22,6 +22,9 @@ const OVERLAY_NAV = [{ to: "/", label: "Home" }, ...NAV.slice(0, 2), ...NAV.slic
  * blurred ricepaper once the reader has scrolled past it.
  */
 export default function Header({ transparent = false, campaign = "header", lenisRef }) {
+  // Same trailing-slash normalisation as App: a static host serves "/ar/".
+  const onArabic = useLocation().pathname.replace(/\/+$/, "") === "/ar";
+
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(!transparent);
   const narrow = useMediaQuery("(max-width: 860px)");
@@ -119,6 +122,18 @@ export default function Header({ transparent = false, campaign = "header", lenis
           </nav>
 
           <div className="hdr__actions">
+            {/* Each label is written in the language it switches TO, not in the
+                language you are reading. Someone scanning for their own language
+                finds the word they read, not a label about it. */}
+            {onArabic ? (
+              <Link className="hdr__lang" to="/" lang="en" hrefLang="en">
+                English
+              </Link>
+            ) : (
+              <Link className="hdr__lang" to="/ar" lang="ar" hrefLang="ar">
+                عربي
+              </Link>
+            )}
             <a
               className={`btn ${transparent ? "btn--outline" : "btn--primary"}`}
               href={freshaUrl(campaign)}
@@ -162,6 +177,15 @@ export default function Header({ transparent = false, campaign = "header", lenis
                 {item.label}
               </Link>
             ))}
+            {onArabic ? (
+              <Link to="/" lang="en" hrefLang="en" onClick={() => setOpen(false)}>
+                English
+              </Link>
+            ) : (
+              <Link to="/ar" lang="ar" hrefLang="ar" onClick={() => setOpen(false)}>
+                عربي
+              </Link>
+            )}
             <a
               className="btn btn--invert overlay__cta"
               href={freshaUrl(`menu-overlay-${campaign}`)}

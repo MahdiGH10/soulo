@@ -39,9 +39,15 @@ for (const marker of ["<!--app-html-->", "<!--app-head-->"]) {
 
 let written = 0;
 for (const url of routes) {
-  const { html, head, title, description } = render(url);
+  const { html, head, title, description, lang } = render(url);
 
   const page = template
+    // The Arabic route needs the direction on <html>, not only on the wrapper,
+    // so scrollbars, form controls and text selection all resolve right to left.
+    .replace(
+      /<html[^>]*>/,
+      lang === "ar" ? `<html lang="ar" dir="rtl">` : `<html lang="en">`,
+    )
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`)
     .replace(
       /<meta\s+name="description"[\s\S]*?\/>/,
