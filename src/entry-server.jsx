@@ -75,11 +75,15 @@ function localBusinessJsonLd() {
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-        ],
-        opens: site.hours.opens,
-        closes: site.hours.closes,
+        dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: site.hours.weekday.opens,
+        closes: site.hours.weekday.closes,
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday"],
+        opens: site.hours.saturday.opens,
+        closes: site.hours.saturday.closes,
       },
     ],
     priceRange: site.priceRange,

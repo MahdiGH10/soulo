@@ -27,8 +27,22 @@ export const site = {
     region: "Makkah Province",
   },
   geo: { lat: 21.645069, lng: 39.1120863 },
-  hours: { opens: "14:00", closes: "23:00", label: "Every day, 2 PM to 11 PM" },
+  /**
+   * Saturday is not the same as the rest of the week. Their own Instagram bio
+   * reads "Sunday To Friday: 2:00 PM- 11:00 PM / Saturday: 11:00 PM - 8:00 PM".
+   * The Saturday opening is written as PM there, which cannot be right against
+   * an 8 PM close, so it is recorded as 11 AM. Confirm with the owner.
+   */
+  hours: {
+    weekday: { opens: "14:00", closes: "23:00" },
+    saturday: { opens: "11:00", closes: "20:00" },
+    label: "Sun to Fri, 2 to 11 PM",
+    saturdayLabel: "Sat, 11 AM to 8 PM",
+  },
   rating: { value: "4.9", count: 2231 },
+  /** From their Instagram profile. Their largest audience, and their own line. */
+  social: { followersLabel: "22.7K", tagline: "From Korea to Jeddah" },
+  established: 2024,
   priceRange: "SAR 35-690",
 };
 
@@ -54,8 +68,14 @@ export function freshaUrl(campaign, content) {
   return `${FRESHA_BASE}?${params.toString()}`;
 }
 
-/** Jeddah is UTC+3, open 14:00-23:00 daily. */
+/**
+ * Jeddah is UTC+3 all year. Shift the instant rather than the hour so the day
+ * rolls over correctly, otherwise late-evening UTC reads the wrong weekday and
+ * Saturday's different hours get applied on the wrong day.
+ */
 export function isOpenNow(now = new Date()) {
-  const h = (now.getUTCHours() + 3) % 24;
-  return h >= 14 && h < 23;
+  const local = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+  const isSaturday = local.getUTCDay() === 6;
+  const h = local.getUTCHours();
+  return isSaturday ? h >= 11 && h < 20 : h >= 14 && h < 23;
 }

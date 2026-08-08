@@ -25,6 +25,7 @@ export default function Footer({ campaign = "footer" }) {
             {site.address.district}, {site.address.city}
           </p>
           <p style={{ margin: "12px 0 0" }}>{site.hours.label}</p>
+          <p style={{ margin: "2px 0 0" }}>{site.hours.saturdayLabel}</p>
           <p style={{ margin: "12px 0 0" }}>
             <a className="link" href={site.phoneHref}>{site.phone}</a>
           </p>

@@ -9,7 +9,9 @@ export default function Close({ title, body, href }) {
       <div className="shell close__body">
         <Reveal as="h2" className="h2">{title}</Reveal>
         {body && <Reveal as="p" delay={90} className="lede close__lede">{body}</Reveal>}
-        <Reveal as="p" delay={120} className="close__hours">{site.hours.label}</Reveal>
+        <Reveal as="p" delay={120} className="close__hours">
+          {site.hours.label}. {site.hours.saturdayLabel}.
+        </Reveal>
         <Reveal delay={160}>
           <a className="btn btn--invert" href={href} target="_blank" rel="noopener noreferrer">
             Book on Fresha <span aria-hidden="true">↗</span>

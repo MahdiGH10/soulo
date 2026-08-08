@@ -34,7 +34,11 @@ export default function Visit() {
               </div>
               <div>
                 <p className="details__label">Hours</p>
-                <p className="details__body">Every day<br />2:00 PM - 11:00 PM</p>
+                <p className="details__body">
+                  {site.hours.label}
+                  <br />
+                  {site.hours.saturdayLabel}
+                </p>
                 <p className="details__open">{open ? "Open now" : "Opens at 2:00 PM"}</p>
               </div>
               <div>

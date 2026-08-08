@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { site, freshaUrl, mapsUrl, mapsEmbedUrl, isOpenNow } from "../data/site.js";
-import { services, ritualStages, specialists, reviews, faqs } from "../data/content.js";
+import { services, ritualStages, specialists, wallQuotes, faqs } from "../data/content.js";
 import Reveal from "../components/Reveal.jsx";
 import Picture from "../components/Picture.jsx";
 import ServiceRow from "../components/ServiceRow.jsx";
@@ -69,8 +69,15 @@ export default function Home() {
               {site.press.name} <span aria-hidden="true">↗</span>
             </a>
           </Reveal>
-          <Reveal as="p" delay={80} className="press__item">Open every day until 11 PM</Reveal>
-          <Reveal as="p" delay={140} className="press__item">Instant Fresha booking</Reveal>
+          {/* Their own line, from their Instagram bio. The founder is Korean and
+              posts from Seoul; the Danish word names the room, not the origin.
+              Both are true, so the business's own phrasing wins. */}
+          <Reveal as="p" delay={80} className="press__item">{site.social.tagline}</Reveal>
+          <Reveal as="p" delay={140} className="press__item">
+            <a href={site.instagram} target="_blank" rel="noopener noreferrer">
+              {site.social.followersLabel} on Instagram <span aria-hidden="true">↗</span>
+            </a>
+          </Reveal>
         </div>
       </section>
 
@@ -249,19 +256,31 @@ export default function Home() {
             <span>from {site.rating.count.toLocaleString("en-US")} verified reviews on Fresha</span>
           </Reveal>
 
-          <ul className="quotes">
-            {reviews.map((r, i) => (
-              <Reveal as="li" key={r.id} delay={i * 120} className="quote">
-                <blockquote
-                  className={r.lang === "ar" ? "quote__text quote__text--ar" : "quote__text"}
-                  {...(r.lang === "ar" ? { dir: "rtl", lang: "ar" } : {})}
+          {/* A drifting wall rather than four static cards. 2,231 reviews is a
+              volume claim, and a row that keeps producing new voices carries
+              that better than a grid that resolves once and stops. The list is
+              rendered twice so the loop has no seam; the second pass is hidden
+              from assistive tech. Pauses on hover, and holds still entirely
+              under reduced motion. */}
+          <div className="wall">
+            <ul className="wall__track">
+              {[...wallQuotes, ...wallQuotes].map((r, i) => (
+                <li
+                  key={`${r.id}-${i}`}
+                  className="wall__item"
+                  aria-hidden={i >= wallQuotes.length ? "true" : undefined}
                 >
-                  {r.lang === "ar" ? `«${r.text}»` : `“${r.text}”`}
-                </blockquote>
-                <p className="quote__credit">{r.credit}</p>
-              </Reveal>
-            ))}
-          </ul>
+                  <blockquote
+                    className={r.lang === "ar" ? "quote__text quote__text--ar" : "quote__text"}
+                    {...(r.lang === "ar" ? { dir: "rtl", lang: "ar" } : {})}
+                  >
+                    {r.lang === "ar" ? `«${r.text}»` : `“${r.text}”`}
+                  </blockquote>
+                  <p className="quote__credit">{r.credit}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
@@ -299,7 +318,11 @@ export default function Home() {
               </div>
               <div>
                 <p className="details__label">Hours</p>
-                <p className="details__body">Every day<br />2:00 PM - 11:00 PM</p>
+                <p className="details__body">
+                  {site.hours.label}
+                  <br />
+                  {site.hours.saturdayLabel}
+                </p>
                 <p className="details__open">{open ? "Open now" : "Opens at 2:00 PM"}</p>
                 <p><Link className="link" to="/visit">Before your first visit ↗</Link></p>
               </div>

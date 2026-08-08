@@ -224,3 +224,22 @@ export const reviews = [
     lang: "ar",
   },
 ];
+
+/**
+ * The quote wall needs enough cards to read as a continuous body of opinion
+ * rather than as four testimonials in a row. Guest reviews plus the specialist
+ * quotes, which are the same thing from a different angle: guests naming the
+ * person who looked after them.
+ */
+export const wallQuotes = [
+  ...reviews,
+  ...specialists
+    .filter((s) => s.quote)
+    .map((s) => ({
+      id: `q-${s.id}`,
+      text: s.quote.text,
+      credit: s.quote.credit,
+      lang: /[\u0600-\u06FF]/.test(s.quote.text) ? "ar" : "en",
+      about: s.name,
+    })),
+];
