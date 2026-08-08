@@ -108,11 +108,11 @@ export default function Home() {
           <Reveal delay={120}>
             <Picture
               base="philosophy"
-              alt="Warm tea in a ceramic cup on a wooden tray beside dried botanicals"
+              alt="A specialist lifting a wooden spoon of salt over a ceramic bowl beside the basin"
               className="img--tall"
               sizes="(max-width: 860px) 100vw, 45vw"
             />
-            <p className="caption">Tea, poured before the ritual begins.</p>
+            <p className="caption">Measured out before the ritual begins.</p>
           </Reveal>
         </div>
       </section>
@@ -199,9 +199,9 @@ export default function Home() {
 
           <div className="gallery">
             {[
-              ["space-lanterns", "Fabric lanterns glowing above a timber beam", "Soft lanterns, warm beams"],
-              ["space-reception", "Reception counter with ceramics and woven detail", "Ceramics at reception"],
-              ["space-room", "A treatment room arranged for stillness", "A room built for stillness"],
+              ["space-lanterns", "A doorway signed Amal's Library in Korean and English, with plants and a slatted timber screen", "Amal's Library, one of the rooms"],
+              ["space-reception", "A corridor of treatment rooms, one of them signed Daegu in Korean and English", "The rooms are named after Korean cities"],
+              ["space-room", "Dried botanicals standing in a woven basket on a timber shelf", "Dried botanicals, kept in the room"],
             ].map(([base, alt, caption], i) => (
               <Reveal as="figure" key={base} delay={i * 120} className="gallery__fig">
                 <Picture base={base} alt={alt} className="img--gallery" sizes="(max-width: 720px) 100vw, 33vw" />

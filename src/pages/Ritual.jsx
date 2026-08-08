@@ -33,7 +33,7 @@ export default function Ritual() {
           <Reveal delay={120}>
             <Picture
               base="ritual-water"
-              alt="Warm water poured slowly over the scalp"
+              alt="A folded Head & Co. towel, embroidered with the house mark and Est. 2024"
               className="img--tall"
               sizes="(max-width: 860px) 100vw, 45vw"
             />
@@ -66,7 +66,7 @@ export default function Ritual() {
           <Reveal>
             <Picture
               base="ritual-hands"
-              alt="A specialist working through the scalp by hand"
+              alt="Herbal compress bundles in a woven tray beside ceramic bowls"
               className="img--tall"
               sizes="(max-width: 860px) 100vw, 45vw"
             />
