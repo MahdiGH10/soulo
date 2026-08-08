@@ -230,18 +230,27 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <ul className="team">
-            {featured.map((s, i) => (
-              <Reveal as="li" key={s.id} delay={i * 90} className="team__card">
-                <span className="monogram" aria-hidden="true">{s.name.charAt(0)}</span>
-                <div>
-                  <h3 className="team__name">{s.name}</h3>
-                  <p className="team__role">{s.role}</p>
-                  <p className="team__rating">{s.rating}</p>
-                </div>
-              </Reveal>
-            ))}
-          </ul>
+          {/* The specialists drift too, slower than the quotes so the two are
+              never in step. Duplicated for a seamless loop; the second pass is
+              hidden from assistive tech so names are not announced twice. */}
+          <div className="team-wall">
+            <ul className="team">
+              {[...featured, ...featured].map((s, i) => (
+                <li
+                  key={`${s.id}-${i}`}
+                  className="team__card"
+                  aria-hidden={i >= featured.length ? "true" : undefined}
+                >
+                  <span className="monogram" aria-hidden="true">{s.name.charAt(0)}</span>
+                  <div>
+                    <h3 className="team__name">{s.name}</h3>
+                    <p className="team__role">{s.role}</p>
+                    <p className="team__rating">{s.rating}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <Reveal as="p" style={{ marginTop: 22 }}>
             <Link className="link" to="/specialists">All nine specialists, and who to ask for ↗</Link>

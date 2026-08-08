@@ -433,13 +433,45 @@ picture:has(.img--tall) {
   }
 }
 
+/* Clipped and edge-faded like the quote wall, so specialists arrive and leave
+   rather than popping against a hard boundary. */
+.team-wall {
+  margin-top: clamp(44px, 7vh, 72px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
 .team {
   list-style: none;
-  margin: clamp(44px, 7vh, 72px) 0 0;
+  margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  display: flex;
+  width: max-content;
   gap: clamp(24px, 3vw, 40px);
+  /* 61s: slower than either quote row, and coprime with both, so the three
+     never fall into step with each other. */
+  animation: wall-drift 61s linear infinite;
+}
+.team:hover,
+.team:focus-within {
+  animation-play-state: paused;
+}
+.team__card {
+  flex: 0 0 clamp(230px, 22vw, 290px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .team-wall {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .team-wall::-webkit-scrollbar {
+    display: none;
+  }
+  .team {
+    animation: none;
+  }
 }
 .team__card {
   display: flex;
@@ -541,11 +573,19 @@ picture:has(.img--tall) {
 
 /* Under reduced motion the wall stops and becomes a normal swipeable row.
    Stillness is the alternative, not a broken carousel. */
+/* Under reduced motion the rows stop and become swipeable instead. The
+   scrollbar is hidden because a visible track under a quote reads as a broken
+   carousel rather than as a deliberate still alternative; the row still scrolls
+   by wheel, touch and keyboard. */
 @media (prefers-reduced-motion: reduce) {
   .wall {
     overflow-x: auto;
+    scrollbar-width: none;
     -webkit-mask-image: none;
     mask-image: none;
+  }
+  .wall::-webkit-scrollbar {
+    display: none;
   }
   .wall__track {
     animation: none;
@@ -679,5 +719,32 @@ picture:has(.img--tall) {
   }
   .revenue {
     align-items: start;
+  }
+}
+
+/* ---------- Ritual: the pulse travels down the six ---------- */
+
+/* Each stage number brightens in turn, so the arc reads as something that
+   proceeds rather than a list that sits. Staggered by position, not random, so
+   the eye is carried from arrive to finish in order. */
+.stage__n {
+  animation: stage-glow 8.4s ease-in-out infinite;
+}
+.stage:nth-child(1) .stage__n { animation-delay: 0s; }
+.stage:nth-child(2) .stage__n { animation-delay: 0.5s; }
+.stage:nth-child(3) .stage__n { animation-delay: 1s; }
+.stage:nth-child(4) .stage__n { animation-delay: 1.5s; }
+.stage:nth-child(5) .stage__n { animation-delay: 2s; }
+.stage:nth-child(6) .stage__n { animation-delay: 2.5s; }
+
+@keyframes stage-glow {
+  0%, 55%, 100% { opacity: 0.4; }
+  16% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage__n {
+    animation: none;
+    opacity: 1;
   }
 }

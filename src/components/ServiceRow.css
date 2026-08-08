@@ -85,3 +85,22 @@
   .srow > :nth-child(2) { grid-column: 1; }
   .srow > :nth-child(3) { grid-column: 2; justify-self: end; }
 }
+
+/* The row lifts under the cursor and its hairline warms. Small, but it turns a
+   price list into something that answers when you touch it. */
+.srow__wrap {
+  transition: transform var(--d-state) var(--ease), border-color var(--d-state) var(--ease);
+}
+.srow__wrap:hover {
+  transform: translateX(6px);
+  border-color: var(--c-gilt);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .srow__wrap {
+    transition: none;
+  }
+  .srow__wrap:hover {
+    transform: none;
+  }
+}
