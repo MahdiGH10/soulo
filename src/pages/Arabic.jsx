@@ -99,7 +99,7 @@ export default function Arabic() {
         </div>
       </section>
 
-      <section className="section">
+      <section id="about" className="section">
         <div className="shell">
           <Reveal as="h2" className="ar-h2">ما هو الـ head spa؟</Reveal>
           <Reveal as="p" delay={80} className="ar-body">
@@ -124,7 +124,7 @@ export default function Arabic() {
         </div>
       </section>
 
-      <section className="section section--tint">
+      <section id="prices" className="section section--tint">
         <div className="shell">
           <Reveal as="h2" className="ar-h2">الأسعار</Reveal>
           <Reveal as="p" delay={70} className="ar-body ar-body--sm">
@@ -160,7 +160,7 @@ export default function Arabic() {
         </div>
       </section>
 
-      <section className="section">
+      <section id="team" className="section">
         <div className="shell">
           <Reveal as="h2" className="ar-h2">الأخصائيات</Reveal>
           <Reveal as="p" delay={70} className="ar-body">
@@ -188,7 +188,7 @@ export default function Arabic() {
         </div>
       </section>
 
-      <section className="section">
+      <section id="visit" className="section">
         <div className="shell">
           <Reveal as="h2" className="ar-h2">الزيارة</Reveal>
           <Reveal delay={80} className="ar-visit">

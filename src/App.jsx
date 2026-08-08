@@ -54,6 +54,11 @@ export default function App() {
   const reduced = usePrefersReducedMotion();
   const lenisRef = useSmoothScroll(!reduced);
 
+  // Trailing slash matters: a static host serves this route as "/ar/", so an
+  // exact match against "/ar" silently failed and the document stayed LTR while
+  // its content was RTL.
+  const onArabic = pathname.replace(/\/+$/, "") === "/ar";
+
   useEffect(() => {
     const title = TITLES[pathname];
     if (title) document.title = title;
@@ -62,18 +67,14 @@ export default function App() {
     // a client-side move between /ar and an English route has to carry them
     // across too, or the document keeps announcing the wrong language and
     // scrollbars and text selection stay the wrong way round.
-    // Trailing slash matters: a static host serves this route as "/ar/", so an
-    // exact match against "/ar" silently failed and the document stayed LTR
-    // while its content was RTL.
-    const arabic = pathname.replace(/\/+$/, "") === "/ar";
-    document.documentElement.lang = arabic ? "ar" : "en";
-    document.documentElement.dir = arabic ? "rtl" : "ltr";
-  }, [pathname]);
+    document.documentElement.lang = onArabic ? "ar" : "en";
+    document.documentElement.dir = onArabic ? "rtl" : "ltr";
+  }, [pathname, onArabic]);
 
   return (
     <>
-      <a className="skip" href="#content">
-        Skip to content
+      <a className="skip" href="#content" lang={onArabic ? "ar" : undefined}>
+        {onArabic ? "تخطَّ إلى المحتوى" : "Skip to content"}
       </a>
       <ScrollToTop lenisRef={lenisRef} />
       <Header

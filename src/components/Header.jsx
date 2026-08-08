@@ -15,6 +15,24 @@ const NAV = [
 const OVERLAY_NAV = [{ to: "/", label: "Home" }, ...NAV.slice(0, 2), ...NAV.slice(3)];
 
 /**
+ * The Arabic surface is one page, so its nav is anchors into that page rather
+ * than links to the English routes. Translating the labels but pointing them at
+ * /ritual and /menu would hand an Arabic reader a menu that drops them back into
+ * English, which is worse than leaving the labels in English.
+ */
+const NAV_AR = [
+  { to: "/ar#about", label: "ما هو" },
+  { to: "/ar#prices", label: "الأسعار" },
+  { to: "/ar#team", label: "الأخصائيات" },
+  { to: "/ar#visit", label: "الزيارة" },
+];
+
+const COPY = {
+  en: { book: "Book on Fresha", bookShort: "Book", home: "Home", menu: "Menu", close: "Close menu", open: "Open menu" },
+  ar: { book: "احجز على Fresha", bookShort: "احجز", home: "الرئيسية", menu: "القائمة", close: "إغلاق القائمة", open: "فتح القائمة" },
+};
+
+/**
  * One 76px row at every width. Below 860px the inline nav gives way to the menu
  * button and a full-screen overlay, so the header never wraps to three rows.
  *
@@ -24,6 +42,11 @@ const OVERLAY_NAV = [{ to: "/", label: "Home" }, ...NAV.slice(0, 2), ...NAV.slic
 export default function Header({ transparent = false, campaign = "header", lenisRef }) {
   // Same trailing-slash normalisation as App: a static host serves "/ar/".
   const onArabic = useLocation().pathname.replace(/\/+$/, "") === "/ar";
+  const t = onArabic ? COPY.ar : COPY.en;
+  const nav = onArabic ? NAV_AR : NAV;
+  const overlayNav = onArabic
+    ? [{ to: "/ar", label: t.home }, ...NAV_AR]
+    : OVERLAY_NAV;
 
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(!transparent);
@@ -88,7 +111,9 @@ export default function Header({ transparent = false, campaign = "header", lenis
 
   const wordmark = (
     <>
-      <span className="wordmark__name">{site.name}</span>
+      {/* dir="ltr" or the bidi algorithm moves the trailing period of "Head & Co."
+          to the front inside the RTL page, rendering the brand as ".Head & Co". */}
+      <span className="wordmark__name" dir="ltr">{site.name}</span>
       <span className="wordmark__locality">{site.locality}</span>
     </>
   );
@@ -99,12 +124,14 @@ export default function Header({ transparent = false, campaign = "header", lenis
         className={`hdr ${transparent ? "hdr--over" : "hdr--solid"} ${solid ? "is-solid" : ""}`}
       >
         <div className="hdr__inner shell">
-          <Link to="/" className="wordmark">
+          {/* Home means the Arabic home when you are reading Arabic. Sending the
+              wordmark to "/" would drop the reader back into English. */}
+          <Link to={onArabic ? "/ar" : "/"} className="wordmark">
             {wordmark}
           </Link>
 
-          <nav className="hdr__nav" aria-label="Primary">
-            {NAV.map((item) =>
+          <nav className="hdr__nav" aria-label="Primary" lang={onArabic ? "ar" : undefined}>
+            {nav.map((item) =>
               item.to.includes("#") ? (
                 <Link key={item.to} to={item.to}>
                   {item.label}
@@ -140,15 +167,15 @@ export default function Header({ transparent = false, campaign = "header", lenis
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span className="hdr__book-full">Book on Fresha</span>
-              <span className="hdr__book-short">Book</span>
+              <span className="hdr__book-full">{t.book}</span>
+              <span className="hdr__book-short">{t.bookShort}</span>
               <span aria-hidden="true">↗</span>
             </a>
             <button
               ref={openBtn}
               type="button"
               className="hdr__burger"
-              aria-label="Open menu"
+              aria-label={t.open}
               aria-expanded={open}
               onClick={() => setOpen(true)}
             >
@@ -159,20 +186,28 @@ export default function Header({ transparent = false, campaign = "header", lenis
       </header>
 
       {open && (
-        <div ref={overlay} className="overlay" role="dialog" aria-modal="true" aria-label="Menu">
+        <div
+          ref={overlay}
+          className="overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t.menu}
+          lang={onArabic ? "ar" : undefined}
+          dir={onArabic ? "rtl" : undefined}
+        >
           <div className="overlay__top shell">
-            <span className="wordmark__name">{site.name}</span>
+            <span className="wordmark__name" dir="ltr">{site.name}</span>
             <button
               type="button"
               className="overlay__close"
-              aria-label="Close menu"
+              aria-label={t.close}
               onClick={() => setOpen(false)}
             >
               ✕
             </button>
           </div>
-          <nav className="overlay__nav shell" aria-label="Menu">
-            {OVERLAY_NAV.map((item) => (
+          <nav className="overlay__nav shell" aria-label={t.menu}>
+            {overlayNav.map((item) => (
               <Link key={item.to} to={item.to} onClick={() => setOpen(false)}>
                 {item.label}
               </Link>
@@ -192,7 +227,7 @@ export default function Header({ transparent = false, campaign = "header", lenis
               target="_blank"
               rel="noopener noreferrer"
             >
-              Book on Fresha <span aria-hidden="true">↗</span>
+              {t.book} <span aria-hidden="true">↗</span>
             </a>
           </nav>
         </div>

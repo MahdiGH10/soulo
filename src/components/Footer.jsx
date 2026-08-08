@@ -1,21 +1,59 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { site, freshaUrl } from "../data/site.js";
 import "./Footer.css";
 
+/**
+ * On /ar the footer nav points into the Arabic page's own sections rather than
+ * at the English routes, for the same reason the header's does: a translated
+ * label that lands you back in English is worse than an untranslated one.
+ */
+const NAV = {
+  en: [
+    ["/ritual", "The Ritual"],
+    ["/menu", "Menu & Prices"],
+    ["/specialists", "Specialists"],
+    ["/visit", "Visit"],
+  ],
+  ar: [
+    ["/ar#about", "ما هو"],
+    ["/ar#prices", "الأسعار"],
+    ["/ar#team", "الأخصائيات"],
+    ["/ar#visit", "الزيارة"],
+  ],
+};
+
+const COPY = {
+  en: {
+    nav: "Footer",
+    book: "Book on Fresha",
+    legal: "Bookings handled by Fresha. Ratings and reviews shown as published there.",
+  },
+  ar: {
+    nav: "تذييل",
+    book: "احجز على Fresha",
+    legal: "الحجز يتم عبر Fresha. التقييمات والمراجعات معروضة كما هي منشورة هناك.",
+  },
+};
+
 export default function Footer({ campaign = "footer" }) {
+  const onArabic = useLocation().pathname.replace(/\/+$/, "") === "/ar";
+  const lang = onArabic ? "ar" : "en";
+  const t = COPY[lang];
+
   return (
-    <footer className="ftr">
+    <footer className="ftr" lang={onArabic ? "ar" : undefined} dir={onArabic ? "rtl" : undefined}>
       <div className="shell ftr__grid">
         <div>
-          <p className="ftr__mark">{site.name}</p>
+          <p className="ftr__mark" dir="ltr">{site.name}</p>
           <p className="ftr__slogan">{site.slogan}</p>
         </div>
 
-        <nav className="ftr__nav" aria-label="Footer">
-          <Link className="link" to="/ritual">The Ritual</Link>
-          <Link className="link" to="/menu">Menu &amp; Prices</Link>
-          <Link className="link" to="/specialists">Specialists</Link>
-          <Link className="link" to="/visit">Visit</Link>
+        <nav className="ftr__nav" aria-label={t.nav}>
+          {NAV[lang].map(([to, label]) => (
+            <Link key={to} className="link" to={to}>
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <div className="ftr__col">
@@ -50,15 +88,13 @@ export default function Footer({ campaign = "footer" }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Book on Fresha ↗
+            {t.book} ↗
           </a>
         </div>
       </div>
 
       <div className="shell ftr__legal">
-        <p style={{ margin: 0 }}>
-          Bookings handled by Fresha. Ratings and reviews shown as published there.
-        </p>
+        <p style={{ margin: 0 }}>{t.legal}</p>
         <p style={{ margin: 0 }}>© 2026 {site.name}, {site.locality}</p>
       </div>
     </footer>
