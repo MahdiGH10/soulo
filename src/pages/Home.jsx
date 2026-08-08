@@ -3,6 +3,7 @@ import { site, freshaUrl, mapsUrl, mapsEmbedUrl, isOpenNow } from "../data/site.
 import { services, ritualStages, specialists, wallQuotes, faqs } from "../data/content.js";
 import Reveal from "../components/Reveal.jsx";
 import Picture from "../components/Picture.jsx";
+import CountUp from "../components/CountUp.jsx";
 import ServiceRow from "../components/ServiceRow.jsx";
 import "./Home.css";
 
@@ -252,8 +253,15 @@ export default function Home() {
       <section className="section section--dark">
         <div className="shell">
           <Reveal className="rating">
-            <span className="rating__figure">{site.rating.value}</span>
-            <span>from {site.rating.count.toLocaleString("en-US")} verified reviews on Fresha</span>
+            <CountUp value={Number(site.rating.value)} decimals={1} className="rating__figure">
+              {site.rating.value}
+            </CountUp>
+            <span>
+              from <CountUp value={site.rating.count}>
+                {site.rating.count.toLocaleString("en-US")}
+              </CountUp>{" "}
+              verified reviews on Fresha
+            </span>
           </Reveal>
 
           {/* A drifting wall rather than four static cards. 2,231 reviews is a

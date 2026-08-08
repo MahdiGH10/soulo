@@ -220,6 +220,23 @@ img {
   filter: none;
 }
 
+/* Display type gets a longer, heavier entrance than body copy: further to
+   travel, more defocus to resolve out of, and a slower curve. Large type
+   settling into place is what separates typeset from placed.
+ *
+ * Do NOT clip-path the revealed element to get a mask effect. clip-path shrinks
+ * the element's intersection rectangle to nothing, so IntersectionObserver never
+ * reports it as visible, it never receives reveal--in, and the heading clips
+ * itself into permanent invisibility. A mask needs a wrapper the observer can
+ * still see. */
+h1.reveal,
+h2.reveal {
+  transform: translateY(44px);
+  filter: blur(6px);
+  transition: opacity 1200ms var(--ease-split), transform 1200ms var(--ease-split),
+    filter 1200ms var(--ease-split);
+}
+
 @keyframes hc-breathe {
   0% { transform: scale(1.06) translate3d(0, 0, 0); }
   100% { transform: scale(1.16) translate3d(0, -1.5%, 0); }

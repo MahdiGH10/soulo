@@ -336,10 +336,14 @@
   border: 1px solid var(--c-sand);
   border-radius: var(--r-sm);
 }
+/* The picture clips so the photograph can move inside its mat without spilling
+   over the frame. */
 .gallery__fig picture {
   display: block;
   flex: 1;
   min-height: 0;
+  overflow: hidden;
+  border-radius: var(--r-sm);
 }
 .gallery__fig img {
   width: 100%;
@@ -347,6 +351,19 @@
   min-height: 240px;
   object-fit: cover;
   border-radius: var(--r-sm);
+  transition: transform 1200ms var(--ease);
+}
+/* A slow push in, not a snap. The photograph settles rather than reacting. */
+.gallery__fig:hover img {
+  transform: scale(1.045);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery__fig img {
+    transition: none;
+  }
+  .gallery__fig:hover img {
+    transform: none;
+  }
 }
 .gallery__fig .caption {
   margin: 12px 4px 2px;

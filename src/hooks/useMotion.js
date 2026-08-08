@@ -70,6 +70,56 @@ export function useSmoothScroll(enabled) {
 }
 
 /**
+ * Counts a figure up the first time it enters view. A number that is simply
+ * printed reads as decoration; one that climbs and settles reads as a
+ * measurement, which is the claim 2,231 reviews is actually making.
+ *
+ * The real value is rendered in JSX, so the prerendered HTML and every crawler
+ * always see the true figure. This only mutates after mount, and only once the
+ * element is on screen, so nothing is ever seen resetting to zero.
+ */
+export function useCountUp(target, { reduced = false, decimals = 0, duration = 1600 } = {}) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced) return undefined;
+
+    const format = (n) =>
+      decimals > 0
+        ? n.toFixed(decimals)
+        : Math.round(n).toLocaleString("en-US");
+
+    let raf = 0;
+    let startedAt = 0;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        const step = (t) => {
+          if (!startedAt) startedAt = t;
+          const p = Math.min((t - startedAt) / duration, 1);
+          // easeOutCubic: quick off the mark, then settling, the way a reading lands.
+          el.textContent = format(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+      },
+      { threshold: 0.4 },
+    );
+
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [target, reduced, decimals, duration]);
+
+  return ref;
+}
+
+/**
  * Adds the reveal class when an element first enters view. Under reduced motion
  * the element is marked revealed immediately — never left stranded at opacity 0.
  */
