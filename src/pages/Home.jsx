@@ -270,24 +270,34 @@ export default function Home() {
               rendered twice so the loop has no seam; the second pass is hidden
               from assistive tech. Pauses on hover, and holds still entirely
               under reduced motion. */}
+          {/* Two rows travelling against each other at different speeds. One row
+              alone reads as a slider; two in opposition read as a room full of
+              people talking, which is what 2,231 reviews actually is. Each row
+              is rendered twice so its loop has no seam, and the duplicate pass
+              is hidden from assistive tech. */}
           <div className="wall">
-            <ul className="wall__track">
-              {[...wallQuotes, ...wallQuotes].map((r, i) => (
-                <li
-                  key={`${r.id}-${i}`}
-                  className="wall__item"
-                  aria-hidden={i >= wallQuotes.length ? "true" : undefined}
-                >
-                  <blockquote
-                    className={r.lang === "ar" ? "quote__text quote__text--ar" : "quote__text"}
-                    {...(r.lang === "ar" ? { dir: "rtl", lang: "ar" } : {})}
+            {[wallQuotes.slice(0, 4), wallQuotes.slice(4)].map((row, rowIndex) => (
+              <ul
+                key={rowIndex}
+                className={rowIndex === 1 ? "wall__track wall__track--back" : "wall__track"}
+              >
+                {[...row, ...row].map((r, i) => (
+                  <li
+                    key={`${r.id}-${i}`}
+                    className="wall__item"
+                    aria-hidden={i >= row.length ? "true" : undefined}
                   >
-                    {r.lang === "ar" ? `«${r.text}»` : `“${r.text}”`}
-                  </blockquote>
-                  <p className="quote__credit">{r.credit}</p>
-                </li>
-              ))}
-            </ul>
+                    <blockquote
+                      className={r.lang === "ar" ? "quote__text quote__text--ar" : "quote__text"}
+                      {...(r.lang === "ar" ? { dir: "rtl", lang: "ar" } : {})}
+                    >
+                      {r.lang === "ar" ? `«${r.text}»` : `“${r.text}”`}
+                    </blockquote>
+                    <p className="quote__credit">{r.credit}</p>
+                  </li>
+                ))}
+              </ul>
+            ))}
           </div>
         </div>
       </section>

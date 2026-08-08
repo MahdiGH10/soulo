@@ -108,6 +108,30 @@
 }
 /* "Open now" is live state, so it gets the one green in the system. Everything
    else in this strip is static fact and stays in the neutral ramp. */
+/* A pulsing dot, but only here. The taste skill bans decorative status dots and
+   is right to: this one conveys real state, computed from the clock in Jeddah,
+   and it is the only one on the page. */
+.hero__open::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 9px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: currentColor;
+  animation: open-pulse 2.6s ease-in-out infinite;
+}
+@keyframes open-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__open::before {
+    animation: none;
+  }
+}
+
 .hero__open {
   color: var(--c-moss-light);
 }
@@ -191,12 +215,28 @@
   color: var(--c-taupe-deep);
 }
 
+/* The <picture> has to clip, or a scaled image spills past its own frame. */
+picture:has(.img--tall) {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--r-sm);
+}
+
 .img--tall {
   width: 100%;
   height: clamp(380px, 62vh, 680px);
   object-fit: cover;
   display: block;
   border-radius: var(--r-sm);
+  /* Off the gallery's clock again, so no two photographs on the page are ever
+     doing the same thing at the same moment. */
+  animation: fig-breathe 37s ease-in-out infinite alternate;
+  animation-delay: -11s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .img--tall {
+    animation: none;
+  }
 }
 .img--gallery {
   width: 100%;
@@ -345,24 +385,39 @@
   overflow: hidden;
   border-radius: var(--r-sm);
 }
+/* Each photograph breathes on its own clock. The durations are deliberately
+   coprime and the delays negative, so the three are already out of phase on
+   load and never resynchronise. Three images pulsing together would read as a
+   mechanism; out of phase it reads as a room with air in it. */
 .gallery__fig img {
   width: 100%;
   height: 100%;
   min-height: 240px;
   object-fit: cover;
   border-radius: var(--r-sm);
-  transition: transform 1200ms var(--ease);
+  animation: fig-breathe 23s ease-in-out infinite alternate;
 }
-/* A slow push in, not a snap. The photograph settles rather than reacting. */
+.gallery__fig:nth-child(2) img {
+  animation-duration: 31s;
+  animation-delay: -7s;
+}
+.gallery__fig:nth-child(3) img {
+  animation-duration: 27s;
+  animation-delay: -15s;
+}
+/* Hovering holds the frame still, so a guest can actually look at it. */
 .gallery__fig:hover img {
-  transform: scale(1.045);
+  animation-play-state: paused;
 }
+
+@keyframes fig-breathe {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .gallery__fig img {
-    transition: none;
-  }
-  .gallery__fig:hover img {
-    transform: none;
+    animation: none;
   }
 }
 .gallery__fig .caption {
@@ -453,8 +508,17 @@
   gap: clamp(28px, 3.4vw, 52px);
   /* linear is correct here and is the one place it is. Any easing curve on a
      continuous loop visibly stutters each time it wraps. */
-  animation: wall-drift 72s linear infinite;
+  animation: wall-drift 34s linear infinite;
 }
+
+/* The second row travels the other way and slower. Matching speeds would read
+   as one block sliding; the mismatch is what makes it feel like a room. */
+.wall__track--back {
+  margin-top: clamp(22px, 2.6vw, 40px);
+  animation-name: wall-drift-back;
+  animation-duration: 47s;
+}
+
 .wall:hover .wall__track,
 .wall:focus-within .wall__track {
   animation-play-state: paused;
@@ -469,6 +533,10 @@
 @keyframes wall-drift {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes wall-drift-back {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
 }
 
 /* Under reduced motion the wall stops and becomes a normal swipeable row.
