@@ -11,7 +11,7 @@ export default function Specialists() {
       <PageHead
         eyebrow="Specialists"
         title="The hands you can ask for"
-        lede="Nine specialists you can book by name, and Rana at reception. Guests name them unprompted in their reviews — if you find hands that suit you, request them again. Most do, and it makes a difference."
+        lede="Nine specialists you can book by name, and Rana at reception. Guests name them unprompted in their reviews. If you find hands that suit you, request them again. Most do, and it makes a difference."
       />
 
       <section className="section section--tight">
@@ -65,7 +65,7 @@ export default function Specialists() {
           <div>
             <Reveal as="p" className="lede">
               Choose your specialist while booking, or leave it open and we will match you to
-              whoever is free. Regular guests almost always return to the same person — pressure and
+              whoever is free. Regular guests almost always return to the same person. Pressure and
               pace are personal, and a specialist who already knows yours starts from a better
               place.
             </Reveal>

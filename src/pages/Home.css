@@ -86,6 +86,7 @@
   margin-top: 6px;
   font-family: var(--f-display);
   font-size: var(--t-price);
+  font-variant-numeric: tabular-nums;
   color: var(--c-ricepaper);
 }
 .hero__stars {
@@ -105,31 +106,10 @@
   font-size: var(--t-meta);
   color: oklch(0.953 0.013 86.8 / 0.72);
 }
-.hero__rating {
-  font-family: var(--f-display);
-  font-weight: 400;
-  font-size: var(--t-h4);
-  color: var(--c-ricepaper);
-}
-.hero__cue {
-  position: absolute;
-  bottom: 34px;
-  right: var(--gutter);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: var(--t-micro);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: oklch(0.953 0.013 86.8 / 0.55);
-  animation: hc-drift 4.5s ease-in-out infinite;
-}
-.hero__cue > span {
-  display: block;
-  width: 1px;
-  height: 54px;
-  background: oklch(0.953 0.013 86.8 / 0.4);
+/* "Open now" is live state, so it gets the one green in the system. Everything
+   else in this strip is static fact and stays in the neutral ramp. */
+.hero__open {
+  color: var(--c-moss-light);
 }
 
 .press {

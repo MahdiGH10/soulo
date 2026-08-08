@@ -8,29 +8,29 @@ import { services } from "./data/content.js";
 
 const META = {
   "/": {
-    title: "Head & Co. — Head Spa in Jeddah",
+    title: "Head & Co. - Head Spa in Jeddah",
     description:
-      "A head spa built on hygge in Al Mohammadiyyah, Jeddah. Scalp and hair rituals, facial massage and nail care. Open every day, 2–11 PM.",
+      "A head spa built on hygge in Al Mohammadiyyah, Jeddah. Scalp and hair rituals, facial massage and nail care. Open every day, 2-11 PM.",
   },
   "/ritual": {
-    title: "The Hyggee Spa — Head & Co. Jeddah",
+    title: "The Hyggee Spa - Head & Co. Jeddah",
     description:
       "One hour of scalp and hair care in six stages: arrive, consult, cleanse, release, restore, finish. What a head spa is, and how to extend it.",
   },
   "/menu": {
-    title: "Menu & Prices — Head & Co. Jeddah",
+    title: "Menu & Prices - Head & Co. Jeddah",
     description:
       "Head spa and nail services with prices as published on Fresha. Hyggee Spa from SAR 490, manicure and pedicure from SAR 280.",
   },
   "/specialists": {
-    title: "Specialists — Head & Co. Jeddah",
+    title: "Specialists - Head & Co. Jeddah",
     description:
-      "Nine specialists you can book by name at Head & Co. in Jeddah, rated 4.7–4.9 by guests on Fresha.",
+      "Nine specialists you can book by name at Head & Co. in Jeddah, rated 4.7-4.9 by guests on Fresha.",
   },
   "/visit": {
-    title: "Visit — Head & Co. Jeddah",
+    title: "Visit - Head & Co. Jeddah",
     description:
-      "Head & Co. on King Abdulaziz Road, Al Mohammadiyyah, Jeddah. Open every day 2–11 PM. What to expect on a first visit.",
+      "Head & Co. on King Abdulaziz Road, Al Mohammadiyyah, Jeddah. Open every day 2-11 PM. What to expect on a first visit.",
   },
 };
 

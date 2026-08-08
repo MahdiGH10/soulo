@@ -14,7 +14,7 @@ export default function Menu() {
       <PageHead
         eyebrow="Menu"
         title="What you can book"
-        lede="Prices as published on Fresha, August 2026. Availability, specialist choice and payment are handled there — instant confirmation, pay in the app."
+        lede="Prices as published on Fresha, August 2026. Availability, specialist choice and payment are handled there. Instant confirmation, pay in the app."
       />
 
       <section className="section section--tight">

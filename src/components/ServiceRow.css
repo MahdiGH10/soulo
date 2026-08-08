@@ -52,9 +52,12 @@
   font-size: var(--t-meta);
   color: var(--c-taupe-deep);
 }
+/* Tabular figures so SAR 490, SAR 690 and SAR 280 keep the same digit width
+   and align down the column instead of drifting row to row. */
 .srow__price {
   font-family: var(--f-display);
   font-size: var(--t-price);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .srow__price--none {

@@ -167,6 +167,17 @@ img {
   color: var(--c-ricepaper);
 }
 
+/* Pressed feedback. Hover alone tells you a control is live; it does not
+   acknowledge the tap, which is the only state a touch device ever reaches. */
+.btn:active {
+  transform: translateY(1px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:active {
+    transform: none;
+  }
+}
+
 /* ---------- Motion ---------- */
 
 .reveal {
@@ -238,6 +249,7 @@ html.lenis {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   border-radius: var(--r-pill);
   background: var(--c-espresso);
   color: var(--c-ricepaper);
@@ -248,8 +260,40 @@ html.lenis {
   border: 1px solid oklch(0.953 0.013 86.8 / 0.24);
   transition: background-color var(--d-state) ease, transform var(--d-state) ease;
 }
+.whatsapp-float__mark {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
 .whatsapp-float:hover {
   background: var(--c-walnut);
   color: var(--c-ricepaper);
   transform: translateY(-2px);
+}
+.whatsapp-float:active {
+  transform: translateY(0);
+}
+
+/* Below the service-row stack point the pill becomes a circle. A 130px-wide
+   pill sat on top of body copy at 390px; a 52px circle clears it. */
+@media (max-width: 720px) {
+  .whatsapp-float {
+    min-height: 52px;
+    width: 52px;
+    padding-inline: 0;
+  }
+  .whatsapp-float__mark {
+    width: 22px;
+    height: 22px;
+  }
+  .whatsapp-float__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }

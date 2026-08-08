@@ -25,7 +25,7 @@ export default function Home() {
             An hour that asks nothing of you.
           </Reveal>
           <Reveal as="p" delay={180} className="hero__lede">
-            Korean head-spa technique shaped around hygge, on {site.address.street}. Warm water,
+            Scalp and hair care shaped around hygge, on {site.address.street}. Warm water,
             unhurried hands, low light, and a room built for stillness.
           </Reveal>
 
@@ -49,19 +49,15 @@ export default function Home() {
             </div>
           </Reveal>
 
+          {/* The rating already sits in hero__premium above. This strip carries
+              only what that one does not: when they are open, where, and how
+              booking resolves. */}
           <Reveal delay={390} className="hero__proof">
-            <span>
-              <strong className="hero__rating">{site.rating.value}</strong> from{" "}
-              {site.rating.count.toLocaleString("en-US")} reviews
-            </span>
-            <span>{site.hours.label}{open ? " · open now" : ""}</span>
+            <span>{site.hours.label}</span>
+            {open ? <span className="hero__open">Open now</span> : null}
             <span>{site.address.district}, {site.address.city}</span>
             <span>Instant confirmation</span>
           </Reveal>
-        </div>
-
-        <div className="hero__cue" aria-hidden="true">
-          Scroll<span />
         </div>
       </section>
 
@@ -70,10 +66,10 @@ export default function Home() {
           <Reveal as="p" className="press__item">
             Featured in{" "}
             <a href={site.press.url} target="_blank" rel="noopener noreferrer">
-              {site.press.name} â†—
+              {site.press.name} <span aria-hidden="true">↗</span>
             </a>
           </Reveal>
-          <Reveal as="p" delay={80} className="press__item">From Korea to Jeddah</Reveal>
+          <Reveal as="p" delay={80} className="press__item">Open every day until 11 PM</Reveal>
           <Reveal as="p" delay={140} className="press__item">Instant Fresha booking</Reveal>
         </div>
       </section>
@@ -86,18 +82,18 @@ export default function Home() {
             <Reveal as="h2" delay={80} className="h2">Comfort, treated as a craft.</Reveal>
             <Reveal as="p" delay={150} className="lede" style={{ marginTop: 30 }}>
               Head &amp; Co. was built around a single idea borrowed from the Danish word hygge:
-              that ease is something you can design. Temperature, light, pressure, pace — each one
+              that ease is something you can design. Temperature, light, pressure, pace: each one
               decided in advance so that nothing during your visit needs deciding by you.
             </Reveal>
             <Reveal as="p" delay={200} className="lede" style={{ marginTop: 20 }}>
               The result is a scalp and hair experience closer to a spa treatment than a salon wash,
-              followed — if you like — by nails, styling and a slow return to the street outside.
+              followed (if you like) by nails, styling and a slow return to the street outside.
             </Reveal>
 
             <Reveal as="dl" delay={260} className="facts">
               <div><dt>Signature</dt><dd>Hyggee Spa</dd></div>
               <div><dt>From</dt><dd>SAR 490</dd></div>
-              <div><dt>Duration</dt><dd>60 – 90 min</dd></div>
+              <div><dt>Duration</dt><dd>60 - 90 min</dd></div>
               <div><dt>Guests cared for</dt><dd>{site.rating.count.toLocaleString("en-US")} reviews</dd></div>
             </Reveal>
           </div>
@@ -118,8 +114,7 @@ export default function Home() {
       <section id="ritual" className="section section--dark">
         <div className="shell split split--sticky">
           <div className="ritual__intro">
-            <Reveal as="p" className="eyebrow">The Hyggee Ritual</Reveal>
-            <Reveal as="h2" delay={80} className="h2">Six stages, one hour, no decisions.</Reveal>
+            <Reveal as="h2" className="h2">Six stages, one hour, no decisions.</Reveal>
             <Reveal as="p" delay={140} className="lede" style={{ marginTop: 26 }}>
               Every visit follows the same arc. Knowing it in advance is part of the rest.
             </Reveal>
@@ -152,8 +147,7 @@ export default function Home() {
         <div className="shell">
           <div className="row-head">
             <div>
-              <Reveal as="p" className="eyebrow">Menu</Reveal>
-              <Reveal as="h2" delay={80} className="h2">What you can book.</Reveal>
+              <Reveal as="h2" className="h2">What you can book.</Reveal>
             </div>
             <Reveal as="p" delay={140} className="row-head__aside">
               Availability, specialist choice and payment are handled on Fresha. Instant
@@ -168,7 +162,7 @@ export default function Home() {
           </ul>
 
           <Reveal as="p" style={{ marginTop: 34 }} className="lede">
-            41 services in total, including nail extensions, gel and styling — and packages if you
+            41 services in total, including nail extensions, gel and styling, plus packages if you
             plan to return. <Link to="/menu">See the full menu ↗</Link>
           </Reveal>
         </div>
@@ -177,8 +171,7 @@ export default function Home() {
       <section className="section section--tint">
         <div className="shell revenue">
           <div>
-            <Reveal as="p" className="eyebrow">Packages &amp; gifts</Reveal>
-            <Reveal as="h2" delay={80} className="h2">Gift an hour they do not have to plan.</Reveal>
+            <Reveal as="h2" className="h2">Gift an hour they do not have to plan.</Reveal>
           </div>
           <Reveal as="p" delay={140} className="lede revenue__copy">
             Fresha supports packages and repeat visits. For birthdays, recovery weeks or a quiet
@@ -195,8 +188,7 @@ export default function Home() {
       {/* ---------- The space ---------- */}
       <section id="space" className="section section--tint">
         <div className="shell">
-          <Reveal as="p" className="eyebrow">The Space</Reveal>
-          <Reveal as="h2" delay={80} className="h2">Low light, warm wood, and very little noise.</Reveal>
+          <Reveal as="h2" className="h2">Low light, warm wood, and very little noise.</Reveal>
 
           <div className="gallery">
             {[
@@ -222,8 +214,7 @@ export default function Home() {
         <div className="shell">
           <div className="row-head">
             <div>
-              <Reveal as="p" className="eyebrow">Specialists</Reveal>
-              <Reveal as="h2" delay={80} className="h2">The hands you can ask for.</Reveal>
+              <Reveal as="h2" className="h2">The hands you can ask for.</Reveal>
             </div>
             <Reveal as="p" delay={140} className="row-head__aside">
               Every specialist can be requested by name when you book. Ratings are guest averages on
@@ -277,8 +268,7 @@ export default function Home() {
       <section className="section">
         <div className="shell faq">
           <div>
-            <Reveal as="p" className="eyebrow">First Visit FAQ</Reveal>
-            <Reveal as="h2" delay={80} className="h2">Questions guests ask before they book.</Reveal>
+            <Reveal as="h2" className="h2">Questions guests ask before they book.</Reveal>
           </div>
           <div className="faq__list">
             {faqs.map((item, i) => (
@@ -309,7 +299,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="details__label">Hours</p>
-                <p className="details__body">Every day<br />2:00 PM – 11:00 PM</p>
+                <p className="details__body">Every day<br />2:00 PM - 11:00 PM</p>
                 <p className="details__open">{open ? "Open now" : "Opens at 2:00 PM"}</p>
                 <p><Link className="link" to="/visit">Before your first visit ↗</Link></p>
               </div>

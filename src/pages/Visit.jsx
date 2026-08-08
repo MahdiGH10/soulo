@@ -34,7 +34,7 @@ export default function Visit() {
               </div>
               <div>
                 <p className="details__label">Hours</p>
-                <p className="details__body">Every day<br />2:00 PM – 11:00 PM</p>
+                <p className="details__body">Every day<br />2:00 PM - 11:00 PM</p>
                 <p className="details__open">{open ? "Open now" : "Opens at 2:00 PM"}</p>
               </div>
               <div>
@@ -70,7 +70,7 @@ export default function Visit() {
           <Reveal as="h2" className="h2">Before your first visit</Reveal>
           <Reveal as="ul" delay={80} className="included">
             <li>Your hair gets wet. Allow time for drying and styling before you leave.</li>
-            <li>Come as you are — nothing needs preparing beforehand.</li>
+            <li>Come as you are. Nothing needs preparing beforehand.</li>
             <li>Arrive a few minutes early if you would like the tea before you begin.</li>
             <li>Evenings after 7 fill first. The quietest hours are just after opening.</li>
           </Reveal>

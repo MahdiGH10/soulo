@@ -27,9 +27,9 @@ export const site = {
     region: "Makkah Province",
   },
   geo: { lat: 21.645069, lng: 39.1120863 },
-  hours: { opens: "14:00", closes: "23:00", label: "Every day · 2:00 – 11:00 PM" },
+  hours: { opens: "14:00", closes: "23:00", label: "Every day, 2 PM to 11 PM" },
   rating: { value: "4.9", count: 2231 },
-  priceRange: "SAR 35–690",
+  priceRange: "SAR 35-690",
 };
 
 export const mapsUrl =
@@ -54,7 +54,7 @@ export function freshaUrl(campaign, content) {
   return `${FRESHA_BASE}?${params.toString()}`;
 }
 
-/** Jeddah is UTC+3, open 14:00–23:00 daily. */
+/** Jeddah is UTC+3, open 14:00-23:00 daily. */
 export function isOpenNow(now = new Date()) {
   const h = (now.getUTCHours() + 3) % 24;
   return h >= 14 && h < 23;

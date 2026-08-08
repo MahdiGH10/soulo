@@ -7,6 +7,12 @@ node_modules/
 # .claude/launch.json IS tracked: it defines the static preview server.
 .claude/settings.local.json
 
+# Third-party agent skills installed via `npx skills add`. Developer tooling,
+# not project code — it does not belong in the client's repository.
+.agents/
+.claude/skills/
+skills-lock.json
+
 # OS / editor noise
 .DS_Store
 Thumbs.db
@@ -14,3 +20,4 @@ desktop.ini
 *.swp
 .idea/
 .vscode/
+.gstack/
