@@ -167,6 +167,30 @@ img {
   color: var(--c-ricepaper);
 }
 
+/* The trailing arrow never sits naked beside the label. It gets its own well,
+   flush with the button's inner padding, and moves against the button on hover
+   so the control has some internal tension rather than a flat colour swap.
+   color-mix keeps one rule working across the cream, espresso and outline
+   variants without hard-coding a background per variant. */
+.btn > span[aria-hidden="true"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-right: -10px;
+  border-radius: 50%;
+  font-size: 0.82em;
+  line-height: 1;
+  background: color-mix(in oklch, currentColor 12%, transparent);
+  transition: transform var(--d-state) var(--ease),
+    background-color var(--d-state) var(--ease);
+}
+.btn:hover > span[aria-hidden="true"] {
+  transform: translate(2px, -2px);
+  background: color-mix(in oklch, currentColor 22%, transparent);
+}
+
 /* Pressed feedback. Hover alone tells you a control is live; it does not
    acknowledge the tap, which is the only state a touch device ever reaches. */
 .btn:active {
@@ -180,14 +204,20 @@ img {
 
 /* ---------- Motion ---------- */
 
+/* The blur is what gives the entrance weight. Fading and sliding alone reads
+   flat; resolving out of a slight defocus reads like the element is settling
+   into place. Kept small (3px) so text never looks broken mid-transition. */
 .reveal {
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity var(--d-reveal) var(--ease), transform var(--d-reveal) var(--ease);
+  filter: blur(3px);
+  transition: opacity var(--d-reveal) var(--ease), transform var(--d-reveal) var(--ease),
+    filter var(--d-reveal) var(--ease);
 }
 .reveal--in {
   opacity: 1;
   transform: none;
+  filter: none;
 }
 
 @keyframes hc-breathe {

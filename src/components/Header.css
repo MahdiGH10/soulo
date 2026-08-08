@@ -1,10 +1,13 @@
+/* The bar is detached from the top edge and carries its surface on the inner
+   pill rather than spanning the viewport. An edge-to-edge bar glued to the top
+   is the default every template ships; letting the paper float above the page
+   is most of the difference between the two at a glance. */
 .hdr {
   position: sticky;
   top: 0;
   z-index: 60;
-  transition: background-color 700ms ease, color 700ms ease, border-color 700ms ease,
-    backdrop-filter 700ms ease;
-  border-bottom: 1px solid transparent;
+  padding-block: 12px;
+  transition: color 700ms ease;
 }
 
 /* Home: sits over the hero, then warms to paper past 60px of scroll. */
@@ -13,17 +16,8 @@
   inset-inline: 0;
   color: var(--c-ricepaper);
 }
-.hdr--over.is-solid {
-  background: oklch(0.953 0.013 86.8 / 0.9);
-  backdrop-filter: blur(10px);
-  border-bottom-color: var(--c-sand);
-  color: var(--c-espresso);
-}
-
+.hdr--over.is-solid,
 .hdr--solid {
-  background: oklch(0.953 0.013 86.8 / 0.92);
-  backdrop-filter: blur(10px);
-  border-bottom-color: var(--c-sand);
   color: var(--c-espresso);
 }
 
@@ -34,6 +28,19 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  padding-inline: clamp(18px, 2.2vw, 28px);
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  transition: background-color 700ms ease, border-color 700ms ease,
+    backdrop-filter 700ms ease;
+}
+
+/* Hairline, not a drop shadow. See The No Shadow Rule in DESIGN.md. */
+.hdr--over.is-solid .hdr__inner,
+.hdr--solid .hdr__inner {
+  background: oklch(0.953 0.013 86.8 / 0.82);
+  backdrop-filter: blur(14px);
+  border-color: var(--c-sand);
 }
 
 .wordmark {
