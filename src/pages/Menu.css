@@ -1,0 +1,32 @@
+/**
+ * Menu page. See DESIGN.md for tokens; nothing here introduces a new value.
+ */
+
+/* Photo beside the closing note on the nails group. Collapses at the same
+   720px point the service rows stack, so the two never disagree. */
+.menu__work {
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 52px);
+  align-items: center;
+}
+
+/* The source is a 1:1 phone photo. Held to 4:5 and cropped rather than left to
+   run to its natural height, which pushed the note beside it off the screen. */
+.menu__work img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  max-height: 460px;
+}
+
+@media (max-width: 720px) {
+  .menu__work {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .menu__work img {
+    max-height: 380px;
+  }
+}

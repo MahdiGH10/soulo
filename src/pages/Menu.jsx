@@ -3,7 +3,9 @@ import { services } from "../data/content.js";
 import Reveal from "../components/Reveal.jsx";
 import ServiceRow from "../components/ServiceRow.jsx";
 import PageHead from "../components/PageHead.jsx";
+import Picture from "../components/Picture.jsx";
 import Close from "../components/Close.jsx";
+import "./Menu.css";
 
 export default function Menu() {
   const head = services.filter((s) => s.group === "head");
@@ -43,9 +45,21 @@ export default function Menu() {
             ))}
           </ul>
 
-          <Reveal as="p" className="lede" style={{ marginTop: 34 }}>
-            Forty-one services in total on Fresha, including nail extensions, gel and styling.
-            Packages are sold separately for guests who plan to return.
+          {/* The only photography on this site that is genuinely Head & Co.'s own,
+              taken from their Fresha portfolio. Everything else is still stock. */}
+          <Reveal className="menu__work" style={{ marginTop: 40 }}>
+            <Picture
+              base="collection-nails"
+              alt="A pink and white French set with a hand-painted star accent, by Head & Co."
+              sizes="(max-width: 860px) 100vw, 42vw"
+            />
+            <div>
+              <p className="caption">Nail work by Head &amp; Co., from their Fresha portfolio.</p>
+              <p className="lede" style={{ marginTop: 18 }}>
+                Forty-one services in total on Fresha, including nail extensions, gel and styling.
+                Packages are sold separately for guests who plan to return.
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
