@@ -237,6 +237,15 @@ h2.reveal {
     filter 1200ms var(--ease-split);
 }
 
+/* These MUST match the specificity of the rule above. `.reveal--in` alone is
+   0-1-0 and loses to `h1.reveal` at 0-1-1, which left every heading on the site
+   permanently blurred and sitting 44px low: revealed, but never resolved. */
+h1.reveal--in,
+h2.reveal--in {
+  transform: none;
+  filter: none;
+}
+
 @keyframes hc-breathe {
   0% { transform: scale(1.06) translate3d(0, 0, 0); }
   100% { transform: scale(1.16) translate3d(0, -1.5%, 0); }
