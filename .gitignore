@@ -3,6 +3,12 @@ dist/
 node_modules/
 .vercel/
 
+# Secrets — the assistant reads OPENROUTER_API_KEY from the environment.
+# Set it in the Vercel dashboard; never commit it.
+.env
+.env.*
+!.env.example
+
 # Local Claude Code permission state — machine-specific, not shared config.
 # .claude/launch.json IS tracked: it defines the static preview server.
 .claude/settings.local.json

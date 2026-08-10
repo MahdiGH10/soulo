@@ -1,0 +1,297 @@
+/**
+ * The assistant, in the house style. Every value is a token from DESIGN.md:
+ * paper and espresso, hairlines instead of shadows, the two radii, one green.
+ * It should read as the same room as the rest of the site, not as a bolted-on
+ * SaaS widget, which is what most chat launchers look like.
+ */
+
+.chat__launcher {
+  position: fixed;
+  inset-inline-end: max(18px, var(--gutter));
+  bottom: 82px; /* clears the WhatsApp button, which keeps the lower slot */
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding-inline: 20px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-sand);
+  background: var(--c-paper-high);
+  color: var(--c-espresso);
+  font-family: var(--f-body);
+  font-size: var(--t-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--d-state) var(--ease), transform var(--d-state) var(--ease);
+}
+.chat__launcher svg {
+  width: 19px;
+  height: 19px;
+  flex: none;
+}
+.chat__launcher:hover {
+  background: var(--c-oat);
+  transform: translateY(-2px);
+}
+.chat__launcher:active {
+  transform: translateY(0);
+}
+
+/* Same collapse the WhatsApp button makes: a label plus two circles do not fit
+   a 390px screen next to each other. */
+@media (max-width: 720px) {
+  .chat__launcher {
+    min-height: 52px;
+    width: 52px;
+    padding-inline: 0;
+    justify-content: center;
+  }
+  .chat__launcher-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+.chat {
+  position: fixed;
+  inset-inline-end: max(18px, var(--gutter));
+  bottom: 82px;
+  z-index: 80;
+  width: min(384px, calc(100vw - 32px));
+  max-height: min(70vh, 620px);
+  display: flex;
+  flex-direction: column;
+  background: var(--c-ricepaper);
+  border: 1px solid var(--c-sand);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+
+/* On a phone it takes the screen. A 384px panel floating over a 390px viewport
+   is a panel with nowhere to float. */
+@media (max-width: 520px) {
+  .chat {
+    inset: 0;
+    width: 100%;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+.chat__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--c-sand);
+  background: var(--c-paper-high);
+}
+.chat__title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: var(--t-h4);
+}
+.chat__sub {
+  margin: 4px 0 0;
+  font-size: var(--t-meta);
+  color: var(--c-taupe-deep);
+}
+.chat__close {
+  flex: none;
+  height: 44px;
+  width: 44px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-sand);
+  background: transparent;
+  color: var(--c-espresso);
+  cursor: pointer;
+}
+.chat__close:hover {
+  background: var(--c-oat);
+}
+
+.chat__log {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chat__msg {
+  margin: 0;
+  max-width: 92%;
+  padding: 13px 16px;
+  border-radius: var(--r-sm);
+  font-size: var(--t-body-sm);
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+.chat__msg--bot {
+  align-self: flex-start;
+  background: var(--c-paper-high);
+  border: 1px solid var(--c-sand);
+  color: var(--c-espresso);
+}
+.chat__msg--me {
+  align-self: flex-end;
+  background: var(--c-espresso);
+  color: var(--c-ricepaper);
+}
+.chat__msg a {
+  color: inherit;
+}
+
+/* The assistant's own path links. A button, not a sentence, because the point
+   is to move the reader onto the page rather than describe it. */
+.chat__jump {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin: 2px 4px;
+  padding-inline: 12px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-gilt);
+  background: transparent;
+  color: var(--c-walnut);
+  font-family: var(--f-body);
+  font-size: var(--t-meta);
+  cursor: pointer;
+  transition: background-color var(--d-state) var(--ease);
+}
+.chat__jump:hover {
+  background: var(--c-oat);
+}
+
+.chat__msg--wait {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--c-taupe-deep);
+}
+.chat__dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.chat__dots i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: chat-dot 1.2s ease-in-out infinite;
+}
+.chat__dots i:nth-child(2) { animation-delay: 0.15s; }
+.chat__dots i:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes chat-dot {
+  0%, 60%, 100% { opacity: 0.25; }
+  30% { opacity: 1; }
+}
+
+/* The hand-off. Green is reserved for live state in this system, and a real
+   human being available is exactly that. */
+.chat__escalate {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-moss);
+  color: var(--c-moss);
+  font-size: var(--t-meta);
+  text-decoration: none;
+}
+.chat__escalate:hover {
+  background: oklch(0.44 0.033 118.5 / 0.08);
+  color: var(--c-moss);
+}
+
+.chat__starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 20px 4px;
+}
+.chat__starters button {
+  min-height: 36px;
+  padding-inline: 14px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-sand);
+  background: transparent;
+  color: var(--c-taupe-deep);
+  font-family: var(--f-body);
+  font-size: var(--t-meta);
+  cursor: pointer;
+}
+.chat__starters button:hover {
+  background: var(--c-oat);
+  color: var(--c-espresso);
+}
+
+.chat__form {
+  display: flex;
+  gap: 10px;
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--c-sand);
+}
+.chat__form input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding-inline: 16px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-sand);
+  background: var(--c-paper-high);
+  color: var(--c-espresso);
+  font-family: inherit;
+  font-size: var(--t-body-sm);
+}
+.chat__form input::placeholder {
+  color: var(--c-taupe);
+}
+.chat__form input:focus-visible {
+  outline: 2px solid var(--c-taupe);
+  outline-offset: 2px;
+}
+.chat__form button {
+  flex: none;
+  min-height: 44px;
+  padding-inline: 20px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  background: var(--c-espresso);
+  color: var(--c-ricepaper);
+  font-family: var(--f-body);
+  font-size: var(--t-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.chat__form button:disabled {
+  opacity: 0.42;
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat__launcher,
+  .chat__jump {
+    transition: none;
+  }
+  .chat__launcher:hover {
+    transform: none;
+  }
+  .chat__dots i {
+    animation: none;
+    opacity: 0.6;
+  }
+}

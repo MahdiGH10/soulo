@@ -9,6 +9,7 @@ import Specialists from "./pages/Specialists.jsx";
 import Visit from "./pages/Visit.jsx";
 import Arabic from "./pages/Arabic.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import ChatWidget from "./components/ChatWidget.jsx";
 import { usePrefersReducedMotion, useSmoothScroll } from "./hooks/useMotion.js";
 import { site } from "./data/site.js";
 
@@ -113,6 +114,7 @@ export default function App() {
         <span className="whatsapp-float__label">WhatsApp</span>
       </a>
       <Footer campaign={pathname === "/" ? "footer" : `footer-${pathname.slice(1)}`} />
+      <ChatWidget />
     </>
   );
 }
