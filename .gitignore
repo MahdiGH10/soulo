@@ -27,3 +27,6 @@ desktop.ini
 .idea/
 .vscode/
 .gstack/
+
+.vercel
+.env*

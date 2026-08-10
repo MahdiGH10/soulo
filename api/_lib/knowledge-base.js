@@ -125,6 +125,13 @@ export const KNOWLEDGE_CARDS = [
     links: [{ label: 'Book on Fresha', url: FRESHA_BOOKING_URL }]
   },
   {
+    id: 'booking-gift-card',
+    category: 'booking',
+    title: 'Gift cards',
+    keywords: ['gift', 'gifts', 'gift card', 'gift cards', 'giftcard', 'voucher', 'give', 'هدية', 'هدايا', 'هديه', 'هدايه', 'إهداء', 'اهداء', 'بطاقة', 'بطاقة إهداء', 'بطاقة هدية'],
+    body: 'Head & Co. offers gift cards. The card is valid for 3 months only (مدة البطاقة ٣ أشهر فقط).\n\nTo buy one, the steps are:\n1. Choose the services.\n2. Give the full name of the gift recipient.\n3. If there is a specific message to be written on the gift card, provide it.\n4. Pay by bank transfer.\n5. Once the transfer receipt is received, the gift card is prepared and sent to the recipient, and the team coordinates with her to set a suitable appointment.\n\nبالعربية: ١- اختيار الخدمات. ٢- الاسم الكامل لصاحبة الهدية. ٣- إذا يوجد رسالة معينة لكتابتها في بطاقة الإهداء. ٤- تحويل بنكي. ٥- بعد استلام الإيصال سيتم تجهيز بطاقة الإهداء وإرسالها للمهداة والتنسيق معها لتحديد الموعد المناسب لها. مدة البطاقة ٣ أشهر فقط.'
+  },
+  {
     id: 'team-team',
     category: 'team',
     title: 'Team',

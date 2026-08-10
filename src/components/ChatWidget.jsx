@@ -8,43 +8,65 @@ import "./ChatWidget.css";
  * The front desk, on the website.
  *
  * Answers come from /api/chat, which is grounded in an approved knowledge base
- * and refuses to invent a price or a policy. Two things make it more than a
+ * and refuses to invent a price or a policy. Three things make it more than a
  * chat box:
  *
- * 1. It navigates. When the assistant answers with a site path, that renders as
+ * 1. It introduces itself. A one-time teaser tells the guest an AI assistant
+ *    lives here and that it can answer anything, and the greeting says the same
+ *    again in the open panel. Guests cannot ask for help they do not know exists.
+ * 2. It navigates. When the assistant answers with a site path, that renders as
  *    a real button that moves the reader to the page, so a question becomes a
- *    visit rather than a wall of text in a 380px panel.
- * 2. It knows when to stop. An [ESCALATE] reply, or a question the knowledge
+ *    visit rather than a wall of text in a 392px panel.
+ * 3. It knows when to stop. An [ESCALATE] reply, or a question the knowledge
  *    base does not cover, surfaces the WhatsApp hand-off instead of guessing.
  */
 
 const COPY = {
   en: {
-    open: "Ask a question",
+    open: "Ask AI",
     title: "Head & Co.",
-    subtitle: "Ask about treatments, prices or your visit",
-    placeholder: "Type your question",
+    subtitle: "AI assistant · ask me anything",
+    placeholder: "Treatments, prices, hours, booking…",
     send: "Send",
     close: "Close",
     thinking: "Typing",
+    online: "Online",
     escalate: "Message the team on WhatsApp",
     error: "Something went wrong. You can message the team directly.",
     greeting:
-      "Hello. I can help with treatments, prices, hours and booking. What would you like to know?",
-    starters: ["What is a head spa?", "How much is the Hyggee Spa?", "What time do you open?"],
+      "Hi, I'm the Head & Co. AI assistant. Ask me anything — treatments, prices, opening hours, booking, or which ritual suits you best.",
+    starters: [
+      "What is a head spa?",
+      "How much is the Hyggee Spa?",
+      "What time do you open?",
+      "Which treatment suits me?",
+    ],
+    nudge: "I'm the Head & Co. AI assistant — ask me anything about treatments, prices and hours.",
+    nudgeCta: "Ask me",
+    nudgeDismiss: "Dismiss",
   },
   ar: {
-    open: "اسأل سؤالاً",
+    open: "اسأل المساعد",
     title: "هيد آند كو.",
-    subtitle: "اسأل عن الجلسات أو الأسعار أو زيارتك",
-    placeholder: "اكتب سؤالك",
+    subtitle: "مساعد ذكي · اسألني عن أي شيء",
+    placeholder: "الجلسات، الأسعار، المواعيد، الحجز…",
     send: "إرسال",
     close: "إغلاق",
     thinking: "يكتب",
+    online: "متصل",
     escalate: "راسل الفريق على واتساب",
     error: "حدث خطأ. يمكنك مراسلة الفريق مباشرة.",
-    greeting: "أهلاً بك. أقدر أساعدك في الجلسات والأسعار والمواعيد والحجز. وش تحب تعرف؟",
-    starters: ["وش هو الـ head spa؟", "كم سعر الهيجي سبا؟", "متى تفتحون؟"],
+    greeting:
+      "أهلاً، أنا المساعد الذكي لهيد آند كو. اسألني عن أي شيء — الجلسات، الأسعار، مواعيد الدوام، الحجز، أو وش الجلسة الأنسب لك.",
+    starters: [
+      "وش هو الـ head spa؟",
+      "كم سعر الهيجي سبا؟",
+      "متى تفتحون؟",
+      "وش الجلسة الأنسب لي؟",
+    ],
+    nudge: "أنا مساعد هيد آند كو. الذكي — اسألني عن أي شيء: الجلسات، الأسعار، والمواعيد.",
+    nudgeCta: "اسألني",
+    nudgeDismiss: "إغلاق",
   },
 };
 
@@ -79,6 +101,10 @@ function renderReply(text, onNavigate) {
   });
 }
 
+const CLOSE_MS = 220;
+const NUDGE_DELAY_MS = 2600;
+const NUDGE_HIDE_MS = 10000;
+
 export default function ChatWidget() {
   const navigate = useNavigate();
   const onArabic = useLocation().pathname.replace(/\/+$/, "") === "/ar";
@@ -87,15 +113,40 @@ export default function ChatWidget() {
   const reduced = usePrefersReducedMotion();
 
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [history, setHistory] = useState([]);
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [escalated, setEscalated] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [nudge, setNudge] = useState(false);
 
   const logRef = useRef(null);
   const inputRef = useRef(null);
   const launcherRef = useRef(null);
+  const timerRef = useRef(null);
+  const dismissedRef = useRef(false);
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  // The teaser appears once, a beat after load, then leaves on its own. A guest
+  // who dismissed it in this session is not asked again on the next page.
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    try {
+      if (sessionStorage.getItem("hc-nudge-dismissed") === "1") return undefined;
+    } catch {
+      /* storage unavailable — still show */
+    }
+    const show = setTimeout(() => {
+      if (!dismissedRef.current) setNudge(true);
+    }, NUDGE_DELAY_MS);
+    const hide = setTimeout(() => setNudge(false), NUDGE_HIDE_MS);
+    return () => {
+      clearTimeout(show);
+      clearTimeout(hide);
+    };
+  }, []);
 
   // Pin the transcript to the newest message, the way every messaging app does.
   useEffect(() => {
@@ -106,18 +157,58 @@ export default function ChatWidget() {
     if (open) inputRef.current?.focus();
   }, [open]);
 
-  // Escape closes, and focus goes back to the button that opened it.
-  useEffect(() => {
-    if (!open) return undefined;
-    const onKey = (e) => {
+  const dismissNudge = useCallback(() => {
+    dismissedRef.current = true;
+    setNudge(false);
+    try {
+      sessionStorage.setItem("hc-nudge-dismissed", "1");
+    } catch {
+      /* non-fatal */
+    }
+  }, []);
+
+  const close = useCallback(() => {
+    if (closing) return;
+    setNudge(false);
+    setClosing(true);
+    timerRef.current = setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+      launcherRef.current?.focus();
+    }, CLOSE_MS);
+  }, [closing]);
+
+  const openChat = useCallback(() => {
+    setNudge(false);
+    setOpen(true);
+  }, []);
+
+  // Escape closes, and focus goes back to the button that opened it. Tab is
+  // kept inside the panel so a keyboard reader never lands on the page behind.
+  const onPanelKeyDown = useCallback(
+    (e) => {
       if (e.key === "Escape") {
-        setOpen(false);
-        launcherRef.current?.focus();
+        e.preventDefault();
+        close();
+        return;
       }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
+      if (e.key !== "Tab") return;
+      const focusables = Array.from(
+        e.currentTarget.querySelectorAll('button:not(:disabled), a[href], input:not(:disabled), [tabindex]:not([tabindex="-1"])'),
+      );
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    },
+    [close],
+  );
 
   const send = useCallback(
     async (text) => {
@@ -158,9 +249,16 @@ export default function ChatWidget() {
   const go = useCallback(
     (path) => {
       navigate(path);
-      setOpen(false);
+      close();
     },
-    [navigate],
+    [navigate, close],
+  );
+
+  const botRow = (children) => (
+    <div className="chat__row chat__row--bot">
+      <span className="chat__avatar" aria-hidden="true">H&</span>
+      {children}
+    </div>
   );
 
   return (
@@ -170,8 +268,9 @@ export default function ChatWidget() {
         type="button"
         className="chat__launcher"
         aria-expanded={open}
+        aria-controls="chat-panel"
         aria-label={t.open}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => (open ? close() : openChat())}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path
@@ -186,67 +285,93 @@ export default function ChatWidget() {
         <span className="chat__launcher-label">{t.open}</span>
       </button>
 
-      {open && (
+      {nudge && !open && (
+        <div className="chat__nudge" role="status">
+          <button type="button" className="chat__nudge-body" onClick={openChat}>
+            <span className="chat__avatar" aria-hidden="true">H&</span>
+            <span className="chat__nudge-text">
+              {t.nudge} <span className="chat__nudge-cta">{t.nudgeCta} ↗</span>
+            </span>
+          </button>
+          <button
+            type="button"
+            className="chat__nudge-close"
+            aria-label={t.nudgeDismiss}
+            onClick={dismissNudge}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
+      {(open || closing) && (
         <div
-          className="chat"
+          id="chat-panel"
+          className={closing ? "chat chat--closing" : "chat"}
           role="dialog"
           aria-label={t.title}
           lang={lang}
           dir={onArabic ? "rtl" : "ltr"}
+          onKeyDown={onPanelKeyDown}
         >
           <div className="chat__top">
             <div>
               <p className="chat__title" dir="ltr">{site.name}</p>
               <p className="chat__sub">{t.subtitle}</p>
             </div>
-            <button
-              type="button"
-              className="chat__close"
-              aria-label={t.close}
-              onClick={() => {
-                setOpen(false);
-                launcherRef.current?.focus();
-              }}
-            >
-              ✕
-            </button>
+            <div className="chat__top-side">
+              <span className="chat__online">
+                <i aria-hidden="true" />
+                {t.online}
+              </span>
+              <button
+                type="button"
+                className="chat__close"
+                aria-label={t.close}
+                onClick={close}
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
           <div className="chat__log" ref={logRef} aria-live="polite">
-            <p className="chat__msg chat__msg--bot">{t.greeting}</p>
+            {botRow(<p className="chat__msg chat__msg--bot" dir="auto">{t.greeting}</p>)}
 
-            {history.map((m, i) => (
-              <p
-                key={i}
-                className={m.role === "user" ? "chat__msg chat__msg--me" : "chat__msg chat__msg--bot"}
-              >
-                {m.role === "user" ? m.content : renderReply(m.content, go)}
-              </p>
-            ))}
-
-            {busy && (
-              <p className="chat__msg chat__msg--bot chat__msg--wait">
-                {t.thinking}
-                <span className="chat__dots" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
-                </span>
-              </p>
+            {history.map((m, i) =>
+              m.role === "user" ? (
+                <div key={i} className="chat__row chat__row--me">
+                  <p className="chat__msg chat__msg--me" dir="auto">{m.content}</p>
+                </div>
+              ) : (
+                botRow(<p className="chat__msg chat__msg--bot" dir="auto">{renderReply(m.content, go)}</p>)
+              ),
             )}
 
-            {failed && <p className="chat__msg chat__msg--bot">{t.error}</p>}
+            {busy &&
+              botRow(
+                <p className="chat__msg chat__msg--bot chat__msg--wait">
+                  <span className="chat__dots" aria-label={t.thinking}>
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                </p>,
+              )}
 
-            {escalated && (
-              <a
-                className="chat__escalate"
-                href={site.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t.escalate} ↗
-              </a>
-            )}
+            {failed && botRow(<p className="chat__msg chat__msg--bot" dir="auto">{t.error}</p>)}
+
+            {escalated &&
+              botRow(
+                <a
+                  className="chat__escalate"
+                  href={site.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t.escalate} ↗
+                </a>,
+              )}
           </div>
 
           {history.length === 0 && (
@@ -273,6 +398,7 @@ export default function ChatWidget() {
               placeholder={t.placeholder}
               aria-label={t.placeholder}
               maxLength={1200}
+              autoComplete="off"
             />
             <button type="submit" disabled={busy || !draft.trim()}>
               {t.send}

@@ -3,12 +3,24 @@
  * paper and espresso, hairlines instead of shadows, the two radii, one green.
  * It should read as the same room as the rest of the site, not as a bolted-on
  * SaaS widget, which is what most chat launchers look like.
+ *
+ * Responsive rules:
+ *  - Desktop: a fixed-height panel anchored above the WhatsApp pill.
+ *  - Mobile (<=720px): the launcher collapses to a 52px circle; the teaser
+ *    bubble carries the text so the assistant still introduces itself.
+ *  - Phone (<=520px): the panel takes the whole viewport (100dvh, not 100vh,
+ *    so the iOS address bar does not cut the bottom), and notch insets are
+ *    padded on the header and the composer.
  */
+
+/* ------------------------------------------------------------------ */
+/* Launcher                                                           */
+/* ------------------------------------------------------------------ */
 
 .chat__launcher {
   position: fixed;
   inset-inline-end: max(18px, var(--gutter));
-  bottom: 82px; /* clears the WhatsApp button, which keeps the lower slot */
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
   z-index: 70;
   display: inline-flex;
   align-items: center;
@@ -24,6 +36,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: background-color var(--d-state) var(--ease), transform var(--d-state) var(--ease);
 }
 .chat__launcher svg {
@@ -36,11 +50,15 @@
   transform: translateY(-2px);
 }
 .chat__launcher:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98);
+}
+.chat__launcher:focus-visible {
+  outline: 2px solid var(--c-gilt);
+  outline-offset: 4px;
 }
 
 /* Same collapse the WhatsApp button makes: a label plus two circles do not fit
-   a 390px screen next to each other. */
+   a 390px screen next to each other. The teaser bubble carries the words. */
 @media (max-width: 720px) {
   .chat__launcher {
     min-height: 52px;
@@ -58,30 +76,140 @@
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Teaser — the assistant introducing itself                           */
+/* ------------------------------------------------------------------ */
+
+.chat__nudge {
+  position: fixed;
+  inset-inline-end: max(18px, var(--gutter));
+  bottom: calc(146px + env(safe-area-inset-bottom, 0px));
+  z-index: 69;
+  width: min(300px, calc(100vw - 32px));
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  animation: chat-nudge-in 600ms var(--ease-split) both;
+}
+.chat__nudge-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--c-sand);
+  background: var(--c-paper-high);
+  color: var(--c-espresso);
+  font-family: var(--f-body);
+  font-size: var(--t-meta);
+  line-height: 1.6;
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.chat__nudge-body:hover {
+  background: var(--c-oat);
+}
+.chat__nudge-text {
+  display: block;
+  min-width: 0;
+}
+.chat__nudge-cta {
+  color: var(--c-walnut);
+  white-space: nowrap;
+}
+.chat__nudge-close {
+  flex: none;
+  height: 32px;
+  width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-sand);
+  background: var(--c-paper-high);
+  color: var(--c-taupe);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.chat__nudge-close:hover {
+  background: var(--c-oat);
+  color: var(--c-espresso);
+}
+
+@keyframes chat-nudge-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Panel                                                              */
+/* ------------------------------------------------------------------ */
+
 .chat {
   position: fixed;
   inset-inline-end: max(18px, var(--gutter));
-  bottom: 82px;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
   z-index: 80;
-  width: min(384px, calc(100vw - 32px));
-  max-height: min(70vh, 620px);
+  width: min(392px, calc(100vw - 32px));
+  height: min(620px, calc(100dvh - 170px));
+  min-height: 0;
   display: flex;
   flex-direction: column;
   background: var(--c-ricepaper);
   border: 1px solid var(--c-sand);
   border-radius: var(--r-sm);
   overflow: hidden;
+  animation: chat-panel-in 460ms var(--ease-split) both;
+  transform-origin: bottom;
+}
+.chat--closing {
+  animation: chat-panel-out 220ms var(--ease) both;
 }
 
-/* On a phone it takes the screen. A 384px panel floating over a 390px viewport
-   is a panel with nowhere to float. */
+@keyframes chat-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes chat-panel-out {
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.99);
+  }
+}
+
+/* On a phone it takes the screen. A 392px panel floating over a 390px viewport
+   is a panel with nowhere to float, and a floating panel fights the keyboard. */
 @media (max-width: 520px) {
   .chat {
     inset: 0;
     width: 100%;
-    max-height: none;
+    height: 100dvh;
+    max-height: 100dvh;
     border: 0;
     border-radius: 0;
+  }
+  .chat__top {
+    padding-top: calc(18px + env(safe-area-inset-top, 0px));
+  }
+  .chat__form {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -104,6 +232,53 @@
   font-size: var(--t-meta);
   color: var(--c-taupe-deep);
 }
+.chat__top-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Green is status in this system, and "a real assistant is answering" is
+   exactly that. The dot breathes; the label stays a neutral, readable tone. */
+.chat__online {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding-inline: 10px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--c-sand);
+  font-size: var(--t-meta);
+  color: var(--c-taupe-deep);
+}
+.chat__online i {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-moss);
+  flex: none;
+}
+.chat__online i::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--c-moss);
+  animation: chat-live 2.6s var(--ease) infinite;
+}
+@keyframes chat-live {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  70%,
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
 .chat__close {
   flex: none;
   height: 44px;
@@ -113,37 +288,107 @@
   background: transparent;
   color: var(--c-espresso);
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .chat__close:hover {
   background: var(--c-oat);
 }
+.chat__close:focus-visible {
+  outline: 2px solid var(--c-taupe);
+  outline-offset: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Transcript                                                         */
+/* ------------------------------------------------------------------ */
 
 .chat__log {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  /* The scrollbar the browser ships is a grey slab that fights the paper.
+     A thin hairline thumb reads as part of the room instead. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-sand) transparent;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
+.chat__log::-webkit-scrollbar {
+  width: 6px;
+}
+.chat__log::-webkit-scrollbar-track {
+  background: transparent;
+}
+.chat__log::-webkit-scrollbar-thumb {
+  background: var(--c-sand);
+  border-radius: var(--r-pill);
+}
+.chat__log::-webkit-scrollbar-thumb:hover {
+  background: var(--c-walnut);
+}
+
+.chat__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.chat__row--bot {
+  justify-content: flex-start;
+}
+.chat__row--me {
+  justify-content: flex-end;
+}
+
+/* The monogram tile from the specialists page, shrunk to a marker. It gives
+   the assistant a face — someone, not a text box — at the cost of an oat square. */
+.chat__avatar {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  border-radius: var(--r-sm);
+  background: var(--c-oat);
+  color: var(--c-taupe);
+  font-family: var(--f-display);
+  font-size: var(--t-body-sm);
+  line-height: 1;
+}
 
 .chat__msg {
   margin: 0;
-  max-width: 92%;
-  padding: 13px 16px;
+  max-width: 84%;
+  padding: 12px 16px;
   border-radius: var(--r-sm);
   font-size: var(--t-body-sm);
   line-height: 1.75;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  animation: chat-msg-in 360ms var(--ease) both;
+}
+@keyframes chat-msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .chat__msg--bot {
-  align-self: flex-start;
   background: var(--c-paper-high);
   border: 1px solid var(--c-sand);
   color: var(--c-espresso);
 }
 .chat__msg--me {
-  align-self: flex-end;
   background: var(--c-espresso);
   color: var(--c-ricepaper);
 }
@@ -166,6 +411,7 @@
   font-family: var(--f-body);
   font-size: var(--t-meta);
   cursor: pointer;
+  touch-action: manipulation;
   transition: background-color var(--d-state) var(--ease);
 }
 .chat__jump:hover {
@@ -177,6 +423,7 @@
   align-items: center;
   gap: 8px;
   color: var(--c-taupe-deep);
+  min-height: 40px;
 }
 .chat__dots {
   display: inline-flex;
@@ -189,18 +436,26 @@
   background: currentColor;
   animation: chat-dot 1.2s ease-in-out infinite;
 }
-.chat__dots i:nth-child(2) { animation-delay: 0.15s; }
-.chat__dots i:nth-child(3) { animation-delay: 0.3s; }
-
+.chat__dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.chat__dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
 @keyframes chat-dot {
-  0%, 60%, 100% { opacity: 0.25; }
-  30% { opacity: 1; }
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
 }
 
 /* The hand-off. Green is reserved for live state in this system, and a real
    human being available is exactly that. */
 .chat__escalate {
-  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -216,6 +471,10 @@
   color: var(--c-moss);
 }
 
+/* ------------------------------------------------------------------ */
+/* Starters + composer                                                */
+/* ------------------------------------------------------------------ */
+
 .chat__starters {
   display: flex;
   flex-wrap: wrap;
@@ -223,7 +482,7 @@
   padding: 0 20px 4px;
 }
 .chat__starters button {
-  min-height: 36px;
+  min-height: 40px;
   padding-inline: 14px;
   border-radius: var(--r-pill);
   border: 1px solid var(--c-sand);
@@ -232,10 +491,27 @@
   font-family: var(--f-body);
   font-size: var(--t-meta);
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  animation: chat-msg-in 360ms var(--ease) both;
+  transition: background-color var(--d-state) var(--ease), color var(--d-state) var(--ease);
+}
+.chat__starters button:nth-child(2) {
+  animation-delay: 70ms;
+}
+.chat__starters button:nth-child(3) {
+  animation-delay: 140ms;
+}
+.chat__starters button:nth-child(4) {
+  animation-delay: 210ms;
 }
 .chat__starters button:hover {
   background: var(--c-oat);
   color: var(--c-espresso);
+}
+.chat__starters button:focus-visible {
+  outline: 2px solid var(--c-taupe);
+  outline-offset: 2px;
 }
 
 .chat__form {
@@ -276,19 +552,47 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--d-state) var(--ease), transform var(--d-state) var(--ease);
+}
+.chat__form button:hover:not(:disabled) {
+  background: var(--c-walnut);
+}
+.chat__form button:active:not(:disabled) {
+  transform: scale(0.97);
 }
 .chat__form button:disabled {
   opacity: 0.42;
   cursor: default;
 }
+.chat__form button:focus-visible {
+  outline: 2px solid var(--c-taupe);
+  outline-offset: 2px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .chat__launcher,
-  .chat__jump {
+  .chat__nudge-body,
+  .chat__nudge-close,
+  .chat__jump,
+  .chat__starters button,
+  .chat__form button {
     transition: none;
   }
   .chat__launcher:hover {
     transform: none;
+  }
+  .chat,
+  .chat--closing,
+  .chat__nudge,
+  .chat__msg,
+  .chat__starters button {
+    animation: none;
+  }
+  .chat__online i::after {
+    animation: none;
+    opacity: 0;
   }
   .chat__dots i {
     animation: none;
